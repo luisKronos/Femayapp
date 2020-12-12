@@ -1,0 +1,4 @@
+
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¼öÑÝûÿÿÿÿ
+‹squid:S1319I"tThe type of the "vehiculos" object should be an interface such as "List" rather than the implementation "ArrayList".(Å‡±â
+‡squid:S1319E"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Ôõçë

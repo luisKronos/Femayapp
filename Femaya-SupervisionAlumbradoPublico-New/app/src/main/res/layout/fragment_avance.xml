@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="center_horizontal"
+        android:text="PORCENTAJE DE AVANCE"
+        android:textStyle="bold" />
+
+
+    <EditText
+        android:id="@+id/txtPercent"
+        android:layout_width="@dimen/width_field"
+        android:layout_height="@dimen/height_field"
+        android:layout_marginTop="@dimen/top_field"
+        android:background="@color/colorTextVerde"
+        android:inputType="numberDecimal"
+        android:visibility="visible" />
+
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="@dimen/top_section"
+        android:background="@android:color/transparent"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
+
+    <EditText
+        android:id="@+id/txtObs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:ems="10"
+        android:hint="Observaciones"
+        android:inputType="textMultiLine"
+        android:maxLength="200" />
+
+    <Button
+            android:layout_marginTop="@dimen/top_section"
+            android:id="@+id/btnFinish"
+            android:layout_width="180dp"
+            android:layout_height="30dp"
+            android:background="@color/colorButton"
+            android:text="Terminar" />
+
+
+</LinearLayout>
+</ScrollView>

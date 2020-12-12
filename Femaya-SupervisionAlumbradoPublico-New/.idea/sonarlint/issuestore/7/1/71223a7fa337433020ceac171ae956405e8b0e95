@@ -1,0 +1,6 @@
+
+Šsquid:UselessImportCheck"ZRemove this unused import 'com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.LiveData'.(§¿±œûÿÿÿÿ8¡ãê™ˆ.
+squid:UselessImportCheck"bRemove this unused import 'com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.VialidadDTO'.(ŸÏà’8ôîñ™ˆ.
+^squid:UselessImportCheck"4Remove this unused import 'android.widget.CheckBox'.(Ùáb8¡ãê™ˆ.
+esquid:UselessImportCheck	":Remove this unused import 'android.widget.CompoundButton'.(®½¤Ş8¡ãê™ˆ.
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ä‹¦Åşÿÿÿÿ

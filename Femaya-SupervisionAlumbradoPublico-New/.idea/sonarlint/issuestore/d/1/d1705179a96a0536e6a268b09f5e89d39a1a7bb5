@@ -1,0 +1,25 @@
+
+M
+java:S1444"+Make this "public static isGPS" field final(Òœü‘øÿÿÿÿ8ƒš…ÖÄ.
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¼öÑİûÿÿÿÿ8ƒš…ÖÄ.
+s
+java:S1104"QMake isGPS a static final constant or non-public and provide accessors if needed.(Òœü‘øÿÿÿÿ8ƒš…ÖÄ.
+\
+java:S1118":Add a private constructor to hide the implicit public one.(ÎÇÀÂüÿÿÿÿ8ƒš…ÖÄ.
+b
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(ïßæ¬8ƒš…ÖÄ.
+b
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(Æœ³8ƒš…ÖÄ.
+g
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(‘üäÍúÿÿÿÿ8ƒš…ÖÄ.
+g
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(ŠïÓòúÿÿÿÿ8ƒš…ÖÄ.
+g
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(Ğ”•ùüÿÿÿÿ8ƒš…ÖÄ.
+g
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(ÒÅıˆùÿÿÿÿ8ƒš…ÖÄ.
+g
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(ï‘üñùÿÿÿÿ8ƒš…ÖÄ.
+T
+java:S1068"2Remove this unused "URL_PRODUCTION" private field.(¡İÛ³ıÿÿÿÿ8ƒš…ÖÄ.
+X	java:S125"<This block of commented-out lines of code should be removed.(Ã³åñ8ƒš…ÖÄ.

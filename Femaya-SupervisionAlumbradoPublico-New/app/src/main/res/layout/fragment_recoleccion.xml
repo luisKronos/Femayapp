@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:gravity="center_horizontal">
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="center_horizontal"
+        android:text="RECOLECCIÓN"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/top_section"
+        android:text="M3 Residuos Inorganicos" />
+
+    <EditText
+        android:id="@+id/txtM3Organico"
+        android:layout_width="@dimen/width_field"
+        android:layout_height="@dimen/height_field"
+        android:layout_marginTop="@dimen/top_field"
+        android:background="@color/colorTextVerde"
+        android:inputType="number" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/top_section"
+        android:text="M3 Residuos Organicos" />
+
+    <EditText
+        android:id="@+id/txtM3Inorganico"
+        android:layout_width="@dimen/width_field"
+        android:layout_height="@dimen/height_field"
+        android:layout_marginTop="@dimen/top_field"
+        android:background="@color/colorTextVerde"
+        android:inputType="number" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/top_section"
+        android:text="M3 Tierra" />
+
+    <EditText
+        android:id="@+id/txtM3Tierra"
+        android:layout_width="@dimen/width_field"
+        android:layout_height="@dimen/height_field"
+        android:layout_marginTop="@dimen/top_field"
+        android:background="@color/colorTextVerde"
+        android:inputType="number" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/top_section"
+        android:text="Pzas. Propaganda" />
+
+    <EditText
+        android:id="@+id/txtPropaganda"
+        android:layout_width="@dimen/width_field"
+        android:layout_height="@dimen/height_field"
+        android:layout_marginTop="@dimen/top_field"
+        android:background="@color/colorTextVerde"
+        android:inputType="number" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/top_section"
+        android:text="Pzas. Objetos Mayores" />
+
+    <EditText
+        android:id="@+id/txtObjMayores"
+        android:layout_width="@dimen/width_field"
+        android:layout_height="@dimen/height_field"
+        android:layout_marginTop="@dimen/top_field"
+        android:background="@color/colorTextVerde"
+        android:inputType="number" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/top_section"
+        android:text="Organismos" />
+
+    <EditText
+        android:id="@+id/txtOrganismos"
+        android:layout_width="@dimen/width_field"
+        android:layout_height="@dimen/height_field"
+        android:layout_marginTop="@dimen/top_field"
+        android:background="@color/colorTextVerde"
+        android:inputType="number" />
+
+
+    <Button
+            android:layout_marginTop="@dimen/top_section_double"
+            android:id="@+id/btnFinish"
+            android:layout_width="180dp"
+            android:layout_height="30dp"
+            android:background="@color/colorButton"
+            android:text="Guardar" />
+
+
+</LinearLayout>
+</ScrollView>

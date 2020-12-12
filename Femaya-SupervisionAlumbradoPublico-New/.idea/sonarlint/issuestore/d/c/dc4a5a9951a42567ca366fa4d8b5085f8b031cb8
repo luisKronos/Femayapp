@@ -1,0 +1,6 @@
+
+Ÿsquid:S1186j"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ı§„Ô8ƒãÔ….
+jsquid:CommentedOutCodeLine‚"<This block of commented-out lines of code should be removed.(ÅÜ×ò8ƒãÔ….
+asquid:S3398}">Move this method into the anonymous class declared at line 44.(úÕüßùÿÿÿÿ8ƒãÔ….
+Dsquid:S16043"(Make this anonymous inner class a lambda(¿ŠÈÓùÿÿÿÿ
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ª²Â•úÿÿÿÿ

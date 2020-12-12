@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ui.MainActivity"
+    android:background="@android:color/white">
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:text="FIRMAS"
+        android:textSize="21sp" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/layoutContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn"
+        android:layout_below="@+id/txtTitle"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="0dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:text="Firma contratista:"
+                android:textSize="21sp" />
+
+            <Button
+                android:id="@+id/btnFirmaContratista"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/boton_style_gray"
+                android:text="Tomar firma"
+                android:textColor="@android:color/white" />
+
+            <ImageView
+                android:id="@+id/imgViewContratista"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:text="Firma supervisión:"
+                android:textSize="21sp" />
+
+            <Button
+                android:id="@+id/btnFirmaSupervision"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/boton_style_gray"
+                android:text="Tomar firma"
+                android:textColor="@android:color/white" />
+
+            <ImageView
+                android:id="@+id/imgViewFirmaSupervision"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="33dp"
+        android:background="@drawable/boton_style_green"
+        android:text="Continuar"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>

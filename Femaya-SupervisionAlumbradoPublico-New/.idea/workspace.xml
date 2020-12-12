@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="grupo" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9e25d46d-82c4-490c-bc99-527616ac8fce" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="6NU7N18704005980" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view />
+      </state>
+    </system>
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="Femaya-SupervisionAlumbradoPublico-New" />
+  </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="EXPORT_PRIVATE_KEY" value="false" />
+    <option name="KEY_STORE_PATH" value="$USER_HOME$/KeyStores/femayaBarridoKeyStore.jks" />
+    <option name="KEY_ALIAS" value="luiscarlin" />
+    <option name="REMEMBER_PASSWORDS" value="true" />
+    <option name="BUILD_TARGET_KEY" value="apk" />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="y" value="23" />
+    <option name="width" value="1440" />
+    <option name="height" value="816" />
+  </component>
+  <component name="ProjectId" id="1gv4qidmmnTSWX8HeRxQdD61Pb0" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ApkExportedModule" value="app" />
+    <property name="ExportApk.ApkPath" value="$USER_HOME$/Desktop" />
+    <property name="ExportApk.BuildVariants" value="release" />
+    <property name="ExportApk.SignV1" value="true" />
+    <property name="ExportApk.SignV2" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.NewAlumbrado" />
+      <recent name="com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Adapters" />
+      <recent name="com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels" />
+      <recent name="com.grupofemaya.SupervisionAlumbradoPublico.UI.NewAlumbrado" />
+      <recent name="com.grupofemaya.SupervisionAlumbradoPublico.UI" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/res/layout" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9e25d46d-82c4-490c-bc99-527616ac8fce" name="Default Changelist" comment="" />
+      <created>1580408079513</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1580408079513</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="576" y="199" key="AndroidProcessChooserDialog" timestamp="1603040557717">
+      <screen x="0" y="23" width="1440" height="811" />
+    </state>
+    <state x="576" y="199" key="AndroidProcessChooserDialog/0.23.1440.811@0.23.1440.811" timestamp="1603040557717" />
+    <state width="1398" height="154" key="GridCell.Tab.0.bottom" timestamp="1603044640882">
+      <screen x="0" y="23" width="1440" height="811" />
+    </state>
+    <state width="1398" height="154" key="GridCell.Tab.0.bottom/0.23.1440.811@0.23.1440.811" timestamp="1603044640882" />
+    <state width="1398" height="154" key="GridCell.Tab.0.center" timestamp="1603044640882">
+      <screen x="0" y="23" width="1440" height="811" />
+    </state>
+    <state width="1398" height="154" key="GridCell.Tab.0.center/0.23.1440.811@0.23.1440.811" timestamp="1603044640882" />
+    <state width="1398" height="154" key="GridCell.Tab.0.left" timestamp="1603044640882">
+      <screen x="0" y="23" width="1440" height="811" />
+    </state>
+    <state width="1398" height="154" key="GridCell.Tab.0.left/0.23.1440.811@0.23.1440.811" timestamp="1603044640882" />
+    <state width="1398" height="154" key="GridCell.Tab.0.right" timestamp="1603044640882">
+      <screen x="0" y="23" width="1440" height="811" />
+    </state>
+    <state width="1398" height="154" key="GridCell.Tab.0.right/0.23.1440.811@0.23.1440.811" timestamp="1603044640882" />
+    <state width="1398" height="154" key="GridCell.Tab.1.bottom" timestamp="1603044640883">
+      <screen x="0" y="23" width="1440" height="811" />
+    </state>
+    <state width="1398" height="154" key="GridCell.Tab.1.bottom/0.23.1440.811@0.23.1440.811" timestamp="1603044640883" />
+    <state width="1398" height="154" key="GridCell.Tab.1.center" timestamp="1603044640883">
+      <screen x="0" y="23" width="1440" height="811" />
+    </state>
+    <state width="1398" height="154" key="GridCell.Tab.1.center/0.23.1440.811@0.23.1440.811" timestamp="1603044640883" />
+    <state width="1398" height="154" key="GridCell.Tab.1.left" timestamp="1603044640883">
+      <screen x="0" y="23" width="1440" height="811" />
+    </state>
+    <state width="1398" height="154" key="GridCell.Tab.1.left/0.23.1440.811@0.23.1440.811" timestamp="1603044640883" />
+    <state width="1398" height="154" key="GridCell.Tab.1.right" timestamp="1603044640883">
+      <screen x="0" y="23" width="1440" height="811" />
+    </state>
+    <state width="1398" height="154" key="GridCell.Tab.1.right/0.23.1440.811@0.23.1440.811" timestamp="1603044640883" />
+    <state x="372" y="185" width="864" height="488" key="find.popup" timestamp="1603043037244">
+      <screen x="0" y="23" width="1440" height="811" />
+    </state>
+    <state x="372" y="184" width="825" height="486" key="find.popup/0.23.1440.808@0.23.1440.808" timestamp="1603036622998" />
+    <state x="372" y="185" width="864" height="488" key="find.popup/0.23.1440.811@0.23.1440.811" timestamp="1603043037244" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/grupofemaya/SupervisionAlumbradoPublicoNew/UI/NewAlumbrado/FotografiasFragment.java</url>
+          <line>137</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/grupofemaya/SupervisionAlumbradoPublicoNew/UI/NewAlumbrado/FolioPDLFragment.java</url>
+          <line>76</line>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/grupofemaya/SupervisionAlumbradoPublicoNew/UI/Login/LoginPresenter.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/grupofemaya/SupervisionAlumbradoPublicoNew/UI/NewAlumbrado/FirmasFragment.java</url>
+          <line>162</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/grupofemaya/SupervisionAlumbradoPublicoNew/Connection/APIClient.java</url>
+          <line>32</line>
+          <option name="timeStamp" value="54" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/grupofemaya/SupervisionAlumbradoPublicoNew/Repository/Repository.java</url>
+          <line>232</line>
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/grupofemaya/SupervisionAlumbradoPublicoNew/Repository/Repository.java</url>
+          <line>245</line>
+          <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/grupofemaya/SupervisionAlumbradoPublicoNew/UI/NewAlumbrado/NewHomeFragment.java</url>
+          <line>72</line>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/grupofemaya/SupervisionAlumbradoPublicoNew/UI/NewAlumbrado/SeCuentaFragment.java</url>
+          <line>142</line>
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>LiveData.getInstance().getLiveReportDirector()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>that.gpsTracker.getLatitude()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>gpsTracker.canGetLocation</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>that.gpsTracker.canGetLocation</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>LiveData.getInstance().getLiveReport()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>LiveData.getInstance().getLiveReport().getFotoEquipo()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>LiveData.getInstance().getLiveReport().getListDamages()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>LiveData.getInstance().getListDamges()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>response.body().getData().getIdReportAlumbrado(</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
+</project>

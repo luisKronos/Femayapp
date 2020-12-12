@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="center_horizontal"
+        android:text="CUANTIFICACIÓN FINAL"
+        android:textStyle="bold" />
+
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/top_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="% de avance: "
+            android:layout_weight="0"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtPorcentaje"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="23%" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/top_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Vehiculos: "
+            android:layout_weight="0"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtVehiculos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="23%" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/top_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Personal: "
+            android:layout_weight="0"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtPersonal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="23%" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/top_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Uniformes: "
+            android:layout_weight="0"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtUniformes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="23%" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/top_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Herramientas: "
+            android:layout_weight="0"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtHerramientas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="23%" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/top_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Sanciones: "
+            android:layout_weight="0"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtSanciones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="23%" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/top_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Deductivas: "
+            android:layout_weight="0"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtDeductivas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="23%" />
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/imageSign"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="@dimen/top_section"
+        android:background="@android:color/transparent"
+        android:scaleType="fitXY" />
+
+    <Button
+        android:id="@+id/btnSign"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/top_section"
+        android:background="@color/colorTextNegro"
+        android:text="Firma encargado operativo"
+        android:textColor="@color/colorBackground" />
+
+
+
+
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/top_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnDesacuerdo"
+            android:layout_width="180dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/top_section"
+            android:background="@color/colorTextNegro"
+            android:text="DESACUERDO"
+            android:textColor="@color/colorBackground" />
+
+        <Button
+            android:id="@+id/btnAcuerdo"
+            android:layout_width="180dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="@dimen/top_section"
+            android:background="@color/colorButton"
+            android:text="ACUERDO"
+            android:textColor="@color/colorBackground" />
+    </LinearLayout>
+
+
+
+</LinearLayout>
+</ScrollView>

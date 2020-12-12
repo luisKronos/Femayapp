@@ -1,0 +1,9 @@
+
+Ksquid:S1905("/Remove this unnecessary cast to "DrawerLayout".(ĞÍè¨şÿÿÿÿ
+‰"squid:ClassVariableVisibilityCheck"VMake gpsTracker a static final constant or non-public and provide accessors if needed.(îë¶Øüÿÿÿÿ
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(•«öÇıÿÿÿÿ
+Ksquid:S19059"/Remove this unnecessary cast to "DrawerLayout".(ĞÍè¨şÿÿÿÿ
+Fsquid:S1905!"*Remove this unnecessary cast to "Toolbar".(ªü–ıÿÿÿÿ
+Msquid:S1905."1Remove this unnecessary cast to "NavigationView".(üûÍøÿÿÿÿ
+Ksquid:S1905l"/Remove this unnecessary cast to "DrawerLayout".(ĞÍè¨şÿÿÿÿ
+isquid:CommentedOutCodeLineb"<This block of commented-out lines of code should be removed.(©¦Ì¬8ÔÄ«°.

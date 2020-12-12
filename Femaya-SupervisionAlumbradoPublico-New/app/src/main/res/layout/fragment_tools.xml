@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="center_horizontal"
+        android:text="HERRAMIENTA Y EQUIPO"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:layout_marginTop="@dimen/top_section"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Escobas de Mijo:" />
+
+    <EditText
+        android:id="@+id/txtEscobasMijo"
+        android:layout_width="@dimen/width_field"
+        android:layout_height="@dimen/height_field"
+        android:layout_marginTop="@dimen/top_field"
+        android:background="@color/colorTextVerde"
+        android:inputType="number" />
+
+    <TextView
+        android:layout_marginTop="@dimen/top_section"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Escobas de Vara:" />
+
+    <EditText
+        android:id="@+id/txtEscobasVara"
+        android:layout_width="@dimen/width_field"
+        android:layout_height="@dimen/height_field"
+        android:layout_marginTop="@dimen/top_field"
+        android:background="@color/colorTextVerde"
+        android:inputType="number" />
+
+    <TextView
+        android:layout_marginTop="@dimen/top_section"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Carritos de Recolección:" />
+
+    <EditText
+        android:id="@+id/txtCarritos"
+        android:layout_width="@dimen/width_field"
+        android:layout_height="@dimen/height_field"
+        android:layout_marginTop="@dimen/top_field"
+        android:background="@color/colorTextVerde"
+        android:inputType="number" />
+
+    <TextView
+        android:layout_marginTop="@dimen/top_section"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Palas Carboneras:" />
+
+    <EditText
+        android:id="@+id/txtPalasCarboneras"
+        android:layout_width="@dimen/width_field"
+        android:layout_height="@dimen/height_field"
+        android:layout_marginTop="@dimen/top_field"
+        android:background="@color/colorTextVerde"
+        android:inputType="number" />
+
+    <TextView
+        android:layout_marginTop="@dimen/top_section"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Palas Planas:" />
+
+    <EditText
+        android:id="@+id/txtPalasPlanas"
+        android:layout_width="@dimen/width_field"
+        android:layout_height="@dimen/height_field"
+        android:layout_marginTop="@dimen/top_field"
+        android:background="@color/colorTextVerde"
+        android:inputType="number" />
+
+    <TextView
+        android:layout_marginTop="@dimen/top_section"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Extensiones:" />
+
+    <EditText
+        android:id="@+id/txtExtensiones"
+        android:layout_width="@dimen/width_field"
+        android:layout_height="@dimen/height_field"
+        android:layout_marginTop="@dimen/top_field"
+        android:background="@color/colorTextVerde"
+        android:inputType="number" />
+
+
+    <Button
+            android:layout_marginTop="@dimen/top_section_double"
+            android:id="@+id/btnFinish"
+            android:layout_width="180dp"
+            android:layout_height="30dp"
+            android:background="@color/colorButton"
+            android:text="Guardar" />
+
+
+</LinearLayout>
+</ScrollView>

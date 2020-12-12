@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CHECK LIST"
+        android:textAlignment="center"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_marginTop="@dimen/top_section"
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sector:" />
+
+
+    <Spinner
+        android:id="@+id/spinnerSector"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:background="@color/colorButton"/>
+
+    <TextView
+        android:layout_marginTop="@dimen/top_section"
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vialidad:" />
+
+
+    <Spinner
+        android:id="@+id/spinnerVialidad"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:background="@color/colorButton" />
+
+    <TextView
+        android:layout_marginTop="@dimen/top_section"
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Empresa:"/>
+
+    <TextView
+        android:id="@+id/txtEmpresa"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:background="@color/colorButton" />
+
+
+
+    <TextView
+        android:layout_marginTop="@dimen/top_section"
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Turno:" />
+
+
+    <Spinner
+        android:id="@+id/spinnerTurno"
+        android:layout_width="200dp"
+        android:layout_height="29dp"
+        android:background="@color/colorButton" />
+
+
+
+    <Button
+        android:layout_marginTop="@dimen/top_section_double"
+        android:id="@+id/btnContinue"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:background="@color/colorButton"
+        android:text="Iniciar" />
+
+</LinearLayout>

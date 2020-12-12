@@ -1,0 +1,8 @@
+
+—squid:UselessImportCheck"gRemove this unused import 'com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Adapters.AdapterMaterial'.(å×¾øÿÿÿÿ8Ö‚ä€‚.
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ª²Â•úÿÿÿÿ
+”squid:UselessImportCheck"dRemove this unused import 'com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.RepositoryImp'.(š­Ùÿÿÿÿÿ8Ö‚ä€‚.
+_squid:UselessImportCheck
+"4Remove this unused import 'android.widget.ListView'.(Œ‰Ö×8øœã€‚.
+‘squid:UselessImportCheck"aRemove this unused import 'com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.Repository'.(ì£ışÿÿÿÿ8Ö‚ä€‚.
+Ÿsquid:S1186T"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ı§„Ô8…³´‚.

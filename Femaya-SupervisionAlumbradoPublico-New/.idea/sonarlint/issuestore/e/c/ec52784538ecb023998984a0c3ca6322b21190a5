@@ -1,0 +1,10 @@
+
+hsquid:S1301Î"KReplace this "switch" statement by "if" statements to increase readability.(×ö³–úÿÿÿÿ
+hsquid:CommentedOutCodeLineÒ"<This block of commented-out lines of code should be removed.(ß§²¬ùÿÿÿÿ
+Jsquid:S1199Ï"-Extract this nested code block into a method.(Àâ¡Šøÿÿÿÿ
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ª²Â•úÿÿÿÿ
+gsquid:S1192‡"JDefine a constant instead of duplicating this literal ".provider" 3 times.(¼¾¬õþÿÿÿÿ
+osquid:S1192µ"XDefine a constant instead of duplicating this literal "Error al cargar la foto" 3 times.(ÖÎî&
+Usquid:S1197Í"8Move the array designator from the variable to the type.(ÿÃ²þÿÿÿÿ
+V"squid:SwitchLastCaseIsDefaultCheckÎ""Add a default case to this switch.(×ö³–úÿÿÿÿ
+™squid:S1186é"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ý§„Ô
