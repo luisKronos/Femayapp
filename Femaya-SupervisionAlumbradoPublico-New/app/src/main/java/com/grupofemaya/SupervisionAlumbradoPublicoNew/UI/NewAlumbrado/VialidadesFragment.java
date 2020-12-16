@@ -92,7 +92,7 @@ public class VialidadesFragment extends Fragment implements AdapterVialidades.On
     @Override
     public void onItemSelected(VialidadDTO item) {
         LiveData.getInstance().getLiveReport().setIdVialidad(item.getIdVialidad());
-        CuadrillasFragment newFragment = new CuadrillasFragment();
+        PersonalCuadrillasFragment newFragment = new PersonalCuadrillasFragment();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content_main, newFragment);
         transaction.addToBackStack(null);

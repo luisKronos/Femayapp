@@ -33,7 +33,7 @@
             android:id="@+id/switch1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:text="NO / SI" />
 
         <EditText
@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="33dp"
+            android:layout_marginTop="20dp"
             android:hint="Observaciones"
             android:textColor="@android:color/black"
             android:textColorHint="@color/colorGray" />
@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="33dp"
+            android:layout_marginTop="20dp"
             android:hint="Placas"
             android:textColor="@android:color/black"
             android:textColorHint="@color/colorGray" />
@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="33dp"
+            android:layout_marginTop="20dp"
             android:hint="Alcaldía"
             android:textColor="@android:color/black"
             android:textColorHint="@color/colorGray" />
@@ -73,8 +73,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="33dp"
+            android:layout_marginTop="20dp"
             android:hint="Tramo"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/colorGray" />
+
+        <EditText
+            android:id="@+id/txtColonia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:hint="Colonia"
             android:textColor="@android:color/black"
             android:textColorHint="@color/colorGray" />
 

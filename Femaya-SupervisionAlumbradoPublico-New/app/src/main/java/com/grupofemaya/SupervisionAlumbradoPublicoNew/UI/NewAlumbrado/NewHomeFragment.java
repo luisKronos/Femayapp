@@ -55,17 +55,6 @@ public class NewHomeFragment extends Fragment {
         transaction.commit();
     }
 
-
-    @OnClick(R.id.btnReportDirector)
-    public void clickDirector(View view) {
-        VialidadesDirectorFragment newFragment = new VialidadesDirectorFragment();
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content_main, newFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
-
     private void checkPendings(){
         RQPendingCheck rqInitCheck = new RQPendingCheck();
         rqInitCheck.setIdUser(SharedPreferencesManager.getInstance().getIdUser());

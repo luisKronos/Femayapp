@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="33dp"
             android:layout_weight="0"
-            android:text="Observaciones"
+            android:hint="Observaciones"
             android:textColor="@android:color/black" />
 
 

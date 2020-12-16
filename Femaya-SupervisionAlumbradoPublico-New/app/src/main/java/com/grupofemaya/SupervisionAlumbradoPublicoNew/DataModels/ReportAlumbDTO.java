@@ -18,6 +18,8 @@ public class ReportAlumbDTO {
     private String alcaldia;
     private String tramo;
 
+    private String colonia;
+
     private int cuadrilla;
     private int persElectricistaBaja;
     private int persElectricista;
@@ -343,4 +345,10 @@ public class ReportAlumbDTO {
     public void setTramo(String tramo) {
         this.tramo = tramo;
     }
+
+    public String getColonia() {
+        return colonia;
+    }
+
+    public void setColonia(String colonia) { this.colonia = colonia; }
 }

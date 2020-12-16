@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ListView;
 
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.Repository;
@@ -33,11 +34,8 @@ public class ListDamagesFragment extends GenericFragment {
 
     AdapterDamages adapter;
 
-
-
-
-
-
+    @BindView(R.id.checkOther)
+    CheckBox checkOther;
 
     public ListDamagesFragment() {
         // Required empty public constructor
@@ -98,16 +96,10 @@ public class ListDamagesFragment extends GenericFragment {
         });
     }
 
-
     private void fillData(){
         adapter = new AdapterDamages(that,LiveData.getInstance().getListDamges());
         listView.setAdapter(adapter);
     }
-
-
-
-
-
 
     private void goNext(){
         FotografiasFragment newFragment = new FotografiasFragment();
@@ -116,5 +108,4 @@ public class ListDamagesFragment extends GenericFragment {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
 }

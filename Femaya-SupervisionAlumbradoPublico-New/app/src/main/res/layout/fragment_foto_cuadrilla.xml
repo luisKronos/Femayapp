@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="33dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/boton_style_gray"
             android:text="Tomar foto"
             android:textColor="@android:color/white" />
@@ -43,7 +43,6 @@
             android:layout_width="match_parent"
             android:layout_height="400dp"
             tools:srcCompat="@tools:sample/avatars" />
-
 
     </LinearLayout>
 
