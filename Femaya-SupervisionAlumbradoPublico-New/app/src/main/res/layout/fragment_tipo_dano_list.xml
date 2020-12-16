@@ -33,19 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:layout_weight="1"
             tools:listitem="@layout/item_damges"/>
-
-        <CheckBox
-            android:id="@+id/checkOther"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
-            android:text="Otro"
-            android:layout_weight="0"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
 
     </LinearLayout>
 

@@ -3,7 +3,8 @@ package com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils;
 public class Constantes {
     private static String URL_PRODUCTION = "";
     //private static String URL_DEVELOPMENT = "https://jsonplaceholder.typicode.com/";
-    private static String URL_DEVELOPMENT = "http://alumbradopublico.grupofemaya.com/";
+    //private static String URL_DEVELOPMENT = "http://alumbradopublico.grupofemaya.com/";
+    private static String URL_DEVELOPMENT = "http://grupofemaya.com.mx/";
     public final static String URL_API = URL_DEVELOPMENT;
 
 

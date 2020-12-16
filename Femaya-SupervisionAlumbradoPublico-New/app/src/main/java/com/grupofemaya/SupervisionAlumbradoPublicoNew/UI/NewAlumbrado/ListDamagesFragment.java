@@ -34,9 +34,6 @@ public class ListDamagesFragment extends GenericFragment {
 
     AdapterDamages adapter;
 
-    @BindView(R.id.checkOther)
-    CheckBox checkOther;
-
     public ListDamagesFragment() {
         // Required empty public constructor
     }
