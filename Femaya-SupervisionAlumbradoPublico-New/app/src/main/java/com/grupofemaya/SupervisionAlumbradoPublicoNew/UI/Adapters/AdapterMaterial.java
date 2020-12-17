@@ -20,11 +20,7 @@ import java.util.List;
  * Created by luiscarlin on 5/24/17.
  */
 public class AdapterMaterial extends ArrayAdapter<MaterialDTO> {
-
-
     OnItemSelectedListener itemSelectedListener;
-
-
 
     public interface OnItemSelectedListener {
         void onItemSelected(VialidadDTO item);
@@ -68,13 +64,7 @@ public class AdapterMaterial extends ArrayAdapter<MaterialDTO> {
                     }
                 }
             );
-
-
         }
-
-
         return convertView;
     }
-
-
 }

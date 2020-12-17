@@ -20,22 +20,24 @@ import java.util.List;
  * Created by luiscarlin on 5/24/17.
  */
 public class AdapterDamages extends ArrayAdapter<DamageDTO> {
-
-
     OnItemSelectedListener itemSelectedListener;
-
-
+    OnItemDamageSelectedListener itemDamageSelectedListener;
 
     public interface OnItemSelectedListener {
         void onItemSelected(VialidadDTO item);
+    }
+
+    public interface OnItemDamageSelectedListener {
+        void onItemDamageSelected(DamageDTO item);
     }
 
     private static class ViewHolder {
         CheckBox txtCheck;
     }
 
-    public AdapterDamages(Context context, List<DamageDTO> items) {
+    public AdapterDamages(Context context, List<DamageDTO> items, OnItemDamageSelectedListener itemDamageSelectedListener) {
         super(context, R.layout.item_damges, items);
+        this.itemDamageSelectedListener = itemDamageSelectedListener;
     }
 
     @Override
@@ -61,6 +63,7 @@ public class AdapterDamages extends ArrayAdapter<DamageDTO> {
                     public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
                         if(isChecked){
                             LiveData.getInstance().getLiveReport().getListDamages().add(item);
+                            itemDamageSelectedListener.onItemDamageSelected(item);
                         }else{
                             LiveData.getInstance().getLiveReport().getListDamages().remove(item);
                         }
@@ -68,13 +71,7 @@ public class AdapterDamages extends ArrayAdapter<DamageDTO> {
                     }
                 }
             );
-
-
         }
-
-
         return convertView;
     }
-
-
 }

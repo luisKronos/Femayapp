@@ -22,8 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-
-public class ListMaterialFragment extends GenericFragment {
+public class ListMaterialFragment extends GenericFragment  {
 
     MainActivity that;
     View view;
@@ -33,11 +32,9 @@ public class ListMaterialFragment extends GenericFragment {
 
     AdapterMaterial adapter;
 
-
     public ListMaterialFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,9 +46,6 @@ public class ListMaterialFragment extends GenericFragment {
         getDamages();
         return view;
     }
-
-
-
 
     @OnClick(R.id.btn)
     public void clickContinuar(){
@@ -93,16 +87,10 @@ public class ListMaterialFragment extends GenericFragment {
         });
     }
 
-
     private void fillData(){
         adapter = new AdapterMaterial(that,LiveData.getInstance().getListMaterials());
         listView.setAdapter(adapter);
     }
-
-
-
-
-
 
     private void goNext(){
         FotografiaMaterialesFragment newFragment = new FotografiaMaterialesFragment();
@@ -111,5 +99,4 @@ public class ListMaterialFragment extends GenericFragment {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
 }

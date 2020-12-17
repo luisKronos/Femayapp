@@ -8,8 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.DamageDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.Repository;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.RepositoryImp;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Adapters.AdapterDamages;
@@ -22,9 +25,10 @@ import org.grupofemaya.SupervisionAlumbradoPublico.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Optional;
 
 
-public class ListDamagesFragment extends GenericFragment {
+public class ListDamagesFragment extends GenericFragment implements AdapterDamages.OnItemDamageSelectedListener {
 
     MainActivity that;
     View view;
@@ -33,6 +37,7 @@ public class ListDamagesFragment extends GenericFragment {
     ListView listView;
 
     AdapterDamages adapter;
+    String textOther = null;
 
     public ListDamagesFragment() {
         // Required empty public constructor
@@ -49,9 +54,6 @@ public class ListDamagesFragment extends GenericFragment {
         getDamages();
         return view;
     }
-
-
-
 
     @OnClick(R.id.btn)
     public void clickContinuar(){
@@ -94,7 +96,7 @@ public class ListDamagesFragment extends GenericFragment {
     }
 
     private void fillData(){
-        adapter = new AdapterDamages(that,LiveData.getInstance().getListDamges());
+        adapter = new AdapterDamages(that,LiveData.getInstance().getListDamges(), this);
         listView.setAdapter(adapter);
     }
 
@@ -104,5 +106,35 @@ public class ListDamagesFragment extends GenericFragment {
         transaction.replace(R.id.content_main, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void onItemDamageSelected(DamageDTO item) {
+        if(item.getDamage().equals("Otro")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle("Agregar otro tipo de daño");
+            View viewInflated = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_text_other_damage, (ViewGroup) getView(), false);
+            EditText txtOther = view.findViewById(R.id.txtOther);
+            builder.setView(viewInflated)
+                    .setCancelable(false)
+                    .setPositiveButton("Agregar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                            if(!txtOther.getText().toString().isEmpty()) {
+                                textOther = txtOther.getText().toString();
+                            }
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+
+            if(textOther != null) {
+                Toast.makeText(requireContext(), textOther, Toast.LENGTH_SHORT).show();
+            } else {
+
+            }
+        } else {
+            Toast.makeText(requireContext(), item.getDamage(), Toast.LENGTH_SHORT).show();
+        }
     }
 }
