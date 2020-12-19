@@ -6,20 +6,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.fragment.app.FragmentTransaction;
 
-import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.Repository;
-import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.RepositoryImp;
-import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Adapters.AdapterMaterial;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Generic.GenericFragment;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.MainActivity;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.LiveData;
 
 import org.grupofemaya.SupervisionAlumbradoPublico.R;
+
+import java.util.ArrayList;
+import java.util.function.ToDoubleBiFunction;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +33,8 @@ public class MinutaFragment extends GenericFragment {
 
     MainActivity that;
     View view;
+    ArrayList<String> arrayList = new ArrayList<>();
+    String aux = "";
 
     @BindView(R.id.txtTipoLuminaria)
     EditText txtTipoLuminaria;
@@ -49,9 +54,6 @@ public class MinutaFragment extends GenericFragment {
     @BindView(R.id.switchStatus)
     Switch switchStatus;
 
-
-
-
     public MinutaFragment() {
         // Required empty public constructor
     }
@@ -64,6 +66,16 @@ public class MinutaFragment extends GenericFragment {
         // Inflate the layout for this fragment
         ButterKnife.bind(this, view);
         that = (MainActivity) getActivity();
+
+        arrayList.add("Selecciona una causa");
+        arrayList.add("Falta de material");
+        arrayList.add("Tránsito vial");
+        arrayList.add("Cambio de turno");
+        arrayList.add("Lo impiden comercios informales");
+        arrayList.add("Obstrucción de tránsito");
+        arrayList.add("Bajo o nulo nivel de seguridad");
+        arrayList.add("Por indicación de SSC");
+        arrayList.add("Obras externas impiden labores");
 
         return view;
     }
@@ -87,17 +99,71 @@ public class MinutaFragment extends GenericFragment {
                 })
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        LiveData.getInstance().getLiveReport().getMinuta().setTipoLuminario(txtTipoLuminaria.getText().toString().toUpperCase());
-                        LiveData.getInstance().getLiveReport().getMinuta().setFallaDetectada(txtFallaDetectada.getText().toString().toUpperCase());
-                        LiveData.getInstance().getLiveReport().getMinuta().setDiagFalla(txtDiagFalla.getText().toString().toUpperCase());
-                        LiveData.getInstance().getLiveReport().getMinuta().setAccionRealizada(txtAccionRealizada.getText().toString().toUpperCase());
-                        LiveData.getInstance().getLiveReport().getMinuta().setObservaciones(txtObservaciones.getText().toString().toUpperCase());
-                        LiveData.getInstance().getLiveReport().getMinuta().setEstatusReparacion(getStatus(switchStatus.isChecked()));
-                        goNext();
+                        checkSwitch();
+
                     }
                 });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    private void checkSwitch() {
+        if (!switchStatus.isChecked()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle("Seleccionar causa:");
+
+            View viewInflated = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_caso_incompleto, (ViewGroup) getView(), false);
+            Spinner spinnerCausas = viewInflated.findViewById(R.id.spinnerCausas);
+            ArrayAdapter<String> adapter= new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, arrayList);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerCausas.setAdapter(adapter);
+            spinnerCausas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    aux = parent.getItemAtPosition(position).toString();
+                    // TODO: Evitar que se selecione la primera opcion
+                }
+                @Override
+                public void onNothingSelected(AdapterView <?> parent) {
+                }
+            });
+            builder.setView(viewInflated)
+                    .setCancelable(false)
+                    .setPositiveButton("Agregar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            LiveData.getInstance().getLiveReport().getMinuta().setTipoLuminario(txtTipoLuminaria.getText().toString().toUpperCase());
+                            LiveData.getInstance().getLiveReport().getMinuta().setFallaDetectada(txtFallaDetectada.getText().toString().toUpperCase());
+                            LiveData.getInstance().getLiveReport().getMinuta().setDiagFalla(txtDiagFalla.getText().toString().toUpperCase());
+                            LiveData.getInstance().getLiveReport().getMinuta().setAccionRealizada(txtAccionRealizada.getText().toString().toUpperCase());
+                            LiveData.getInstance().getLiveReport().getMinuta().setObservaciones(txtObservaciones.getText().toString().toUpperCase());
+                            LiveData.getInstance().getLiveReport().getMinuta().setEstatusReparacion(getStatus(switchStatus.isChecked()));
+                            LiveData.getInstance().getLiveReport().getMinuta().setCausaNoCompletado(aux);
+                            // TODO: Mnadar a llamar el ultimo request
+                            goHome();
+                        }
+                    });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+
+
+        } else {
+            LiveData.getInstance().getLiveReport().getMinuta().setTipoLuminario(txtTipoLuminaria.getText().toString().toUpperCase());
+            LiveData.getInstance().getLiveReport().getMinuta().setFallaDetectada(txtFallaDetectada.getText().toString().toUpperCase());
+            LiveData.getInstance().getLiveReport().getMinuta().setDiagFalla(txtDiagFalla.getText().toString().toUpperCase());
+            LiveData.getInstance().getLiveReport().getMinuta().setAccionRealizada(txtAccionRealizada.getText().toString().toUpperCase());
+            LiveData.getInstance().getLiveReport().getMinuta().setObservaciones(txtObservaciones.getText().toString().toUpperCase());
+            LiveData.getInstance().getLiveReport().getMinuta().setEstatusReparacion(getStatus(switchStatus.isChecked()));
+            goNext();
+        }
+    }
+
+    private void goHome() {
+        NewHomeFragment newHomeFragment = new NewHomeFragment();
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_main, newHomeFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 

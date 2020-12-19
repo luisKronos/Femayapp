@@ -9,6 +9,7 @@ public class MinutaDTO {
     private String accionRealizada;
     private String estatusReparacion;
     private String observaciones;
+    private String causaNoCompletado = "";
 
     public String getIdReportMinuta() {
         return idReportMinuta;
@@ -64,5 +65,13 @@ public class MinutaDTO {
 
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
+    }
+
+    public String getCausaNoCompletado() {
+        return causaNoCompletado;
+    }
+
+    public void setCausaNoCompletado(String causaNoCompletado) {
+        this.causaNoCompletado = causaNoCompletado;
     }
 }

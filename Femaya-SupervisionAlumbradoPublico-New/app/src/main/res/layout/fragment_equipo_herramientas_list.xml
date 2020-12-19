@@ -37,7 +37,13 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-
+                <CheckBox
+                    android:id="@+id/check0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Uniforme"
+                    android:textSize="22sp" />
 
                 <CheckBox
                     android:id="@+id/check1"

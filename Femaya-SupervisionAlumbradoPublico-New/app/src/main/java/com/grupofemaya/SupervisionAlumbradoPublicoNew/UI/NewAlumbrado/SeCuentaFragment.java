@@ -60,6 +60,7 @@ public class SeCuentaFragment extends Fragment {
             LiveData.getInstance().getLiveReport().setAlcaldia(txtAlcaldia.getText().toString().toUpperCase());
             LiveData.getInstance().getLiveReport().setTramo(txtTramo.getText().toString().toUpperCase());
             LiveData.getInstance().getLiveReport().setColonia(txtColonia.getText().toString().toUpperCase());
+            LiveData.getInstance().getLiveReport().setReferencia(txtReferencia.getText().toString().toUpperCase());
 
             rqInitReport = LiveData.getInstance().getLiveReport();
             if(LiveData.getInstance().getLiveReport().getFotoCuadrilla() != null) {
@@ -80,6 +81,8 @@ public class SeCuentaFragment extends Fragment {
     EditText txtPLacas;
     @BindView(R.id.txtColonia)
     EditText txtColonia;
+    @BindView(R.id.txtReferencia)
+    EditText txtReferencia;
 
 
     public SeCuentaFragment() {
@@ -159,11 +162,28 @@ public class SeCuentaFragment extends Fragment {
     }
 
     private void goAddOther() {
-        PersonalCuadrillasFragment newFragment = new PersonalCuadrillasFragment();
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content_main, newFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Numero de Cuadrilla");
+        View viewInflated = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_number_cuadrilla, (ViewGroup) getView(), false);
+        EditText txtNumber = viewInflated.findViewById(R.id.txtNumberCuadrilla);
+        builder.setView(viewInflated)
+                .setCancelable(false)
+                .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // TODO: Evitar que se cierre el dialog cuando este vcio
+                        if(!txtNumber.getText().toString().isEmpty()) {
+                            LiveData.getInstance().getLiveReport().setCuadrilla(Integer.parseInt(txtNumber.getText().toString()));
+                            LiveData.getInstance().getLiveReport().setIdReportAlumbradoAux(Integer.parseInt(LiveData.getInstance().getLiveReport().getIdReportAlumbrado()));
+                            PersonalCuadrillasFragment newFragment = new PersonalCuadrillasFragment();
+                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                            transaction.replace(R.id.content_main, newFragment);
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+                        }
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void goNext(){

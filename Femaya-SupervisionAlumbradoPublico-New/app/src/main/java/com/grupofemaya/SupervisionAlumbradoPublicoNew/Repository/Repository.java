@@ -542,7 +542,9 @@ public class Repository {
             public void onResponse(Call<rsGeneral<RSInitReport>> call, Response<rsGeneral<RSInitReport>> response) {
                 if(response.body() != null) {
                     if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
-                        LiveData.getInstance().getLiveReport().setIdReportAlumbrado(response.body().getData().getIdReportAlumbrado());
+                        if(LiveData.getInstance().getLiveReport().getIdReportAlumbradoAux() == 0) {
+                            LiveData.getInstance().getLiveReport().setIdReportAlumbrado(response.body().getData().getIdReportAlumbrado());
+                        }
                         callBack.succedResponse(response.body());
                     } else {
                         callBack.requestFail(response.body().getHeader().getMessage());

@@ -37,7 +37,6 @@ public class ListDamagesFragment extends GenericFragment implements AdapterDamag
     ListView listView;
 
     AdapterDamages adapter;
-    String textOther = null;
 
     public ListDamagesFragment() {
         // Required empty public constructor
@@ -114,27 +113,19 @@ public class ListDamagesFragment extends GenericFragment implements AdapterDamag
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
             builder.setTitle("Agregar otro tipo de daño");
             View viewInflated = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_text_other_damage, (ViewGroup) getView(), false);
-            EditText txtOther = view.findViewById(R.id.txtOther);
+            EditText txtOther = viewInflated.findViewById(R.id.txtOther);
             builder.setView(viewInflated)
                     .setCancelable(false)
                     .setPositiveButton("Agregar", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            dialog.dismiss();
+                            // TODO: Evitar que se cierre el dialog cuando este vcio
                             if(!txtOther.getText().toString().isEmpty()) {
-                                textOther = txtOther.getText().toString();
+                                item.setValueForOtro(txtOther.getText().toString());
                             }
                         }
                     });
             AlertDialog alert = builder.create();
             alert.show();
-
-            if(textOther != null) {
-                Toast.makeText(requireContext(), textOther, Toast.LENGTH_SHORT).show();
-            } else {
-
-            }
-        } else {
-            Toast.makeText(requireContext(), item.getDamage(), Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -38,6 +38,9 @@ public class EquipoHerramientaFragment extends Fragment {
     @BindView(R.id.check4)
     CheckBox check4;
 
+    @BindView(R.id.check5)
+    CheckBox check5;
+
 
 
     public EquipoHerramientaFragment() {
@@ -96,6 +99,18 @@ public class EquipoHerramientaFragment extends Fragment {
                                                       LiveData.getInstance().getLiveReport().setEquipSenalamiento(1);
                                                   }else {
                                                       LiveData.getInstance().getLiveReport().setEquipSenalamiento(0);
+                                                  }
+                                              }
+                                          }
+        );
+
+        check5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                              @Override
+                                              public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                                                  if(isChecked){
+                                                      LiveData.getInstance().getLiveReport().setEquipUniforme(1);
+                                                  }else {
+                                                      LiveData.getInstance().getLiveReport().setEquipUniforme(0);
                                                   }
                                               }
                                           }

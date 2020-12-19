@@ -26,6 +26,9 @@ public class CuadrillaObraCivilCheksFragment extends Fragment {
     MainActivity that;
     View view;
 
+    @BindView(R.id.check0)
+    CheckBox check0;
+
     @BindView(R.id.check1)
     CheckBox check1;
 
@@ -75,6 +78,18 @@ public class CuadrillaObraCivilCheksFragment extends Fragment {
         // Inflate the layout for this fragment
         ButterKnife.bind(this, view);
         that = (MainActivity) getActivity();
+
+        check0.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                              @Override
+                                              public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                                                  if(isChecked){
+                                                      LiveData.getInstance().getLiveReport().getListCuadrilla().setCaboCuadrilla(1);
+                                                  }else {
+                                                      LiveData.getInstance().getLiveReport().getListCuadrilla().setCaboCuadrilla(0);
+                                                  }
+                                              }
+                                          }
+        );
 
         check1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
