@@ -8,6 +8,9 @@ import android.os.Handler;
 import android.os.Message;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -170,20 +173,35 @@ public class SeCuentaFragment extends Fragment {
                 .setCancelable(false)
                 .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // TODO: Evitar que se cierre el dialog cuando este vcio
-                        if(!txtNumber.getText().toString().isEmpty()) {
-                            LiveData.getInstance().getLiveReport().setCuadrilla(Integer.parseInt(txtNumber.getText().toString()));
-                            LiveData.getInstance().getLiveReport().setIdReportAlumbradoAux(Integer.parseInt(LiveData.getInstance().getLiveReport().getIdReportAlumbrado()));
-                            PersonalCuadrillasFragment newFragment = new PersonalCuadrillasFragment();
-                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            transaction.replace(R.id.content_main, newFragment);
-                            transaction.addToBackStack(null);
-                            transaction.commit();
-                        }
+                        LiveData.getInstance().getLiveReport().setCuadrilla(Integer.parseInt(txtNumber.getText().toString()));
+                        LiveData.getInstance().getLiveReport().setIdReportAlumbradoAux(Integer.parseInt(LiveData.getInstance().getLiveReport().getIdReportAlumbrado()));
+                        PersonalCuadrillasFragment newFragment = new PersonalCuadrillasFragment();
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.content_main, newFragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
                     }
                 });
         AlertDialog alert = builder.create();
         alert.show();
+        alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+
+        txtNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void afterTextChanged(Editable e) {
+                if(!e.toString().isEmpty()) {
+                    alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                } else {
+                    alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                }
+            }
+        });
     }
 
     private void goNext(){

@@ -5,11 +5,16 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.VialidadDTO;
@@ -102,17 +107,33 @@ public class VialidadesFragment extends Fragment implements AdapterVialidades.On
                 .setCancelable(true)
                 .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        if(!txtNumber.getText().toString().isEmpty()) {
-                            LiveData.getInstance().getLiveReport().setCuadrilla(Integer.parseInt(txtNumber.getText().toString()));
-                            PersonalCuadrillasFragment newFragment = new PersonalCuadrillasFragment();
-                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            transaction.replace(R.id.content_main, newFragment);
-                            transaction.addToBackStack(null);
-                            transaction.commit();
-                        }
+                        LiveData.getInstance().getLiveReport().setCuadrilla(Integer.parseInt(txtNumber.getText().toString()));
+                        PersonalCuadrillasFragment newFragment = new PersonalCuadrillasFragment();
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.content_main, newFragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
                     }
                 });
         AlertDialog alert = builder.create();
         alert.show();
+        alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+
+        txtNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void afterTextChanged(Editable e) {
+                if(!e.toString().isEmpty()) {
+                    alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                } else {
+                    alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                }
+            }
+        });
     }
 }

@@ -117,16 +117,7 @@ public class MinutaFragment extends GenericFragment {
             ArrayAdapter<String> adapter= new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, arrayList);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerCausas.setAdapter(adapter);
-            spinnerCausas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    aux = parent.getItemAtPosition(position).toString();
-                    // TODO: Evitar que se selecione la primera opcion
-                }
-                @Override
-                public void onNothingSelected(AdapterView <?> parent) {
-                }
-            });
+
             builder.setView(viewInflated)
                     .setCancelable(false)
                     .setPositiveButton("Agregar", new DialogInterface.OnClickListener() {
@@ -145,8 +136,22 @@ public class MinutaFragment extends GenericFragment {
 
             AlertDialog alert = builder.create();
             alert.show();
+            alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
 
-
+            spinnerCausas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    // TODO: Evitar que se selecione la primera opcion
+                    aux = parent.getItemAtPosition(position).toString();
+                    if(aux.equals("Selecciona una causa")) {
+                        alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                    } else {
+                        alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    }
+                }
+                @Override
+                public void onNothingSelected(AdapterView <?> parent) { }
+            });
         } else {
             LiveData.getInstance().getLiveReport().getMinuta().setTipoLuminario(txtTipoLuminaria.getText().toString().toUpperCase());
             LiveData.getInstance().getLiveReport().getMinuta().setFallaDetectada(txtFallaDetectada.getText().toString().toUpperCase());

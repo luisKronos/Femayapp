@@ -4,6 +4,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,14 +121,29 @@ public class ListDamagesFragment extends GenericFragment implements AdapterDamag
                     .setCancelable(false)
                     .setPositiveButton("Agregar", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            // TODO: Evitar que se cierre el dialog cuando este vcio
-                            if(!txtOther.getText().toString().isEmpty()) {
-                                item.setValueForOtro(txtOther.getText().toString());
-                            }
+                            item.setValueForOtro(txtOther.getText().toString());
                         }
                     });
             AlertDialog alert = builder.create();
             alert.show();
+            alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+
+            txtOther.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+                @Override
+                public void afterTextChanged(Editable e) {
+                    if(!e.toString().isEmpty()) {
+                        alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    } else {
+                        alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                    }
+                }
+            });
         }
     }
 }
