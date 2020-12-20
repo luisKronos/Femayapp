@@ -15,6 +15,7 @@ import androidx.core.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -41,6 +42,9 @@ public class FotografiaMaterialesFragment extends GenericFragment {
 
     @BindView(R.id.imgView)
     ImageView imgView;
+
+    @BindView(R.id.txtMaterialResguardo)
+    EditText txtMaterialResguardo;
 
     static int CODE_PHOTO=100;
     static final int CODE_REQ_PERMISSION=600;
@@ -113,8 +117,7 @@ public class FotografiaMaterialesFragment extends GenericFragment {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case CODE_REQ_PERMISSION: {
                 if (grantResults.length > 0
@@ -141,6 +144,7 @@ public class FotografiaMaterialesFragment extends GenericFragment {
                 })
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        LiveData.getInstance().getLiveReport().setObsMaterial(txtMaterialResguardo.getText().toString());
                         goNext();
                     }
                 });

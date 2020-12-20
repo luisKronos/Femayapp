@@ -5,6 +5,7 @@ public class MaterialDTO {
     private String idMaterial;
     private String material;
     private boolean value=false;
+    private String valueForOtro;
 
     public String getIdMaterial() {
         return idMaterial;
@@ -28,5 +29,13 @@ public class MaterialDTO {
 
     public void setValue(boolean value) {
         this.value = value;
+    }
+
+    public String getValueForOtro() {
+        return valueForOtro;
+    }
+
+    public void setValueForOtro(String valueForOtro) {
+        this.valueForOtro = valueForOtro;
     }
 }

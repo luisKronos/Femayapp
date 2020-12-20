@@ -15,6 +15,9 @@ import android.widget.Toast;
 
 import androidx.fragment.app.FragmentTransaction;
 
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.ReportAlumbDTO;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.Repository;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.RepositoryImp;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Generic.GenericFragment;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.MainActivity;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.LiveData;
@@ -28,13 +31,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-
 public class MinutaFragment extends GenericFragment {
 
     MainActivity that;
     View view;
     ArrayList<String> arrayList = new ArrayList<>();
+    ReportAlumbDTO rqReport;
     String aux = "";
+    String folio = "";
 
     @BindView(R.id.txtTipoLuminaria)
     EditText txtTipoLuminaria;
@@ -129,8 +133,46 @@ public class MinutaFragment extends GenericFragment {
                             LiveData.getInstance().getLiveReport().getMinuta().setObservaciones(txtObservaciones.getText().toString().toUpperCase());
                             LiveData.getInstance().getLiveReport().getMinuta().setEstatusReparacion(getStatus(switchStatus.isChecked()));
                             LiveData.getInstance().getLiveReport().getMinuta().setCausaNoCompletado(aux);
-                            // TODO: Mnadar a llamar el ultimo request
-                            goHome();
+
+                            rqReport = LiveData.getInstance().getLiveReport();
+                            Repository.getInstance().requesReportThird(rqReport, new RepositoryImp() {
+                                @Override
+                                public void succedResponse(Object response) {
+                                    that.hideProgress();
+
+                                    if(LiveData.getInstance().getLiveReport().getIdCuadrante().equals("1")){
+                                        folio = "NP";
+                                    }else if(LiveData.getInstance().getLiveReport().getIdCuadrante().equals("2")){
+                                        folio = "NO";
+                                    }else if(LiveData.getInstance().getLiveReport().getIdCuadrante().equals("3")){
+                                        folio = "SP";
+                                    }else if(LiveData.getInstance().getLiveReport().getIdCuadrante().equals("4")){
+                                        folio = "SO";
+                                    }else if(LiveData.getInstance().getLiveReport().getIdCuadrante().equals("5")){
+                                        folio = "CT";
+                                    }
+
+                                    folio = folio + "-" + LiveData.getInstance().getLiveReport().getIdReportAlumbrado();
+
+                                    AlertDialog.Builder builder2 = new AlertDialog.Builder(that);
+                                    builder2.setTitle("Folio para consulta");
+                                    builder2.setMessage("Anota el siguiente folio para proximas consultas: " + folio)
+                                            .setCancelable(false)
+                                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int id) {
+                                                    goHome();
+                                                }
+                                            });
+                                    AlertDialog alert2 = builder2.create();
+                                    alert2.show();
+                                }
+
+                                @Override
+                                public void requestFail(String message) {
+                                    that.hideProgress();
+                                    that.showDialog(message);
+                                }
+                            });
                         }
                     });
 
@@ -141,7 +183,6 @@ public class MinutaFragment extends GenericFragment {
             spinnerCausas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    // TODO: Evitar que se selecione la primera opcion
                     aux = parent.getItemAtPosition(position).toString();
                     if(aux.equals("Selecciona una causa")) {
                         alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);

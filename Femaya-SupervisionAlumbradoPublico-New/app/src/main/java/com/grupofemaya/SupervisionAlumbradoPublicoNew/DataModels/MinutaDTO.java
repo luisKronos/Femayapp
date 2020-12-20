@@ -9,7 +9,7 @@ public class MinutaDTO {
     private String accionRealizada;
     private String estatusReparacion;
     private String observaciones;
-    private String causaNoCompletado = "";
+    private String causaNoCompletado;
 
     public String getIdReportMinuta() {
         return idReportMinuta;

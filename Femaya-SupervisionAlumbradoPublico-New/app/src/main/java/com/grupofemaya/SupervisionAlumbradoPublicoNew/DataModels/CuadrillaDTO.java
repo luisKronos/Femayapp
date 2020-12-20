@@ -15,7 +15,7 @@ public class CuadrillaDTO {
     private int operadorDeRevolvedora=0;
     private int operadorDeOxiacetileno=0;
 
-    public int getCaboCuadrilla() { return albanil; }
+    public int getCaboCuadrilla() { return caboCuadrilla; }
 
     public void setCaboCuadrilla(int caboCuadrilla) { this.caboCuadrilla = caboCuadrilla; }
 
