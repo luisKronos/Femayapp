@@ -47,6 +47,11 @@ public class NewHomeFragment extends Fragment {
     public void clickRecoger(View view) {
         CuadrantesFragment newFragment = new CuadrantesFragment();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+        Bundle type = new Bundle();
+        type.putBoolean("type", true);
+        newFragment.setArguments(type);
+
         transaction.replace(R.id.content_main, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
@@ -56,14 +61,11 @@ public class NewHomeFragment extends Fragment {
     public void clickPendiente(View view) {
         CuadrantesFragment newFragment = new CuadrantesFragment();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content_main, newFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
 
-    private void goPendingChecks(){
-        PendingChecksFragment newFragment = new PendingChecksFragment();
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        Bundle type = new Bundle();
+        type.putBoolean("type", false);
+        newFragment.setArguments(type);
+
         transaction.replace(R.id.content_main, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
