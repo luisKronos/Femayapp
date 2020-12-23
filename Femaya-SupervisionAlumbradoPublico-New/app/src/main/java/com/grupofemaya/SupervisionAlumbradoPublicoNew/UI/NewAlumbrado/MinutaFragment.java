@@ -20,6 +20,7 @@ import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.Repository;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.RepositoryImp;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Generic.GenericFragment;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.MainActivity;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.Funcs;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.LiveData;
 
 import org.grupofemaya.SupervisionAlumbradoPublico.R;
@@ -57,6 +58,8 @@ public class MinutaFragment extends GenericFragment {
 
     @BindView(R.id.switchStatus)
     Switch switchStatus;
+
+    Funcs mFuncs = new Funcs();
 
     public MinutaFragment() {
         // Required empty public constructor
@@ -126,6 +129,9 @@ public class MinutaFragment extends GenericFragment {
                     .setCancelable(false)
                     .setPositiveButton("Agregar", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
+
+                            rqReport = LiveData.getInstance().getLiveReport();
+
                             LiveData.getInstance().getLiveReport().getMinuta().setTipoLuminario(txtTipoLuminaria.getText().toString().toUpperCase());
                             LiveData.getInstance().getLiveReport().getMinuta().setFallaDetectada(txtFallaDetectada.getText().toString().toUpperCase());
                             LiveData.getInstance().getLiveReport().getMinuta().setDiagFalla(txtDiagFalla.getText().toString().toUpperCase());
@@ -134,7 +140,30 @@ public class MinutaFragment extends GenericFragment {
                             LiveData.getInstance().getLiveReport().getMinuta().setEstatusReparacion(getStatus(switchStatus.isChecked()));
                             LiveData.getInstance().getLiveReport().getMinuta().setCausaNoCompletado(aux);
 
-                            rqReport = LiveData.getInstance().getLiveReport();
+                            if(rqReport.getFotoAntes()!=null) {
+                                if(LiveData.getInstance().getLiveReport().getFotoAntes().length() < 500) {
+                                    rqReport.setFotoAntes(mFuncs.convierteBase64(LiveData.getInstance().getLiveReport().getFotoAntes()));
+                                } else {
+                                    rqReport.setFotoAntes(LiveData.getInstance().getLiveReport().getFotoAntes());
+                                }
+                            }
+
+                            if(rqReport.getFotoDurante()!=null) {
+                                if(LiveData.getInstance().getLiveReport().getFotoDurante().length() < 500) {
+                                    rqReport.setFotoDurante(mFuncs.convierteBase64(LiveData.getInstance().getLiveReport().getFotoDurante()));
+                                } else {
+                                    rqReport.setFotoDurante(LiveData.getInstance().getLiveReport().getFotoDurante());
+                                }
+                            }
+
+                            if(rqReport.getFotoDespues()!=null) {
+                                if(LiveData.getInstance().getLiveReport().getFotoDespues().length() < 500) {
+                                    rqReport.setFotoDespues(mFuncs.convierteBase64(LiveData.getInstance().getLiveReport().getFotoDespues()));
+                                } else {
+                                    rqReport.setFotoDespues(LiveData.getInstance().getLiveReport().getFotoDespues());
+                                }
+                            }
+
                             Repository.getInstance().requesReportThird(rqReport, new RepositoryImp() {
                                 @Override
                                 public void succedResponse(Object response) {

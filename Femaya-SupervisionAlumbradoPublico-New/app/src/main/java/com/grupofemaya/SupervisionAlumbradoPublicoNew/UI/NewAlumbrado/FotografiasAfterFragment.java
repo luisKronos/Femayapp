@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,7 @@ import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.LiveData;
 
 import org.grupofemaya.SupervisionAlumbradoPublico.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -38,6 +41,7 @@ public class FotografiasAfterFragment extends Fragment {
 
     MainActivity that;
     View view;
+    Bitmap bitmap;
 
     @BindView(R.id.imgView3)
     ImageView imgView3;
@@ -113,10 +117,8 @@ public class FotografiasAfterFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==CODE_PHOTO_DESPUES && resultCode==-1){
             try {
-                LiveData.getInstance().getLiveReport().setFotoAntes(photoReportDespues);
+                LiveData.getInstance().getLiveReport().setFotoDespues(photoReportDespues);
                 mFuncs.setImageOnImageView(photoReportDespues,imgView3);
-                Toast.makeText(that.getApplicationContext(), photoReportDespues, Toast.LENGTH_SHORT)
-                        .show();
             } catch (Exception e) {
                 Toast.makeText(that.getApplicationContext(), "Error al cargar la foto", Toast.LENGTH_SHORT)
                         .show();
@@ -124,11 +126,15 @@ public class FotografiasAfterFragment extends Fragment {
         } else if(requestCode==CODE_GALERY_PHOTO_ANTES && resultCode==-1) {
             try {
                 Uri photoURI = data.getData();
-                imgView3.setImageURI(photoURI);
-                photoReportDespues = photoURI.toString();
-                LiveData.getInstance().getLiveReport().setFotoAntes(photoReportDespues);
-                Toast.makeText(that.getApplicationContext(), photoReportDespues, Toast.LENGTH_SHORT)
-                        .show();
+
+                bitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), photoURI);
+                imgView3.setImageBitmap(bitmap);
+
+                ByteArrayOutputStream array = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, array);
+                byte[] imagenByte = array.toByteArray();
+                photoReportDespues = Base64.encodeToString(imagenByte, Base64.DEFAULT);
+                LiveData.getInstance().getLiveReport().setFotoDespues(photoReportDespues);
             } catch (Exception e) {
                 Toast.makeText(that.getApplicationContext(), "Error al cargar la foto", Toast.LENGTH_SHORT)
                         .show();

@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,7 @@ import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.LiveData;
 
 import org.grupofemaya.SupervisionAlumbradoPublico.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -38,6 +41,7 @@ public class FotografiasDuringFragment extends Fragment {
 
     MainActivity that;
     View view;
+    Bitmap bitmap;
 
     @BindView(R.id.imgView2)
     ImageView imgView2;
@@ -113,10 +117,8 @@ public class FotografiasDuringFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==CODE_PHOTO_DURANTE && resultCode==-1){
             try {
-                LiveData.getInstance().getLiveReport().setFotoAntes(photoReportDurante);
+                LiveData.getInstance().getLiveReport().setFotoDurante(photoReportDurante);
                 mFuncs.setImageOnImageView(photoReportDurante,imgView2);
-                Toast.makeText(that.getApplicationContext(), photoReportDurante, Toast.LENGTH_SHORT)
-                        .show();
             } catch (Exception e) {
                 Toast.makeText(that.getApplicationContext(), "Error al cargar la foto", Toast.LENGTH_SHORT)
                         .show();
@@ -125,18 +127,14 @@ public class FotografiasDuringFragment extends Fragment {
             try {
                 Uri photoURI = data.getData();
 
-                /*Log.d("Men", photoURI.getEncodedPath());
-                /external/images/media/35760
-                Log.d("Men", photoURI.getPath());
-                /external/images/media/35760
-                Log.d("Men", photoURI.toString());
-                content://media/external/images/media/35760*/
+                bitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), photoURI);
+                imgView2.setImageBitmap(bitmap);
 
-                imgView2.setImageURI(photoURI);
-                photoReportDurante = photoURI.toString();
-                LiveData.getInstance().getLiveReport().setFotoAntes(photoReportDurante);
-                Toast.makeText(that.getApplicationContext(), photoReportDurante, Toast.LENGTH_SHORT)
-                        .show();
+                ByteArrayOutputStream array = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, array);
+                byte[] imagenByte = array.toByteArray();
+                photoReportDurante = Base64.encodeToString(imagenByte, Base64.DEFAULT);
+                LiveData.getInstance().getLiveReport().setFotoDurante(photoReportDurante);
             } catch (Exception e) {
                 Toast.makeText(that.getApplicationContext(), "Error al cargar la foto", Toast.LENGTH_SHORT)
                         .show();
