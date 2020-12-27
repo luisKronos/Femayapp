@@ -1,6 +1,5 @@
 package com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository;
 
-
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Connection.APIClient;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Connection.APIInterface;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.DamageDTO;
@@ -15,6 +14,7 @@ import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQChec
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQCheckPersonal;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQCheckPickups;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQCheckTools;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQGetPending;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQInitCheck;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQLogin;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQPendingCheck;
@@ -22,6 +22,7 @@ import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQRevi
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQRoadsBySector;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQStatusCheck;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSFinalQuantification;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSGetListPendings;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSInitCheck;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSInitReport;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSPendingCheck;
@@ -41,9 +42,7 @@ import retrofit2.Response;
 
 public class Repository {
 
-
     private static final Repository ourInstance = new Repository();
-
 
     private APIInterface apiInterface;
     private RepositoryImp repositoryImp;
@@ -714,6 +713,31 @@ public class Repository {
 
             @Override
             public void onFailure(Call<rsGeneralList<VialidadDTO>> call, Throwable t) {
+                call.cancel();
+                callBack.requestFail("Ocurrio un error.");
+            }
+        });
+    }
+
+    public void requestListPendings(RQGetPending request, final RepositoryImp callBack) {
+        Call<rsGeneralList<RSGetListPendings>> call = apiInterface.requestListPendings(request);
+        call.enqueue(new Callback<rsGeneralList<RSGetListPendings>>() {
+            @Override
+            public void onResponse(Call<rsGeneralList<RSGetListPendings>> call, Response<rsGeneralList<RSGetListPendings>> response) {
+                if (response.body() != null) {
+                    if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
+                        LiveData.getInstance().setListPendings(response.body().getData());
+                        callBack.succedResponse(response.body());
+                    } else {
+                        callBack.requestFail(response.body().getHeader().getMessage());
+                    }
+                } else {
+                    callBack.requestFail(response.body().getHeader().getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<rsGeneralList<RSGetListPendings>> call, Throwable t) {
                 call.cancel();
                 callBack.requestFail("Ocurrio un error.");
             }
