@@ -44,8 +44,8 @@ public class ReportAlumbDTO {
     private String fotoDespues;
     private String fotoMaterial;
     private String notas;
-    private String firmaContratista;
-    private String firmaSupervision;
+    private String firmaContratista = "";
+    private String firmaSupervision = "";
 
     private CuadrillaDTO listCuadrilla = new CuadrillaDTO();
     private EquipoDTO listEquipo = new EquipoDTO();

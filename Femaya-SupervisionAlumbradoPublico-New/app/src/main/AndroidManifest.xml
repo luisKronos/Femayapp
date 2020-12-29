@@ -19,13 +19,20 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.SignActivity"/>
-        <activity android:name="com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.SignActivityContratista"/>
-        <activity android:name="com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.SignActivitySupervision"/>
+        <activity
+            android:name="com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.SignActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.SignActivityContratista"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.SignActivitySupervision"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Login.LoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,14 +42,17 @@
         <activity
             android:name="com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.MainActivity"
             android:label="@string/nav_header_title"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.FirstAlumbrado.NewCarActivity"
             android:label="@string/nav_header_title"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.ScanActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

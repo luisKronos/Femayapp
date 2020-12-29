@@ -129,7 +129,7 @@ public class MinutaFragment extends GenericFragment {
                     .setCancelable(false)
                     .setPositiveButton("Agregar", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-
+                            that.showProgress();
                             rqReport = LiveData.getInstance().getLiveReport();
 
                             LiveData.getInstance().getLiveReport().getMinuta().setTipoLuminario(txtTipoLuminaria.getText().toString().toUpperCase());
