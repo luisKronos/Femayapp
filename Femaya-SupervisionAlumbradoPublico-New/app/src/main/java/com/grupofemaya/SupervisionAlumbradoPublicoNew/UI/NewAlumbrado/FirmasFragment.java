@@ -193,6 +193,10 @@ public class FirmasFragment extends GenericFragment {
     private void goNext(){
         FinFolioFragment newFragment = new FinFolioFragment();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+        LiveData.getInstance().setSignSupervision(null);
+        LiveData.getInstance().setSignContratista(null);
+
         transaction.replace(R.id.content_main, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
