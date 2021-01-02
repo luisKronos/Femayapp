@@ -83,7 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Cabo de Albañileria"
+                    android:text="Cabo de Albañilería"
                     android:textSize="22sp" />
 
                 <CheckBox
@@ -91,7 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Cabo de Herreria"
+                    android:text="Cabo de Herrería"
                     android:textSize="22sp" />
 
                 <CheckBox
@@ -99,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Operador de Vehiculo Med."
+                    android:text="Operador de Vehículo Med."
                     android:textSize="22sp" />
 
                 <CheckBox
@@ -107,7 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Operador de Copresor"
+                    android:text="Operador de Compresor"
                     android:textSize="22sp" />
 
                 <CheckBox

@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
-            android:text="FOTOGRAFIAS DE MATERIALES"
+            android:text="FOTOGRAFÍAS DE MATERIALES"
             android:textSize="21sp" />
 
         <EditText

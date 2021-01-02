@@ -82,7 +82,7 @@ public class FotografiasAfterFragment extends Fragment {
 
     private void tomarFotoDespues() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Abrir fotografia");
+        builder.setTitle("Abrir fotografía");
         builder.setCancelable(true);
         builder.setPositiveButton("Tomar foto", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -101,7 +101,7 @@ public class FotografiasAfterFragment extends Fragment {
                 }
             }
         });
-        builder.setNegativeButton("Galeria", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Galería", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Intent galeryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
