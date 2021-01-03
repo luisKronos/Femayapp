@@ -80,7 +80,7 @@ public class FirmasFragment extends GenericFragment {
             }
 
             if(LiveData.getInstance().getLiveReport().getFotoDurante()!=null) {
-                if(LiveData.getInstance().getLiveReport().getFotoAntes().length() < 500) {
+                if(LiveData.getInstance().getLiveReport().getFotoDurante().length() < 500) {
                     rqReport.setFotoDurante(mFuncs.convierteBase64(LiveData.getInstance().getLiveReport().getFotoDurante()));
                 } else {
                     rqReport.setFotoDurante(LiveData.getInstance().getLiveReport().getFotoDurante());
@@ -88,7 +88,7 @@ public class FirmasFragment extends GenericFragment {
             }
 
             if(LiveData.getInstance().getLiveReport().getFotoDespues()!=null) {
-                if(LiveData.getInstance().getLiveReport().getFotoAntes().length() < 500) {
+                if(LiveData.getInstance().getLiveReport().getFotoDespues().length() < 500) {
                     rqReport.setFotoDespues(mFuncs.convierteBase64(LiveData.getInstance().getLiveReport().getFotoDespues()));
                 } else {
                     rqReport.setFotoDespues(LiveData.getInstance().getLiveReport().getFotoDespues());
