@@ -10,11 +10,11 @@ import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.ReportAlumbDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.ReportAlumbDirDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.VialidadDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSFinalQuantification;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSGetListPendings;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSStatusCheck;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * Created by luiscarlin on 7/12/16.
@@ -36,6 +36,8 @@ public class LiveData {
     private List<MaterialDTO>  listMaterials = new ArrayList<>();
     private Bitmap signContratista;
     private Bitmap signSupervision;
+
+    private List<RSGetListPendings> listPendings = new ArrayList<>();
 
 
     private static LiveData ourInstance = new LiveData();
@@ -152,5 +154,21 @@ public class LiveData {
 
     public void setLiveReportDirector(ReportAlumbDirDTO liveReportDirector) {
         this.liveReportDirector = liveReportDirector;
+    }
+
+    public List<RSGetListPendings> getListPendings() {
+        return listPendings;
+    }
+
+    public void setListPendings(List<RSGetListPendings> listPendings) {
+        this.listPendings = listPendings;
+    }
+
+    public static LiveData getOurInstance() {
+        return ourInstance;
+    }
+
+    public static void setOurInstance(LiveData ourInstance) {
+        LiveData.ourInstance = ourInstance;
     }
 }

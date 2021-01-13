@@ -4,11 +4,16 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ListView;
 
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.MaterialDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.Repository;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.RepositoryImp;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Adapters.AdapterMaterial;
@@ -22,8 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-
-public class ListMaterialFragment extends GenericFragment {
+public class ListMaterialFragment extends GenericFragment implements AdapterMaterial.OnItemMaterialSelectedListener {
 
     MainActivity that;
     View view;
@@ -33,11 +37,9 @@ public class ListMaterialFragment extends GenericFragment {
 
     AdapterMaterial adapter;
 
-
     public ListMaterialFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,9 +51,6 @@ public class ListMaterialFragment extends GenericFragment {
         getDamages();
         return view;
     }
-
-
-
 
     @OnClick(R.id.btn)
     public void clickContinuar(){
@@ -93,16 +92,10 @@ public class ListMaterialFragment extends GenericFragment {
         });
     }
 
-
     private void fillData(){
-        adapter = new AdapterMaterial(that,LiveData.getInstance().getListMaterials());
+        adapter = new AdapterMaterial(that,LiveData.getInstance().getListMaterials(), this);
         listView.setAdapter(adapter);
     }
-
-
-
-
-
 
     private void goNext(){
         FotografiaMaterialesFragment newFragment = new FotografiaMaterialesFragment();
@@ -112,4 +105,40 @@ public class ListMaterialFragment extends GenericFragment {
         transaction.commit();
     }
 
+    @Override
+    public void onItemMaterialSelected(MaterialDTO item) {
+        if(item.getMaterial().equals("Otro")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle("Agregar otro tipo de material");
+            View viewInflated = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_text_other_damage, (ViewGroup) getView(), false);
+            EditText txtOther = viewInflated.findViewById(R.id.txtOther);
+            builder.setView(viewInflated)
+                    .setCancelable(false)
+                    .setPositiveButton("Agregar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            item.setValueForOtro(txtOther.getText().toString());
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+
+            txtOther.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+                @Override
+                public void afterTextChanged(Editable e) {
+                    if(!e.toString().isEmpty()) {
+                        alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    } else {
+                        alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                    }
+                }
+            });
+        }
+    }
 }

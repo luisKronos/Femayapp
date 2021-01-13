@@ -2,6 +2,7 @@ package com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels;
 
 public class EquipoDTO {
 
+    private int uniforme=0;
     private int camion=0;
     private int camioneta=0;
     private int compresor=0;
@@ -11,6 +12,13 @@ public class EquipoDTO {
     private int equipoSeguridad=0;
     private int senalamiento=0;
 
+    public int getUniforme() {
+        return uniforme;
+    }
+
+    public void setUniforme(int uniforme) {
+        this.uniforme = uniforme;
+    }
 
     public int getCamion() {
         return camion;

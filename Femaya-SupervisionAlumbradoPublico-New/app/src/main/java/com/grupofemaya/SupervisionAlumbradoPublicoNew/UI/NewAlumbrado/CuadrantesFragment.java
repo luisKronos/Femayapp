@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.MainActivity;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.LiveData;
@@ -20,6 +21,7 @@ public class CuadrantesFragment extends Fragment {
 
     MainActivity that;
     View view;
+    Boolean typeRecuperado;
 
 
     public CuadrantesFragment() {
@@ -34,6 +36,11 @@ public class CuadrantesFragment extends Fragment {
         // Inflate the layout for this fragment
         ButterKnife.bind(this, view);
         that = (MainActivity) getActivity();
+
+        Bundle recuperarType = getArguments();
+        if (recuperarType != null) {
+            typeRecuperado = recuperarType.getBoolean("type");
+        }
 
 
         return view;
@@ -71,6 +78,11 @@ public class CuadrantesFragment extends Fragment {
         LiveData.getInstance().getLiveReport().setIdCuadrante(idCuadrante);
         VialidadesFragment newFragment = new VialidadesFragment();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+        Bundle type = new Bundle();
+        type.putBoolean("type", typeRecuperado);
+        newFragment.setArguments(type);
+
         transaction.replace(R.id.content_main, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();

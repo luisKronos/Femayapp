@@ -2,6 +2,7 @@ package com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels;
 
 public class CuadrillaDTO {
 
+    private int caboCuadrilla=0;
     private int albanil=0;
     private int ayudanteDeOficial=0;
     private int herreroDeTaller=0;
@@ -13,6 +14,10 @@ public class CuadrillaDTO {
     private int operadorDeCortadora=0;
     private int operadorDeRevolvedora=0;
     private int operadorDeOxiacetileno=0;
+
+    public int getCaboCuadrilla() { return caboCuadrilla; }
+
+    public void setCaboCuadrilla(int caboCuadrilla) { this.caboCuadrilla = caboCuadrilla; }
 
     public int getAlbanil() {
         return albanil;

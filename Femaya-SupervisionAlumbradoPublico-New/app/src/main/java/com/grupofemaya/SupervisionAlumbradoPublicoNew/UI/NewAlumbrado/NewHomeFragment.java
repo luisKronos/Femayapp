@@ -21,7 +21,6 @@ import org.grupofemaya.SupervisionAlumbradoPublico.R;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-
 public class NewHomeFragment extends Fragment {
 
     MainActivity that;
@@ -32,7 +31,6 @@ public class NewHomeFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -40,7 +38,6 @@ public class NewHomeFragment extends Fragment {
         // Inflate the layout for this fragment
         ButterKnife.bind(this, view);
         that = (MainActivity) getActivity();
-
 
         return view;
     }
@@ -50,50 +47,25 @@ public class NewHomeFragment extends Fragment {
     public void clickRecoger(View view) {
         CuadrantesFragment newFragment = new CuadrantesFragment();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+        Bundle type = new Bundle();
+        type.putBoolean("type", true);
+        newFragment.setArguments(type);
+
         transaction.replace(R.id.content_main, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
 
-
-    @OnClick(R.id.btnReportDirector)
-    public void clickDirector(View view) {
-        VialidadesDirectorFragment newFragment = new VialidadesDirectorFragment();
+    @OnClick(R.id.btnPendientes)
+    public void clickPendiente(View view) {
+        CuadrantesFragment newFragment = new CuadrantesFragment();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content_main, newFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
 
+        Bundle type = new Bundle();
+        type.putBoolean("type", false);
+        newFragment.setArguments(type);
 
-    private void checkPendings(){
-        RQPendingCheck rqInitCheck = new RQPendingCheck();
-        rqInitCheck.setIdUser(SharedPreferencesManager.getInstance().getIdUser());
-        that.showProgress();
-        Repository.getInstance().requestPendingsChecks(rqInitCheck,new RepositoryImp() {
-            @Override
-            public void succedResponse(Object response) {
-                that.hideProgress();
-                RSPendingsChecks rsPendingCheck = (RSPendingsChecks)response;
-
-                if(rsPendingCheck.isHasPendindChecks()){
-                    LiveData.getInstance().setPendingChecks(rsPendingCheck.getChecks());
-                    goPendingChecks();
-                }
-
-            }
-
-            @Override
-            public void requestFail(String message) {
-                that.hideProgress();
-                that.showDialog(message);
-            }
-        });
-    }
-
-    private void goPendingChecks(){
-        PendingChecksFragment newFragment = new PendingChecksFragment();
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content_main, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();

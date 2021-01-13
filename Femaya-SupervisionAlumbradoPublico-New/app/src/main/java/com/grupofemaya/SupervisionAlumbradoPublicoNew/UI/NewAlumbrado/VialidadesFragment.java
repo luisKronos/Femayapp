@@ -1,17 +1,27 @@
 package com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.NewAlumbrado;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.VialidadDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.Repository;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.RepositoryImp;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Adapters.AdapterVialidades;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.FirstAlumbrado.PendingChecksFragment;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.MainActivity;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.LiveData;
 
@@ -26,6 +36,7 @@ public class VialidadesFragment extends Fragment implements AdapterVialidades.On
     MainActivity that;
     View view;
     AdapterVialidades adapterVialidades;
+    Boolean typeRecuperado;
 
 
     public VialidadesFragment() {
@@ -43,6 +54,11 @@ public class VialidadesFragment extends Fragment implements AdapterVialidades.On
         // Inflate the layout for this fragment
         ButterKnife.bind(this, view);
         that = (MainActivity) getActivity();
+
+        Bundle recuperarType = getArguments();
+        if (recuperarType != null) {
+            typeRecuperado = recuperarType.getBoolean("type");
+        }
 
         getVialidades();
 
@@ -84,18 +100,57 @@ public class VialidadesFragment extends Fragment implements AdapterVialidades.On
         adapterVialidades = new AdapterVialidades(that,LiveData.getInstance().getVialidades());
         adapterVialidades.setItemSelectedListener(this);
         listView.setAdapter(adapterVialidades);
-
-
     }
 
 
     @Override
     public void onItemSelected(VialidadDTO item) {
         LiveData.getInstance().getLiveReport().setIdVialidad(item.getIdVialidad());
-        CuadrillasFragment newFragment = new CuadrillasFragment();
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content_main, newFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        if(typeRecuperado) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle("Numero de Cuadrilla");
+            View viewInflated = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_number_cuadrilla, (ViewGroup) getView(), false);
+            EditText txtNumber = viewInflated.findViewById(R.id.txtNumberCuadrilla);
+            builder.setView(viewInflated)
+                    .setCancelable(true)
+                    .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            LiveData.getInstance().getLiveReport().setCuadrilla(Integer.parseInt(txtNumber.getText().toString()));
+                            PersonalCuadrillasFragment newFragment = new PersonalCuadrillasFragment();
+                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                            transaction.replace(R.id.content_main, newFragment);
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+            alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+
+            txtNumber.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+                @Override
+                public void afterTextChanged(Editable e) {
+                    if(!e.toString().isEmpty()) {
+                        alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    } else {
+                        alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                    }
+                }
+            });
+        } else {
+            PendingChecksFragment newFragment = new PendingChecksFragment();
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content_main, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
     }
 }
+
+

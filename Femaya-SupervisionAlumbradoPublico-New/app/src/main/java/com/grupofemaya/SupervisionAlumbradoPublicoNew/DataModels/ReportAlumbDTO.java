@@ -17,8 +17,11 @@ public class ReportAlumbDTO {
     private String placas;
     private String alcaldia;
     private String tramo;
+    private String colonia;
+    private String referencia;
 
     private int cuadrilla;
+    private int caboCuadrilla;
     private int persElectricistaBaja;
     private int persElectricista;
     private int persElectricistaAyudante;
@@ -29,6 +32,9 @@ public class ReportAlumbDTO {
     private int equipCamioneta;
     private int equipSeguridad;
     private int equipSenalamiento;
+    private int equipUniforme;
+    private int idReportAlumbradoAux = 0;
+
     private String fotoCuadrilla;
     private String obsMaterial;
     private String fotoEquipo;
@@ -78,6 +84,14 @@ public class ReportAlumbDTO {
 
     public void setCuadrilla(int cuadrilla) {
         this.cuadrilla = cuadrilla;
+    }
+
+    public int getPersCaboCuadrilla() {
+        return caboCuadrilla;
+    }
+
+    public void setPersCaboCuadrilla(int caboCuadrilla) {
+        this.caboCuadrilla = caboCuadrilla;
     }
 
     public int getPersElectricistaBaja() {
@@ -158,6 +172,22 @@ public class ReportAlumbDTO {
 
     public void setEquipSenalamiento(int equipSenalamiento) {
         this.equipSenalamiento = equipSenalamiento;
+    }
+
+    public int getEquipUniforme() {
+        return equipUniforme;
+    }
+
+    public void setEquipUniforme(int equipUniforme) {
+        this.equipUniforme = equipUniforme;
+    }
+
+    public int getIdReportAlumbradoAux() {
+        return idReportAlumbradoAux;
+    }
+
+    public void setIdReportAlumbradoAux(int idReportAlumbradoAux) {
+        this.idReportAlumbradoAux = idReportAlumbradoAux;
     }
 
     public String getFotoCuadrilla() {
@@ -343,4 +373,16 @@ public class ReportAlumbDTO {
     public void setTramo(String tramo) {
         this.tramo = tramo;
     }
+
+    public String getColonia() {
+        return colonia;
+    }
+
+    public void setColonia(String colonia) { this.colonia = colonia; }
+
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) { this.referencia = referencia; }
 }

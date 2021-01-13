@@ -11,76 +11,96 @@
     tools:context=".ui.MainActivity"
     android:background="@android:color/white">
 
-
-    <LinearLayout
-        android:id="@+id/layoutContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            android:text="SE CUENTA CON MATERIAL PARA REALIZAR REPARACIÓN"
-            android:textSize="21sp" />
-
-
-        <Switch
-            android:id="@+id/switch1"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="NO / SI" />
+            android:layout_height="match_parent" >
 
-        <EditText
-            android:id="@+id/txtObs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="33dp"
-            android:hint="Observaciones"
-            android:textColor="@android:color/black"
-            android:textColorHint="@color/colorGray" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:text="SE CUENTA CON MATERIAL PARA REALIZAR REPARACIÓN"
+                    android:textSize="21sp" />
+
+                <Switch
+                    android:id="@+id/switch1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="NO / SI" />
+
+                <EditText
+                    android:id="@+id/txtObs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:hint="Observaciones"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/colorGray" />
+
+                <EditText
+                    android:id="@+id/txtPLacas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:hint="Placas"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/colorGray" />
+
+                <EditText
+                    android:id="@+id/txtAlcaldia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:hint="Alcaldía"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/colorGray" />
 
 
-        <EditText
-            android:id="@+id/txtPLacas"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="33dp"
-            android:hint="Placas"
-            android:textColor="@android:color/black"
-            android:textColorHint="@color/colorGray" />
+                <EditText
+                    android:id="@+id/txtTramo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:hint="Tramo"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/colorGray" />
 
-        <EditText
-            android:id="@+id/txtAlcaldia"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="33dp"
-            android:hint="Alcaldía"
-            android:textColor="@android:color/black"
-            android:textColorHint="@color/colorGray" />
+                <EditText
+                    android:id="@+id/txtColonia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:hint="Colonia"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/colorGray" />
 
+                <EditText
+                    android:id="@+id/txtReferencia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:hint="Referencia ubicación"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/colorGray" />
 
-        <EditText
-            android:id="@+id/txtTramo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="33dp"
-            android:hint="Tramo"
-            android:textColor="@android:color/black"
-            android:textColorHint="@color/colorGray" />
+                </LinearLayout>
 
-
-
-    </LinearLayout>
+        </ScrollView>
 
     <Button
         android:id="@+id/btn"
