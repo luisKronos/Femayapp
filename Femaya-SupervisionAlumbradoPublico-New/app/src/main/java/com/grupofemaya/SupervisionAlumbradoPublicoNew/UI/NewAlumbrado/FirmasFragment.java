@@ -72,15 +72,27 @@ public class FirmasFragment extends GenericFragment {
             }
 
             if(LiveData.getInstance().getLiveReport().getFotoAntes()!=null) {
-                rqReport.setFotoAntes(mFuncs.convierteBase64(LiveData.getInstance().getLiveReport().getFotoAntes()));
+                if(LiveData.getInstance().getLiveReport().getFotoAntes().length() < 500) {
+                    rqReport.setFotoAntes(mFuncs.convierteBase64(LiveData.getInstance().getLiveReport().getFotoAntes()));
+                } else {
+                    rqReport.setFotoAntes(LiveData.getInstance().getLiveReport().getFotoAntes());
+                }
             }
 
             if(LiveData.getInstance().getLiveReport().getFotoDurante()!=null) {
-                rqReport.setFotoDurante(mFuncs.convierteBase64(LiveData.getInstance().getLiveReport().getFotoDurante()));
+                if(LiveData.getInstance().getLiveReport().getFotoDurante().length() < 500) {
+                    rqReport.setFotoDurante(mFuncs.convierteBase64(LiveData.getInstance().getLiveReport().getFotoDurante()));
+                } else {
+                    rqReport.setFotoDurante(LiveData.getInstance().getLiveReport().getFotoDurante());
+                }
             }
 
             if(LiveData.getInstance().getLiveReport().getFotoDespues()!=null) {
-                rqReport.setFotoDespues(mFuncs.convierteBase64(LiveData.getInstance().getLiveReport().getFotoDespues()));
+                if(LiveData.getInstance().getLiveReport().getFotoDespues().length() < 500) {
+                    rqReport.setFotoDespues(mFuncs.convierteBase64(LiveData.getInstance().getLiveReport().getFotoDespues()));
+                } else {
+                    rqReport.setFotoDespues(LiveData.getInstance().getLiveReport().getFotoDespues());
+                }
             }
 
             mHandler.sendMessage(msg);
@@ -181,6 +193,10 @@ public class FirmasFragment extends GenericFragment {
     private void goNext(){
         FinFolioFragment newFragment = new FinFolioFragment();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+        LiveData.getInstance().setSignSupervision(null);
+        LiveData.getInstance().setSignContratista(null);
+
         transaction.replace(R.id.content_main, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();

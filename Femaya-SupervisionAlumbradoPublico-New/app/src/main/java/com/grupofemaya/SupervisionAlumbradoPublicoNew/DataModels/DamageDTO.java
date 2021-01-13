@@ -5,6 +5,7 @@ public class DamageDTO {
     private String idDamage;
     private String damage;
     private int value=0;
+    private String valueForOtro;
 
     public String getIdDamage() {
         return idDamage;
@@ -29,4 +30,8 @@ public class DamageDTO {
     public void setValue(int value) {
         this.value = value;
     }
+
+    public String getValueForOtro() { return valueForOtro; }
+
+    public void setValueForOtro(String valueForOtro) { this.valueForOtro = valueForOtro; }
 }

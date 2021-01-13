@@ -8,11 +8,15 @@ import android.os.Handler;
 import android.os.Message;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.ReportAlumbDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.Repository;
@@ -58,10 +62,11 @@ public class SeCuentaFragment extends Fragment {
             LiveData.getInstance().getLiveReport().setPlacas(txtPLacas.getText().toString().toUpperCase());
             LiveData.getInstance().getLiveReport().setAlcaldia(txtAlcaldia.getText().toString().toUpperCase());
             LiveData.getInstance().getLiveReport().setTramo(txtTramo.getText().toString().toUpperCase());
-
+            LiveData.getInstance().getLiveReport().setColonia(txtColonia.getText().toString().toUpperCase());
+            LiveData.getInstance().getLiveReport().setReferencia(txtReferencia.getText().toString().toUpperCase());
 
             rqInitReport = LiveData.getInstance().getLiveReport();
-            if(LiveData.getInstance().getLiveReport().getFotoCuadrilla()!=null) {
+            if(LiveData.getInstance().getLiveReport().getFotoCuadrilla() != null) {
                 rqInitReport.setFotoCuadrilla(mFuncs.convierteBase64(LiveData.getInstance().getLiveReport().getFotoCuadrilla()));
             }
             mHandler.sendMessage(msg);
@@ -77,6 +82,10 @@ public class SeCuentaFragment extends Fragment {
     EditText txtTramo;
     @BindView(R.id.txtPLacas)
     EditText txtPLacas;
+    @BindView(R.id.txtColonia)
+    EditText txtColonia;
+    @BindView(R.id.txtReferencia)
+    EditText txtReferencia;
 
 
     public SeCuentaFragment() {
@@ -127,8 +136,8 @@ public class SeCuentaFragment extends Fragment {
             @Override
             public void succedResponse(Object response) {
                 that.hideProgress();
-                //that.showDialog("Reporte guardado");
-                goNext();
+                Toast.makeText(getContext(), "Reporte guardado", Toast.LENGTH_SHORT).show();
+                addOther();
             }
 
             @Override
@@ -139,21 +148,69 @@ public class SeCuentaFragment extends Fragment {
         });
     }
 
+    private void addOther() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(that);
+        builder.setMessage("¿Desea agregar otra cuadrilla?")
+                .setCancelable(false)
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) { goNext(); }
+                })
+                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        goAddOther();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void goAddOther() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Numero de Cuadrilla");
+        View viewInflated = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_number_cuadrilla, (ViewGroup) getView(), false);
+        EditText txtNumber = viewInflated.findViewById(R.id.txtNumberCuadrilla);
+        builder.setView(viewInflated)
+                .setCancelable(false)
+                .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        LiveData.getInstance().getLiveReport().setCuadrilla(Integer.parseInt(txtNumber.getText().toString()));
+                        LiveData.getInstance().getLiveReport().setIdReportAlumbradoAux(Integer.parseInt(LiveData.getInstance().getLiveReport().getIdReportAlumbrado()));
+                        PersonalCuadrillasFragment newFragment = new PersonalCuadrillasFragment();
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.content_main, newFragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+        alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+
+        txtNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void afterTextChanged(Editable e) {
+                if(!e.toString().isEmpty()) {
+                    alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                } else {
+                    alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                }
+            }
+        });
+    }
+
     private void goNext(){
-        if(switch1.isChecked()){
+        //if(switch1.isChecked()){
             CuadrillaObraCivilFragment newFragment = new CuadrillaObraCivilFragment();
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.content_main, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
-        }else{
-            NewHomeFragment newFragment = new NewHomeFragment();
-            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.content_main, newFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
-        }
-
+        //}
     }
-
 }

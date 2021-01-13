@@ -1,40 +1,41 @@
 package com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.FirstAlumbrado;
 
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQPendingCheck;
-import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSPendingsChecks;
-import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSStatusCheck;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQGetPending;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSGetListPendings;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.Repository;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.RepositoryImp;
-import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Adapters.AdapterChecks;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Adapters.AdapterListPendings;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.MainActivity;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.NewAlumbrado.ListMaterialFragment;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.LiveData;
-import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.SharedPreferencesManager;
 
 import org.grupofemaya.SupervisionAlumbradoPublico.R;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
-public class PendingChecksFragment extends Fragment {
+public class PendingChecksFragment extends Fragment implements AdapterListPendings.OnItemSelectedListener {
 
     MainActivity that;
     View view;
+    RQGetPending request = new RQGetPending();
+    AdapterListPendings adapterListPendings;
 
     @BindView(R.id.listView)
     ListView listView;
 
 
-    public PendingChecksFragment() {
+    /*public PendingChecksFragment() {
         // Required empty public constructor
     }
 
@@ -46,7 +47,7 @@ public class PendingChecksFragment extends Fragment {
         myFragment.setArguments(args);
 
         return myFragment;
-    }
+    }*/
 
 
     @Override
@@ -56,8 +57,10 @@ public class PendingChecksFragment extends Fragment {
         ButterKnife.bind(this, view);
         that = (MainActivity) getActivity();
 
+        getListPendings();
 
-        boolean isGonnaCheck = false;
+
+        /*boolean isGonnaCheck = false;
         if (getArguments() != null && getArguments().containsKey("checkPendings")){
             isGonnaCheck=getArguments().getBoolean("checkPendings", false);
         }
@@ -66,16 +69,55 @@ public class PendingChecksFragment extends Fragment {
             checkPendings();
         }else{
             fillChecks();
-        }
-
-
-
+        }*/
 
         return view;
     }
 
+    private void getListPendings() {
+        request.setIdCuadrante(LiveData.getInstance().getLiveReport().getIdCuadrante());
+        request.setIdVialidad(LiveData.getInstance().getLiveReport().getIdVialidad());
 
-    private void checkPendings(){
+        that.showProgress();
+
+        Repository.getInstance().requestListPendings(request, new RepositoryImp() {
+            @Override
+            public void succedResponse(Object response) {
+                that.hideProgress();
+                fillData();
+            }
+
+            @Override
+            public void requestFail(String message) {
+                that.hideProgress();
+                that.showDialog(message);
+            }
+        });
+    }
+
+    private void fillData(){
+        adapterListPendings = new AdapterListPendings(that,LiveData.getInstance().getListPendings());
+        adapterListPendings.setItemSelectedListener(this);
+        listView.setAdapter(adapterListPendings);
+    }
+
+    @Override
+    public void onItemSelected(RSGetListPendings item) {
+        LiveData.getInstance().getLiveReport().setIdReportAlumbrado(item.getIdReportAlumbrado());
+        goNext();
+
+    }
+    private void goNext(){
+        ListMaterialFragment newFragment = new ListMaterialFragment();
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_main, newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+
+
+    /*private void checkPendings(){
         RQPendingCheck rqInitCheck = new RQPendingCheck();
         rqInitCheck.setIdUser(SharedPreferencesManager.getInstance().getIdUser());
         that.showProgress();
@@ -87,7 +129,6 @@ public class PendingChecksFragment extends Fragment {
 
                 if(rsPendingCheck.isHasPendindChecks()){
                     LiveData.getInstance().setPendingChecks(rsPendingCheck.getChecks());
-                    fillChecks();
                 }
 
             }
@@ -109,15 +150,12 @@ public class PendingChecksFragment extends Fragment {
                 RSStatusCheck item = LiveData.getInstance().getPendingChecks().get(position);
                 if(item.getStatus().equals("0")){
                     LiveData.getInstance().setIdCheck(item.getIdCheck());
-                    goCheck();
                 } else if(item.getStatus().equals("1")){
                     LiveData.getInstance().setIdCheck(item.getIdCheck());
-                    goCheckQuantification();
                 }
             }
         });
     }
-
 
     private void goCheck(){
         CheckListFragment newFragment = new CheckListFragment();
@@ -133,7 +171,7 @@ public class PendingChecksFragment extends Fragment {
         transaction.replace(R.id.content_main, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
-    }
+    }*/
 
 
 }

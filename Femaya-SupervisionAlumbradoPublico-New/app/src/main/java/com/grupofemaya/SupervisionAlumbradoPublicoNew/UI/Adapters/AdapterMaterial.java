@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.DamageDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.MaterialDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.VialidadDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.LiveData;
@@ -20,11 +21,8 @@ import java.util.List;
  * Created by luiscarlin on 5/24/17.
  */
 public class AdapterMaterial extends ArrayAdapter<MaterialDTO> {
-
-
     OnItemSelectedListener itemSelectedListener;
-
-
+    OnItemMaterialSelectedListener itemMaterialSelectedListener;
 
     public interface OnItemSelectedListener {
         void onItemSelected(VialidadDTO item);
@@ -34,8 +32,13 @@ public class AdapterMaterial extends ArrayAdapter<MaterialDTO> {
         CheckBox txtCheck;
     }
 
-    public AdapterMaterial(Context context, List<MaterialDTO> items) {
+    public interface OnItemMaterialSelectedListener {
+        void onItemMaterialSelected(MaterialDTO item);
+    }
+
+    public AdapterMaterial(Context context, List<MaterialDTO> items, OnItemMaterialSelectedListener itemMaterialSelectedListener) {
         super(context, R.layout.item_damges, items);
+        this.itemMaterialSelectedListener = itemMaterialSelectedListener;
     }
 
     @Override
@@ -61,6 +64,7 @@ public class AdapterMaterial extends ArrayAdapter<MaterialDTO> {
                     public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
                         if(isChecked){
                             LiveData.getInstance().getLiveReport().getListaMaterial().add(item);
+                            itemMaterialSelectedListener.onItemMaterialSelected(item);
                         }else{
                             LiveData.getInstance().getLiveReport().getListaMaterial().remove(item);
                         }
@@ -68,13 +72,7 @@ public class AdapterMaterial extends ArrayAdapter<MaterialDTO> {
                     }
                 }
             );
-
-
         }
-
-
         return convertView;
     }
-
-
 }

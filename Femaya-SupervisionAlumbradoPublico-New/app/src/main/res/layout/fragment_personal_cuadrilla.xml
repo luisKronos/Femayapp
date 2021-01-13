@@ -26,12 +26,19 @@
             android:text="PERSONAL DE CUADRILLA"
             android:textSize="21sp" />
 
+        <CheckBox
+            android:id="@+id/check0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Cabo de Cuadrilla"
+            android:textSize="22sp" />
 
         <CheckBox
             android:id="@+id/check1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:text="Electricista Baja Tensión"
             android:textSize="22sp" />
 
