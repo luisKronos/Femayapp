@@ -67,7 +67,11 @@ public class SeCuentaFragment extends Fragment {
 
             rqInitReport = LiveData.getInstance().getLiveReport();
             if(LiveData.getInstance().getLiveReport().getFotoCuadrilla() != null) {
-                rqInitReport.setFotoCuadrilla(mFuncs.convierteBase64(LiveData.getInstance().getLiveReport().getFotoCuadrilla()));
+                if (LiveData.getInstance().getLiveReport().getFotoCuadrilla().length() < 500) {
+                    rqInitReport.setFotoCuadrilla(mFuncs.convierteBase64(LiveData.getInstance().getLiveReport().getFotoCuadrilla()));
+                } else {
+                    rqInitReport.setFotoCuadrilla(LiveData.getInstance().getLiveReport().getFotoCuadrilla());
+                }
             }
             mHandler.sendMessage(msg);
         }
