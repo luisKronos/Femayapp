@@ -1,7 +1,5 @@
 package com.grupofemaya.SupervisionAlumbradoPublicoNew.Connection;
 
-import android.util.Log;
-
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -37,31 +35,6 @@ public class APIClient {
             }
         });
 
-        httpClient.addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
-                Response response;
-                boolean responseOK = false;
-                int tryCount = 1;
-
-                while (!responseOK && tryCount < 4) {
-                    try {
-                        response = chain.proceed(request);
-                        responseOK = response.isSuccessful();
-                        Log.d("intercept", "Request is successful - " + tryCount);
-                    }catch (Exception e){
-                        Log.d("intercept", "Request is not successful - " + tryCount);
-                    }finally{
-                        tryCount++;
-                    }
-                }
-
-                // otherwise just pass the original response on
-                return chain.proceed(request);
-            }
-        });
-
         OkHttpClient client = httpClient.build()
                 .newBuilder()
                 .connectTimeout(30, TimeUnit.SECONDS)
@@ -74,8 +47,6 @@ public class APIClient {
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
-
-
 
         return retrofit;
     }

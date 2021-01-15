@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -12,6 +13,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +29,7 @@ import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.LiveData;
 
 import org.grupofemaya.SupervisionAlumbradoPublico.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -47,9 +51,11 @@ public class FotoCuadrillaFragment extends GenericFragment {
 
 
     static int CODE_PHOTO=100;
+    static int CODE_PHOTO_GALERY=200;
     static final int CODE_REQ_PERMISSION=600;
     String photoReport="";
     Funcs mFuncs = new Funcs();
+    Bitmap bitmap;
 
     public FotoCuadrillaFragment() {
         // Required empty public constructor
@@ -84,19 +90,35 @@ public class FotoCuadrillaFragment extends GenericFragment {
     }
 
     private void tomarFoto( ) {
-        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if(pictureIntent.resolveActivity(that.getPackageManager()) != null){
-            File photoFile = null;
-            try {
-                photoFile = mFuncs.createImageFile(that);
-                photoReport = photoFile.getAbsolutePath();
-            } catch (IOException ex) {
-                that.showDialog(ex.getMessage());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Abrir fotografía");
+        builder.setCancelable(true);
+        builder.setPositiveButton("Tomar foto", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (pictureIntent.resolveActivity(that.getPackageManager()) != null) {
+                    File photoFile = null;
+                    try {
+                        photoFile = mFuncs.createImageFile(that);
+                        photoReport = photoFile.getAbsolutePath();
+                    } catch (IOException ex) {
+                        that.showDialog(ex.getMessage());
+                    }
+                    Uri photoURI = FileProvider.getUriForFile(that,that.getApplicationContext().getPackageName()+".provider",photoFile);
+                    pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                    startActivityForResult(pictureIntent, CODE_PHOTO);
+                }
             }
-            Uri photoURI = FileProvider.getUriForFile(that,that.getApplicationContext().getPackageName()+".provider",photoFile);
-            pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-            startActivityForResult(pictureIntent, CODE_PHOTO);
-        }
+        });
+        builder.setNegativeButton("Galería", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent galeryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                startActivityForResult(galeryIntent, CODE_PHOTO_GALERY);
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
 
@@ -106,6 +128,22 @@ public class FotoCuadrillaFragment extends GenericFragment {
             try {
                 LiveData.getInstance().getLiveReport().setFotoCuadrilla(photoReport);
                 mFuncs.setImageOnImageView(photoReport,imgView);
+            } catch (Exception e) {
+                Toast.makeText(that.getApplicationContext(), "Error al cargar la foto", Toast.LENGTH_SHORT)
+                        .show();
+            }
+        } else if(requestCode==CODE_PHOTO_GALERY && resultCode==-1) {
+            try {
+                Uri photoURI = data.getData();
+
+                bitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), photoURI);
+                imgView.setImageBitmap(bitmap);
+
+                ByteArrayOutputStream array = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, array);
+                byte[] imagenByte = array.toByteArray();
+                photoReport = Base64.encodeToString(imagenByte, Base64.DEFAULT);
+                LiveData.getInstance().getLiveReport().setFotoCuadrilla(photoReport);
             } catch (Exception e) {
                 Toast.makeText(that.getApplicationContext(), "Error al cargar la foto", Toast.LENGTH_SHORT)
                         .show();
