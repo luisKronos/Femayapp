@@ -9,6 +9,7 @@ import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.MaterialDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.ReportAlumbDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.ReportAlumbDirDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.VialidadDTO;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQCuadrilla;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSFinalQuantification;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSGetListPendings;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSStatusCheck;
@@ -170,5 +171,17 @@ public class LiveData {
 
     public static void setOurInstance(LiveData ourInstance) {
         LiveData.ourInstance = ourInstance;
+    }
+
+
+    //NEW LINE
+    private RQCuadrilla cuadrillaReport = new RQCuadrilla();
+
+    public RQCuadrilla getCuadrillaReport() {
+        return cuadrillaReport;
+    }
+
+    public void setCuadrillaReport(RQCuadrilla cuadrillaReport) {
+        this.cuadrillaReport = cuadrillaReport;
     }
 }

@@ -11,6 +11,7 @@ import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQPend
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSPendingsChecks;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.Repository;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.RepositoryImp;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Cuadrilla.TypeCuadrillaFragment;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.FirstAlumbrado.PendingChecksFragment;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.MainActivity;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.LiveData;
@@ -42,6 +43,25 @@ public class NewHomeFragment extends Fragment {
         return view;
     }
 
+    @OnClick(R.id.btnCuadrillas)
+    public void clickAddCuadrillas(View view) {
+        TypeCuadrillaFragment newFragment = new TypeCuadrillaFragment();
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+        transaction.replace(R.id.content_main, newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    @OnClick(R.id.btnCheckHour)
+    public void clickCheckHour(View view) {
+        CuadrantesFragment newFragment = new CuadrantesFragment();
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+        transaction.replace(R.id.content_main, newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 
     @OnClick(R.id.btnCheck)
     public void clickRecoger(View view) {

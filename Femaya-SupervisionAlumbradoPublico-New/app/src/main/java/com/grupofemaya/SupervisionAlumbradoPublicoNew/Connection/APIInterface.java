@@ -6,6 +6,7 @@ import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.ReportAlumbDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.ReportAlumbDirDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.VialidadDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQCheckPersonal;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQCuadrilla;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQGetPending;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQStatusCheck;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.DeductivasDTO;
@@ -29,6 +30,7 @@ import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSPen
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSRoad;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSSector;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSStatusCheck;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSSubirCuadrilla;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.rsLogin;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.rsGeneral;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.rsGeneralList;
@@ -124,4 +126,8 @@ public interface APIInterface {
     @POST("ws/getPendingList.php")
     Call<rsGeneralList<RSGetListPendings>> requestListPendings(@Body RQGetPending request);
 
+
+    //NEW
+    @POST("ws/subirCuadrillas.php")
+    Call<rsGeneral<RSSubirCuadrilla>> requestCuadrillas(@Body RQCuadrilla request);
 }

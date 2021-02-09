@@ -14,6 +14,7 @@ import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQChec
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQCheckPersonal;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQCheckPickups;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQCheckTools;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQCuadrilla;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQGetPending;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQInitCheck;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQLogin;
@@ -30,6 +31,7 @@ import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSPen
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSRoad;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSSector;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSStatusCheck;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSSubirCuadrilla;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.rsLogin;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.rsGeneral;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.rsGeneralList;
@@ -744,5 +746,28 @@ public class Repository {
         });
     }
 
+    //NEW LINES
+    public void requestCuadrillas(RQCuadrilla request, final RepositoryImp callBack) {
+        Call<rsGeneral<RSSubirCuadrilla>> call = apiInterface.requestCuadrillas(request);
+        call.enqueue(new Callback<rsGeneral<RSSubirCuadrilla>>() {
+            @Override
+            public void onResponse(Call<rsGeneral<RSSubirCuadrilla>> call, Response<rsGeneral<RSSubirCuadrilla>> response) {
+                if(response.body() != null) {
+                    if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
+                        callBack.succedResponse(response.body());
+                    } else {
+                        callBack.requestFail(response.body().getHeader().getMessage());
+                    }
+                } else {
+                    callBack.requestFail("Ocurrio un error.");
+                }
+            }
 
+            @Override
+            public void onFailure(Call<rsGeneral<RSSubirCuadrilla>> call, Throwable t) {
+                call.cancel();
+                callBack.requestFail("Ocurrio un error.");
+            }
+        });
+    }
 }
