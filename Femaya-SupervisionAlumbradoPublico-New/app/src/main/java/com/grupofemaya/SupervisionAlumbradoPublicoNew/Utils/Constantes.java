@@ -15,6 +15,12 @@ public class Constantes {
     public final static String PREF_ID_USER = "idUser";
     public final static String PREF_NAME_USER = "nameUser";
     public final static String PREF_TURNO = "prefTurno";
+
+    public final static String CHECK_IN = "check_in";
+    public final static String CHECK_OUT = "check_out";
+
+    public final static String VISIBLE_REPORT = "visible_report";
+
     public static boolean isGPS = true;
 
     public final static String ID_ROUTE = "idRoute";

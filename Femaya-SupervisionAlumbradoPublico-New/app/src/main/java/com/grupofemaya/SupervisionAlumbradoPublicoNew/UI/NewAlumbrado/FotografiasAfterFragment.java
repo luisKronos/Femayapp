@@ -1,6 +1,7 @@
 package com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.NewAlumbrado;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +16,8 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -23,6 +26,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQImageAfter;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQImageBefore;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.Repository;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.RepositoryImp;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.MainActivity;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.Funcs;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.LiveData;
@@ -42,6 +49,34 @@ public class FotografiasAfterFragment extends Fragment {
     MainActivity that;
     View view;
     Bitmap bitmap;
+
+    RQImageAfter rqImage;
+
+    @SuppressLint("HandlerLeak")
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            initRequest();
+        }
+    };
+
+    private final Runnable mMessageSender = new Runnable() {
+        public void run() {
+            Message msg = mHandler.obtainMessage();
+
+            LiveData.getInstance().getReportImageAfter().setIdReportAlumbrado(LiveData.getInstance().getResponseReportInit().getIdReportAlumbrado());
+
+            rqImage = LiveData.getInstance().getReportImageAfter();
+            if(LiveData.getInstance().getReportImageAfter().getFotoDespues() != null) {
+                if (LiveData.getInstance().getReportImageAfter().getFotoDespues().length() < 500) {
+                    rqImage.setFotoDespues(mFuncs.convierteBase64(LiveData.getInstance().getReportImageAfter().getFotoDespues()));
+                } else {
+                    rqImage.setFotoDespues(LiveData.getInstance().getReportImageAfter().getFotoDespues());
+                }
+            }
+            mHandler.sendMessage(msg);
+        }
+    };
 
     @BindView(R.id.imgView3)
     ImageView imgView3;
@@ -117,7 +152,7 @@ public class FotografiasAfterFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==CODE_PHOTO_DESPUES && resultCode==-1){
             try {
-                LiveData.getInstance().getLiveReport().setFotoDespues(photoReportDespues);
+                LiveData.getInstance().getReportImageAfter().setFotoDespues(photoReportDespues);
                 mFuncs.setImageOnImageView(photoReportDespues,imgView3);
             } catch (Exception e) {
                 Toast.makeText(that.getApplicationContext(), "Error al cargar la foto", Toast.LENGTH_SHORT)
@@ -131,10 +166,10 @@ public class FotografiasAfterFragment extends Fragment {
                 imgView3.setImageBitmap(bitmap);
 
                 ByteArrayOutputStream array = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, array);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 40, array);
                 byte[] imagenByte = array.toByteArray();
                 photoReportDespues = Base64.encodeToString(imagenByte, Base64.DEFAULT);
-                LiveData.getInstance().getLiveReport().setFotoDespues(photoReportDespues);
+                LiveData.getInstance().getReportImageAfter().setFotoDespues(photoReportDespues);
             } catch (Exception e) {
                 Toast.makeText(that.getApplicationContext(), "Error al cargar la foto", Toast.LENGTH_SHORT)
                         .show();
@@ -148,7 +183,7 @@ public class FotografiasAfterFragment extends Fragment {
             case CODE_REQ_PERMISSION: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //tomarFoto();
+                    tomarFotoDespues();
                 } else {
                     Toast.makeText(that.getApplicationContext(), "No se puede acceder a la camara", Toast.LENGTH_SHORT)
                             .show();
@@ -173,12 +208,33 @@ public class FotografiasAfterFragment extends Fragment {
                     })
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            goNext();
+                            prepareReq();
                         }
                     });
             AlertDialog alert = builder.create();
             alert.show();
         }
+    }
+
+    private void prepareReq(){
+        that.showProgress();
+        new Thread(mMessageSender).start();
+    }
+
+    private void initRequest(){
+        Repository.getInstance().requestImageAfter(rqImage, new RepositoryImp() {
+            @Override
+            public void succedResponse(Object response) {
+                that.hideProgress();
+                goNext();
+            }
+
+            @Override
+            public void requestFail(String message) {
+                that.hideProgress();
+                that.showDialog(message);
+            }
+        });
     }
 
     private void goNext(){

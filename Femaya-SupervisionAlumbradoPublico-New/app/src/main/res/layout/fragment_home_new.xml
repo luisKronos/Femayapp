@@ -23,14 +23,14 @@
         android:layout_height="66dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/boton_style_green"
-        android:text="Hora de Entrada"
         android:textColor="@color/colorTextBlanco"
         app:layout_constraintEnd_toEndOf="@+id/btnCuadrillas"
         app:layout_constraintStart_toStartOf="@+id/btnCuadrillas"
-        app:layout_constraintTop_toBottomOf="@+id/btnCuadrillas" />
+        app:layout_constraintTop_toBottomOf="@+id/btnCuadrillas"
+        tools:text="Check Hour" />
 
     <Button
-        android:id="@+id/btnCheck"
+        android:id="@+id/btnNew"
         android:layout_width="250dp"
         android:layout_height="66dp"
         android:layout_marginTop="16dp"
@@ -49,8 +49,8 @@
         android:background="@drawable/boton_style_green"
         android:text="Pendientes"
         android:textColor="@color/colorTextBlanco"
-        app:layout_constraintEnd_toEndOf="@+id/btnCheck"
-        app:layout_constraintStart_toStartOf="@+id/btnCheck"
-        app:layout_constraintTop_toBottomOf="@+id/btnCheck" />
+        app:layout_constraintEnd_toEndOf="@+id/btnNew"
+        app:layout_constraintStart_toStartOf="@+id/btnNew"
+        app:layout_constraintTop_toBottomOf="@+id/btnNew" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,40 +42,40 @@ public class CuadrantesFragment extends Fragment {
             typeRecuperado = recuperarType.getBoolean("type");
         }
 
-
         return view;
     }
 
 
-    @OnClick(R.id.btn1)
+    @OnClick (R.id.btn1)
     public void clickBtn1(View view) {
         goVialidades("1");
     }
 
-    @OnClick(R.id.btn2)
+    @OnClick (R.id.btn2)
     public void clickBtn2(View view) {
         goVialidades("2");
     }
 
-    @OnClick(R.id.btn3)
+    @OnClick (R.id.btn3)
     public void clickBtn3(View view) {
         goVialidades("3");
     }
 
-    @OnClick(R.id.btn4)
+    @OnClick (R.id.btn4)
     public void clickBtn4(View view) {
         goVialidades("4");
     }
 
-    @OnClick(R.id.btn5)
+    @OnClick (R.id.btn5)
     public void clickBtn5(View view) {
         goVialidades("5");
     }
 
 
 
-    private void goVialidades(String idCuadrante){
-        LiveData.getInstance().getLiveReport().setIdCuadrante(idCuadrante);
+    private void goVialidades (String idCuadrante) {
+        LiveData.getInstance().getReportInit().setIdCuadrante(Integer.parseInt(idCuadrante));
+
         VialidadesFragment newFragment = new VialidadesFragment();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
 

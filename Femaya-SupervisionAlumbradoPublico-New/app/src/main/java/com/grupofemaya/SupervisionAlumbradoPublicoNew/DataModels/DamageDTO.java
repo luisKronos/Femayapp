@@ -1,11 +1,15 @@
 package com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels;
 
-public class DamageDTO {
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class DamageDTO implements Serializable {
 
     private String idDamage;
     private String damage;
-    private int value=0;
-    private String valueForOtro;
+    private int value = 0;
+//    private String valueForOtro;
 
     public String getIdDamage() {
         return idDamage;
@@ -31,7 +35,7 @@ public class DamageDTO {
         this.value = value;
     }
 
-    public String getValueForOtro() { return valueForOtro; }
-
-    public void setValueForOtro(String valueForOtro) { this.valueForOtro = valueForOtro; }
+//    public String getValueForOtro() { return valueForOtro; }
+//
+//    public void setValueForOtro(String valueForOtro) { this.valueForOtro = valueForOtro; }
 }

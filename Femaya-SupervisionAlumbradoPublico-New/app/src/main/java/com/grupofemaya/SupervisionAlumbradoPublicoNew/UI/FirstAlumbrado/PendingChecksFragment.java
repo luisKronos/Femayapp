@@ -75,8 +75,11 @@ public class PendingChecksFragment extends Fragment implements AdapterListPendin
     }
 
     private void getListPendings() {
-        request.setIdCuadrante(LiveData.getInstance().getLiveReport().getIdCuadrante());
-        request.setIdVialidad(LiveData.getInstance().getLiveReport().getIdVialidad());
+        LiveData.getInstance().getReportInit().getValueForOtro();
+        LiveData.getInstance().getReportInit().getValue();
+
+        request.setIdCuadrante(LiveData.getInstance().getReportInit().getIdCuadrante());
+        request.setIdVialidad(LiveData.getInstance().getReportInit().getIdVialidad());
 
         that.showProgress();
 
@@ -103,7 +106,7 @@ public class PendingChecksFragment extends Fragment implements AdapterListPendin
 
     @Override
     public void onItemSelected(RSGetListPendings item) {
-        LiveData.getInstance().getLiveReport().setIdReportAlumbrado(item.getIdReportAlumbrado());
+        LiveData.getInstance().getResponseReportInit().setIdReportAlumbrado(Integer.parseInt(item.getIdReportAlumbrado()));
         goNext();
 
     }

@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
-            android:text="RESUMEN FINAL"
+            android:text="NOTAS"
             android:textSize="21sp" />
 
         <EditText

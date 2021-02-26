@@ -56,7 +56,7 @@ public class TypeCuadrillaFragment extends Fragment {
                 .setCancelable(true)
                 .setPositiveButton("Continuar", (dialog, id) -> {
                     LiveData.getInstance().getCuadrillaReport().setNoCuadrilla(Integer.parseInt(txtNumber.getText().toString()));
-                    LiveData.getInstance().getCuadrillaReport().setTipo("alumbrado");
+                    LiveData.getInstance().getCuadrillaReport().setTipo("Alumbrado");
 
                     PersonalEquipFragment newFragment = new PersonalEquipFragment();
                     FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -101,7 +101,7 @@ public class TypeCuadrillaFragment extends Fragment {
                 .setCancelable(true)
                 .setPositiveButton("Continuar", (dialog, id) -> {
                     LiveData.getInstance().getCuadrillaReport().setNoCuadrilla(Integer.parseInt(txtNumber.getText().toString()));
-                    LiveData.getInstance().getCuadrillaReport().setTipo("civil");
+                    LiveData.getInstance().getCuadrillaReport().setTipo("Civil");
 
                     PersonalEquipFragment newFragment = new PersonalEquipFragment();
                     FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();

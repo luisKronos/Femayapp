@@ -30,13 +30,13 @@ import org.grupofemaya.SupervisionAlumbradoPublico.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
 public class VialidadesFragment extends Fragment implements AdapterVialidades.OnItemSelectedListener {
 
     MainActivity that;
     View view;
-    AdapterVialidades adapterVialidades;
     Boolean typeRecuperado;
+
+    AdapterVialidades adapterVialidades;
 
 
     public VialidadesFragment() {
@@ -65,21 +65,10 @@ public class VialidadesFragment extends Fragment implements AdapterVialidades.On
         return view;
     }
 
-    /*
-    @OnClick(R.id.btnCheck)
-    public void clickRecoger(View view) {
-        InitCheckListFragment newFragment = new InitCheckListFragment();
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content_main, newFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }*/
-
-
     private void getVialidades(){
 
         that.showProgress();
-        Repository.getInstance().requestGetVialidades(LiveData.getInstance().getLiveReport().getIdCuadrante(),new RepositoryImp() {
+        Repository.getInstance().requestGetVialidades("" + LiveData.getInstance().getReportInit().getIdCuadrante(),new RepositoryImp() {
             @Override
             public void succedResponse(Object response) {
                 that.hideProgress();
@@ -95,29 +84,37 @@ public class VialidadesFragment extends Fragment implements AdapterVialidades.On
         });
     }
 
-
     private void fillData(){
         adapterVialidades = new AdapterVialidades(that,LiveData.getInstance().getVialidades());
         adapterVialidades.setItemSelectedListener(this);
         listView.setAdapter(adapterVialidades);
     }
 
-
     @Override
     public void onItemSelected(VialidadDTO item) {
-        LiveData.getInstance().getLiveReport().setIdVialidad(item.getIdVialidad());
-        if(typeRecuperado) {
+        if(item.getVialidad().equals("Especial (otro)")) {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-            builder.setTitle("Numero de Cuadrilla");
-            View viewInflated = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_number_cuadrilla, (ViewGroup) getView(), false);
-            EditText txtNumber = viewInflated.findViewById(R.id.txtNumberCuadrilla);
+            builder.setTitle("Agregar otra vialidad");
+            View viewInflated = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_text_other_damage, (ViewGroup) getView(), false);
+            EditText txtOther = viewInflated.findViewById(R.id.txtOther);
             builder.setView(viewInflated)
-                    .setCancelable(true)
-                    .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            LiveData.getInstance().getLiveReport().setCuadrilla(Integer.parseInt(txtNumber.getText().toString()));
-                            PersonalCuadrillasFragment newFragment = new PersonalCuadrillasFragment();
+                    .setCancelable(false)
+                    .setPositiveButton("Agregar", (dialog, id) -> {
+                        LiveData.getInstance().getReportInit().setIdVialidad(item.getIdVialidad());
+                        LiveData.getInstance().getReportInit().setValue("");
+                        LiveData.getInstance().getReportInit().setValueForOtro(txtOther.getText().toString());
+
+                        if (typeRecuperado) {
+                            CuadrillasFragment newFragment = new CuadrillasFragment();
                             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+                            transaction.replace(R.id.content_main, newFragment);
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+                        } else {
+                            PendingChecksFragment newFragment = new PendingChecksFragment();
+                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
                             transaction.replace(R.id.content_main, newFragment);
                             transaction.addToBackStack(null);
                             transaction.commit();
@@ -127,7 +124,7 @@ public class VialidadesFragment extends Fragment implements AdapterVialidades.On
             alert.show();
             alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
 
-            txtNumber.addTextChangedListener(new TextWatcher() {
+            txtOther.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 
@@ -144,11 +141,25 @@ public class VialidadesFragment extends Fragment implements AdapterVialidades.On
                 }
             });
         } else {
-            PendingChecksFragment newFragment = new PendingChecksFragment();
-            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.content_main, newFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
+            LiveData.getInstance().getReportInit().setIdVialidad(item.getIdVialidad());
+            LiveData.getInstance().getReportInit().setValueForOtro("");
+            LiveData.getInstance().getReportInit().setValue(item.getVialidad());
+
+            if (typeRecuperado) {
+                CuadrillasFragment newFragment = new CuadrillasFragment();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+                transaction.replace(R.id.content_main, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            } else {
+                PendingChecksFragment newFragment = new PendingChecksFragment();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+                transaction.replace(R.id.content_main, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
         }
     }
 }

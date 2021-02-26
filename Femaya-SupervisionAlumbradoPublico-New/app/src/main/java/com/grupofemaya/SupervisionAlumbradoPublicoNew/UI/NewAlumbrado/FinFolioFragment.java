@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.MainActivity;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.LiveData;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.SharedPreferencesManager;
 
 import org.grupofemaya.SupervisionAlumbradoPublico.R;
 
@@ -43,22 +44,21 @@ public class FinFolioFragment extends Fragment {
         ButterKnife.bind(this, view);
         that = (MainActivity) getActivity();
 
-
         String folio = "";
 
-        if(LiveData.getInstance().getLiveReport().getIdCuadrante().equals("1")){
+        if(LiveData.getInstance().getReportInit().getIdCuadrante() == 1 ){
             folio = "NP";
-        }else if(LiveData.getInstance().getLiveReport().getIdCuadrante().equals("2")){
+        }else if(LiveData.getInstance().getReportInit().getIdCuadrante() == 2){
             folio = "NO";
-        }else if(LiveData.getInstance().getLiveReport().getIdCuadrante().equals("3")){
+        }else if(LiveData.getInstance().getReportInit().getIdCuadrante() == 3){
             folio = "SP";
-        }else if(LiveData.getInstance().getLiveReport().getIdCuadrante().equals("4")){
+        }else if(LiveData.getInstance().getReportInit().getIdCuadrante() == 4){
             folio = "SO";
-        }else if(LiveData.getInstance().getLiveReport().getIdCuadrante().equals("5")){
+        }else if(LiveData.getInstance().getReportInit().getIdCuadrante() == 5){
             folio = "CT";
         }
 
-        folio = folio + "-" + LiveData.getInstance().getLiveReport().getIdReportAlumbrado();
+        folio = folio + "-" + LiveData.getInstance().getResponseReportInit().getIdReportAlumbrado();
 
 
         txtFolio.setText(folio);
@@ -88,11 +88,15 @@ public class FinFolioFragment extends Fragment {
     }
 
     private void goNext(){
-            NewHomeFragment newFragment = new NewHomeFragment();
-            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.content_main, newFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
+        if (SharedPreferencesManager.getInstance().getVisibleReport()) {
+            SharedPreferencesManager.getInstance().setVisibleReport(false);
+        }
+
+        NewHomeFragment newFragment = new NewHomeFragment();
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_main, newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
@@ -18,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:text="FIRMAS"
+        android:text="FIRMA CONTRATISTA"
         android:textSize="21sp" />
 
     <androidx.core.widget.NestedScrollView
@@ -30,19 +31,10 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="0dp">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal"
-                android:text="Firma contratista:"
-                android:textSize="21sp" />
 
             <Button
                 android:id="@+id/btnFirmaContratista"
@@ -57,33 +49,8 @@
                 android:id="@+id/imgViewContratista"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:layout_marginTop="20dp"
                 tools:srcCompat="@tools:sample/avatars" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:text="Firma supervisión:"
-                android:textSize="21sp" />
-
-            <Button
-                android:id="@+id/btnFirmaSupervision"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/boton_style_gray"
-                android:text="Tomar firma"
-                android:textColor="@android:color/white" />
-
-            <ImageView
-                android:id="@+id/imgViewFirmaSupervision"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                tools:srcCompat="@tools:sample/avatars" />
-
 
         </LinearLayout>
 

@@ -171,7 +171,7 @@ public class FotoHerramientaEquipoFragment extends GenericFragment {
                 imgView.setImageBitmap(bitmap);
 
                 ByteArrayOutputStream array = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, array);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 40, array);
                 byte[] imagenByte = array.toByteArray();
                 photoReport = Base64.encodeToString(imagenByte, Base64.DEFAULT);
                 LiveData.getInstance().getCuadrillaReport().setFotoCuadrilla(photoReport);

@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 
 public class SharedPreferencesManager {
 
-
-
     private static SharedPreferencesManager sInstance;
     private final SharedPreferences mPref;
 
@@ -57,5 +55,37 @@ public class SharedPreferencesManager {
     public String getTurno() {
         return mPref.getString(Constantes.PREF_TURNO, "");
     }
+
+    public void setCheckIn(String value) {
+        mPref.edit()
+                .putString(Constantes.CHECK_IN, value)
+                .apply();
+    }
+
+    public String getCheckIn() {
+        return mPref.getString(Constantes.CHECK_IN, null);
+    }
+
+    public void setCheckOut(String value) {
+        mPref.edit()
+                .putString(Constantes.CHECK_OUT, value)
+                .apply();
+    }
+
+    public String getCheckOut() {
+        return mPref.getString(Constantes.CHECK_OUT, null);
+    }
+
+    public void setVisibleReport(boolean value) {
+        mPref.edit()
+                .putBoolean(Constantes.VISIBLE_REPORT, value)
+                .apply();
+    }
+
+    public boolean getVisibleReport() {
+        return mPref.getBoolean(Constantes.VISIBLE_REPORT, false);
+    }
+
+
 
 }

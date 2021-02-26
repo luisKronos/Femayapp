@@ -1,0 +1,223 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/activity_vertical_margin"
+    android:background="@android:color/white"
+    tools:context="com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.NewAlumbrado.ReporteFinalFragment">
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:text="REPORTE FINAL"
+        android:textSize="21sp" />
+
+    <ScrollView
+        android:id="@+id/scrollReport"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn"
+        android:layout_below="@+id/txtTitle"
+        android:layout_marginTop="20dp" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txtIdReportAlumbrado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="21sp"
+                tools:text="Reporte de Alumbrado"/>
+
+            <TextView
+                android:id="@+id/txtIdUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="21sp"
+                tools:text="Id User"/>
+
+            <TextView
+                android:id="@+id/txtIdCuadrante"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="21sp"
+                tools:text="Cuadrante"/>
+
+            <TextView
+                android:id="@+id/txtValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="21sp"
+                tools:text="Value"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/txtValueForOtro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="21sp"
+                tools:text="Value For Other"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/txtIdCuadrillas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="21sp"
+                tools:text="Cuadrillas"/>
+
+            <TextView
+                android:id="@+id/txtTramo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="21sp"
+                tools:text="Tramo"/>
+
+            <TextView
+                android:id="@+id/txtAlcaldia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="21sp"
+                tools:text="Alcaldia"/>
+
+            <TextView
+                android:id="@+id/txtPlacas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="21sp"
+                tools:text="Placas"/>
+
+            <TextView
+                android:id="@+id/txtTurno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="21sp"
+                tools:text="Turno"/>
+
+            <TextView
+                android:id="@+id/txtColonia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="21sp"
+                tools:text="Colonia"/>
+
+            <TextView
+                android:id="@+id/txtReferencia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="21sp"
+                tools:text="Referencia"/>
+
+            <TextView
+                android:id="@+id/txtHrEntrada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="21sp"
+                tools:text="Hora de Entrada"/>
+
+            <TextView
+                android:id="@+id/txtFolio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="21sp"
+                tools:text="Folio"/>
+
+            <TextView
+                android:id="@+id/txtListDamages"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="21sp"
+                tools:text="Fallas detectadas"/>
+
+            <TextView
+                android:id="@+id/txtTipoLuminario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="21sp"
+                tools:text="Tipo de luminaria"/>
+
+            <TextView
+                android:id="@+id/txtDiagFalla"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="21sp"
+                tools:text="Diagnostico de la falla"/>
+
+            <TextView
+                android:id="@+id/txtAccionRealizada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="21sp"
+                tools:text="Accion realizada"/>
+
+            <TextView
+                android:id="@+id/txtObservaciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="21sp"
+                tools:text="Observaciones"/>
+
+            <TextView
+                android:id="@+id/txtListaMaterial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="21sp"
+                tools:text="Lista material"/>
+
+            <TextView
+                android:id="@+id/txtObsMaterial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="21sp"
+                tools:text="Material de resguardo"/>
+
+            <TextView
+                android:id="@+id/txtNotas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="21sp"
+                tools:text="Notas"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="33dp"
+        android:background="@drawable/boton_style_green"
+        android:text="Continuar"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>

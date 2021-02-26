@@ -15,11 +15,11 @@ import org.grupofemaya.SupervisionAlumbradoPublico.R;
 import java.util.List;
 
 public class AdapterCheckBox extends RecyclerView.Adapter<AdapterCheckBox.ViewHolder> {
-    private final List<CheckBoxItem> mList;
+    private List<CheckBoxItem> mList;
     private OnItemSelectedListener mItemSelectedListener;
 
     public interface OnItemSelectedListener {
-        void onItemSelected(String text, boolean isChecked);
+        void onItemSelected(String text, boolean isChecked, int position);
     }
 
     public AdapterCheckBox(List<CheckBoxItem> list, OnItemSelectedListener mItemSelectedListener) {
@@ -43,10 +43,10 @@ public class AdapterCheckBox extends RecyclerView.Adapter<AdapterCheckBox.ViewHo
         holder.chkBox.setOnCheckedChangeListener((compoundButton, isChecked) -> {
             if (isChecked) {
                 mList.get(position).setSaveActive(true);
-                mItemSelectedListener.onItemSelected(holder.chkBox.getText().toString(), true);
+                mItemSelectedListener.onItemSelected(holder.chkBox.getText().toString(), true, position);
             } else {
                 mList.get(position).setSaveActive(false);
-                mItemSelectedListener.onItemSelected(holder.chkBox.getText().toString(), false);
+                mItemSelectedListener.onItemSelected(holder.chkBox.getText().toString(), false, position);
             }
         });
     }

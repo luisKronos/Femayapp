@@ -1,14 +1,14 @@
 package com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests;
 
 public class RQGetPending {
-    private String idCuadrante;
+    private int idCuadrante;
     private String idVialidad;
 
-    public String getIdCuadrante() {
+    public int getIdCuadrante() {
         return idCuadrante;
     }
 
-    public void setIdCuadrante(String idCuadrante) {
+    public void setIdCuadrante(int idCuadrante) {
         this.idCuadrante = idCuadrante;
     }
 

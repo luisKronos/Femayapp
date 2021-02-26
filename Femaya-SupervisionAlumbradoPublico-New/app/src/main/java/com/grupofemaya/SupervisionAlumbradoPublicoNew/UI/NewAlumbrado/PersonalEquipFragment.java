@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -164,21 +165,35 @@ public class PersonalEquipFragment extends Fragment implements AdapterCheckBox.O
 
     @OnClick(R.id.btn)
     public void clickContinue(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(that);
-        builder.setMessage("¿Deseas continuar?")
-                .setCancelable(true)
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
-                })
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        addComa();
-                        goNext();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
+        if (mListAux.isEmpty()) {
+            AlertDialog.Builder builder2 = new AlertDialog.Builder(that);
+            builder2.setMessage("Selecione al menos un elemento")
+                    .setCancelable(true)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+            AlertDialog alert2 = builder2.create();
+            alert2.show();
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(that);
+            builder.setMessage("¿Deseas continuar?")
+                    .setCancelable(true)
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
+                    })
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            addComa();
+                            goNext();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 
     private void addComa() {
@@ -201,7 +216,6 @@ public class PersonalEquipFragment extends Fragment implements AdapterCheckBox.O
                 break;
         }
     }
-
 
     private void goNext(){
         PersonalEquipFragment repeatFragment = new PersonalEquipFragment();
@@ -250,7 +264,7 @@ public class PersonalEquipFragment extends Fragment implements AdapterCheckBox.O
     }
 
     @Override
-    public void onItemSelected(String text, boolean isChecked) {
+    public void onItemSelected(String text, boolean isChecked, int position) {
         if (isChecked) {
             mListAux.add(text);
         } else {

@@ -1,13 +1,29 @@
 package com.grupofemaya.SupervisionAlumbradoPublicoNew.Connection;
 
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.Actividad;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.Causa;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.DamageDTO;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.Diagnostico;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.MaterialDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.ReportAlumbDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.ReportAlumbDirDTO;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.User;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.VialidadDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQCheckPersonal;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQCuadrilla;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQFinishHour;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQGetPending;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQImageAfter;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQImageBefore;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQImageDuring;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQImageMaterialUsed;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQMaterialUsed;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQNotas;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQReportInit;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQReportInitThree;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQReportInitTwo;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQSignContratista;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQSignSupervisor;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQStatusCheck;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.DeductivasDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQCheckActividades;
@@ -23,10 +39,12 @@ import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQRevi
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQRoadsBySector;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSFinalQuantification;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSGetListPendings;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSIdCuadrillas;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSInitCheck;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSInitReport;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSPendingCheck;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSPendingsChecks;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSReportInitOne;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSRoad;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSSector;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSStatusCheck;
@@ -126,8 +144,55 @@ public interface APIInterface {
     @POST("ws/getPendingList.php")
     Call<rsGeneralList<RSGetListPendings>> requestListPendings(@Body RQGetPending request);
 
-
     //NEW
     @POST("ws/subirCuadrillas.php")
     Call<rsGeneral<RSSubirCuadrilla>> requestCuadrillas(@Body RQCuadrilla request);
+
+    @POST("ws/getCuadrillasIds.php")
+    Call<rsGeneralList<RSIdCuadrillas>> requestIdCuadrillas(@Body User idUser);
+
+    @POST("ws/reportInit.php")
+    Call<rsGeneral<RSReportInitOne>> requestReportInitOne(@Body RQReportInit request);
+
+    @POST("ws/reportStep2.php")
+    Call<rsGeneral<String>> requestReportInitTwo(@Body RQReportInitTwo request);
+
+    @POST("ws/sendImageBefore.php")
+    Call<rsGeneral<RSReportInitOne>> requestImageBefore(@Body RQImageBefore request);
+
+    @POST("ws/sendImageDuring.php")
+    Call<rsGeneral<RSReportInitOne>> requestImageDuring(@Body RQImageDuring request);
+
+    @POST("ws/sendImageAfter.php")
+    Call<rsGeneral<RSReportInitOne>> requestImageAfter(@Body RQImageAfter request);
+
+    @POST("ws/reportStep3.php")
+    Call<rsGeneral<RSReportInitOne>> requestReportInitThree(@Body RQReportInitThree request);
+
+    @GET("ws/getCausaNoCompletado.php")
+    Call<rsGeneralList<Causa>> requestGetCausas();
+
+    @GET("ws/getDiagnosticoFalla.php")
+    Call<rsGeneralList<Diagnostico>> requestGetDiagnostico();
+
+    @GET("ws/getActividadRealizada.php")
+    Call<rsGeneralList<Actividad>> requestGetActividades();
+
+    @POST("ws/subirMaterialesUsed.php")
+    Call<rsGeneral<RSReportInitOne>> requestMaterialesUsed(@Body RQMaterialUsed request);
+
+    @POST("ws/sendImageMaterial.php")
+    Call<rsGeneral<RSReportInitOne>> requestImageMaterialUsed(@Body RQImageMaterialUsed request);
+
+    @POST("ws/reportNotes.php")
+    Call<rsGeneral<RSReportInitOne>> requestReportNotas(@Body RQNotas request);
+
+    @POST("ws/sendSignEnterprise.php")
+    Call<rsGeneral<RSReportInitOne>> requestSignContratista(@Body RQSignContratista request);
+
+    @POST("ws/sendSignSupervisor.php")
+    Call<rsGeneral<RSReportInitOne>> requestSignSupervisor(@Body RQSignSupervisor request);
+
+    @POST("ws/finishHour.php")
+    Call<rsGeneral<RSReportInitOne>> requestFinishHour(@Body RQFinishHour request);
 }
