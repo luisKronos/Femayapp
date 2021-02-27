@@ -17,6 +17,7 @@ import java.util.List;
 public class AdapterCheckBox extends RecyclerView.Adapter<AdapterCheckBox.ViewHolder> {
     private List<CheckBoxItem> mList;
     private OnItemSelectedListener mItemSelectedListener;
+    private Boolean isRecyclable = true;
 
     public interface OnItemSelectedListener {
         void onItemSelected(String text, boolean isChecked, int position);
@@ -25,6 +26,12 @@ public class AdapterCheckBox extends RecyclerView.Adapter<AdapterCheckBox.ViewHo
     public AdapterCheckBox(List<CheckBoxItem> list, OnItemSelectedListener mItemSelectedListener) {
         this.mList = list;
         this.mItemSelectedListener = mItemSelectedListener;
+    }
+
+    public AdapterCheckBox(List<CheckBoxItem> list, OnItemSelectedListener mItemSelectedListener, Boolean isRecyclable) {
+        this.mList = list;
+        this.mItemSelectedListener = mItemSelectedListener;
+        this.isRecyclable = isRecyclable;
     }
 
     @NonNull
@@ -36,18 +43,14 @@ public class AdapterCheckBox extends RecyclerView.Adapter<AdapterCheckBox.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull AdapterCheckBox.ViewHolder holder, int position) {
+        holder.setIsRecyclable(isRecyclable);
         holder.chkBox.setText(mList.get(position).getText());
 
         holder.chkBox.setChecked(mList.get(position).isSaveActive());
 
         holder.chkBox.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-            if (isChecked) {
-                mList.get(position).setSaveActive(true);
-                mItemSelectedListener.onItemSelected(holder.chkBox.getText().toString(), true, position);
-            } else {
-                mList.get(position).setSaveActive(false);
-                mItemSelectedListener.onItemSelected(holder.chkBox.getText().toString(), false, position);
-            }
+            mList.get(position).setSaveActive(isChecked);
+            mItemSelectedListener.onItemSelected(holder.chkBox.getText().toString(), isChecked, position);
         });
     }
 

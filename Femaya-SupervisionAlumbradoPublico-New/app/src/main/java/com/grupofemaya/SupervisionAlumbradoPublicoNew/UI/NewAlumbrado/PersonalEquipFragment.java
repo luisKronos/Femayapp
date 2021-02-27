@@ -109,7 +109,7 @@ public class PersonalEquipFragment extends Fragment implements AdapterCheckBox.O
                 mList.add(new CheckBoxItem("Electricista Baja Tensión"));
                 mList.add(new CheckBoxItem("Operador de Grua"));
 
-                adapterPersonalEquip = new AdapterCheckBox(mList, this);
+                adapterPersonalEquip = new AdapterCheckBox(mList, this, false);
                 recycler.setAdapter(adapterPersonalEquip);
                 break;
 

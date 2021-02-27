@@ -185,9 +185,6 @@ public class ListDamagesFragment extends GenericFragment implements AdapterCheck
     }
 
     private void goNext() {
-        mListDamages.clear();
-        mList.clear();
-
         FotografiasFragment newFragment = new FotografiasFragment();
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
