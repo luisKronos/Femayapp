@@ -81,7 +81,6 @@
                 android:id="@+id/txtTramo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:textSize="21sp"
                 tools:text="Tramo"/>
 
@@ -153,7 +152,6 @@
                 android:id="@+id/txtTipoLuminario"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:textSize="21sp"
                 tools:text="Tipo de luminaria"/>
 
@@ -193,7 +191,6 @@
                 android:id="@+id/txtObsMaterial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:textSize="21sp"
                 tools:text="Material de resguardo"/>
 

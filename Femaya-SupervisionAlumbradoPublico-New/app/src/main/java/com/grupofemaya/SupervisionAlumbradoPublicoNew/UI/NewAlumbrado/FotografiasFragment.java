@@ -87,7 +87,6 @@ public class FotografiasFragment extends GenericFragment {
 
     @BindView(R.id.imgView1)
     ImageView imgView1;
-    List<DamageDTO> listDamages;
 
     Funcs mFuncs = new Funcs();
 
@@ -102,12 +101,6 @@ public class FotografiasFragment extends GenericFragment {
         // Inflate the layout for this fragment
         ButterKnife.bind(this, view);
         that = (MainActivity) getActivity();
-
-        Bundle recuperar = getArguments();
-        if (recuperar != null) {
-            listDamages = (List<DamageDTO>) recuperar.getSerializable("LIST_DAMAGES");
-            Log.i("TAG v", listDamages.toString());
-        }
 
         return view;
     }
@@ -204,7 +197,6 @@ public class FotografiasFragment extends GenericFragment {
         }
     }
 
-
     @OnClick(R.id.btn)
     public void clickContinuar(){
         if(photoReportAntes.equals("")){
@@ -253,10 +245,6 @@ public class FotografiasFragment extends GenericFragment {
     private void goNext(){
         FotografiasDuringFragment newFragment = new FotografiasDuringFragment();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-
-        Bundle b = new Bundle();
-        b.putSerializable("LIST_DAMAGES", (Serializable) listDamages);
-        newFragment.setArguments(b);
 
         transaction.replace(R.id.content_main, newFragment);
         transaction.addToBackStack(null);

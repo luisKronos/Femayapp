@@ -57,6 +57,10 @@ public class PersonalEquipFragment extends Fragment implements AdapterCheckBox.O
         ButterKnife.bind(this, view);
         that = (MainActivity) getActivity();
 
+        mListAux.clear();
+        mList.clear();
+        onLine.delete(0, onLine.length());
+
         Bundle recuperarType = getArguments();
         if (recuperarType != null) {
             typeCuadrilla = recuperarType.getString("cuadrilla");
@@ -65,42 +69,6 @@ public class PersonalEquipFragment extends Fragment implements AdapterCheckBox.O
         switch (typeCuadrilla) {
             case "personalAlumbrado":
                 textView.setText("PERSONAL DE CUADRILLA");
-                mList.add(new CheckBoxItem("Ayudante de Electricista"));
-                mList.add(new CheckBoxItem("Ayudante de Operador"));
-                mList.add(new CheckBoxItem("Cabo"));
-                mList.add(new CheckBoxItem("Cabo de Cuadrilla"));
-                mList.add(new CheckBoxItem("Electricista"));
-                mList.add(new CheckBoxItem("Electricista Baja Tensión"));
-                mList.add(new CheckBoxItem("Operador de Grua"));
-
-                mList.add(new CheckBoxItem("Ayudante de Electricista"));
-                mList.add(new CheckBoxItem("Ayudante de Operador"));
-                mList.add(new CheckBoxItem("Cabo"));
-                mList.add(new CheckBoxItem("Cabo de Cuadrilla"));
-                mList.add(new CheckBoxItem("Electricista"));
-                mList.add(new CheckBoxItem("Electricista Baja Tensión"));
-                mList.add(new CheckBoxItem("Operador de Grua"));
-                mList.add(new CheckBoxItem("Ayudante de Electricista"));
-                mList.add(new CheckBoxItem("Ayudante de Operador"));
-                mList.add(new CheckBoxItem("Cabo"));
-                mList.add(new CheckBoxItem("Cabo de Cuadrilla"));
-                mList.add(new CheckBoxItem("Electricista"));
-                mList.add(new CheckBoxItem("Electricista Baja Tensión"));
-                mList.add(new CheckBoxItem("Operador de Grua"));
-                mList.add(new CheckBoxItem("Ayudante de Electricista"));
-                mList.add(new CheckBoxItem("Ayudante de Operador"));
-                mList.add(new CheckBoxItem("Cabo"));
-                mList.add(new CheckBoxItem("Cabo de Cuadrilla"));
-                mList.add(new CheckBoxItem("Electricista"));
-                mList.add(new CheckBoxItem("Electricista Baja Tensión"));
-                mList.add(new CheckBoxItem("Operador de Grua"));
-                mList.add(new CheckBoxItem("Ayudante de Electricista"));
-                mList.add(new CheckBoxItem("Ayudante de Operador"));
-                mList.add(new CheckBoxItem("Cabo"));
-                mList.add(new CheckBoxItem("Cabo de Cuadrilla"));
-                mList.add(new CheckBoxItem("Electricista"));
-                mList.add(new CheckBoxItem("Electricista Baja Tensión"));
-                mList.add(new CheckBoxItem("Operador de Grua"));
                 mList.add(new CheckBoxItem("Ayudante de Electricista"));
                 mList.add(new CheckBoxItem("Ayudante de Operador"));
                 mList.add(new CheckBoxItem("Cabo"));
@@ -140,7 +108,7 @@ public class PersonalEquipFragment extends Fragment implements AdapterCheckBox.O
                 mList.add(new CheckBoxItem("Operador de revolvedora"));
                 mList.add(new CheckBoxItem("Operador de Vehículo Med."));
 
-                adapterPersonalEquip = new AdapterCheckBox(mList, this);
+                adapterPersonalEquip = new AdapterCheckBox(mList, this, false);
                 recycler.setAdapter(adapterPersonalEquip);
                 break;
 
@@ -221,10 +189,6 @@ public class PersonalEquipFragment extends Fragment implements AdapterCheckBox.O
         PersonalEquipFragment repeatFragment = new PersonalEquipFragment();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         Bundle type = new Bundle();
-
-        mListAux.clear();
-        mList.clear();
-        onLine.delete(0, onLine.length());
 
         switch (typeCuadrilla) {
             case "personalAlumbrado":

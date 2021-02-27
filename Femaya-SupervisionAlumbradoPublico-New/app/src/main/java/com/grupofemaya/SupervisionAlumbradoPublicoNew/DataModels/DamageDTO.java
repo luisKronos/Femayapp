@@ -1,10 +1,6 @@
 package com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels;
 
-import android.os.Parcelable;
-
-import java.io.Serializable;
-
-public class DamageDTO implements Serializable {
+public class DamageDTO {
 
     private String idDamage;
     private String damage;

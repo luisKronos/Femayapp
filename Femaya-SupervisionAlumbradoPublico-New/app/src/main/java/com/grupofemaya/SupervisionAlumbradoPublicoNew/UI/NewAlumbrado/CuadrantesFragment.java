@@ -16,7 +16,6 @@ import org.grupofemaya.SupervisionAlumbradoPublico.R;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-
 public class CuadrantesFragment extends Fragment {
 
     MainActivity that;

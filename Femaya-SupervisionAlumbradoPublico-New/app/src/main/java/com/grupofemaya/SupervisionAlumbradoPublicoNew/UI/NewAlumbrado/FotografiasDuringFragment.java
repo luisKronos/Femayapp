@@ -105,11 +105,6 @@ public class FotografiasDuringFragment extends Fragment {
         ButterKnife.bind(this, view);
         that = (MainActivity) getActivity();
 
-        Bundle recuperar = getArguments();
-        if (recuperar != null) {
-            listDamages = (List<DamageDTO>) recuperar.getSerializable("LIST_DAMAGES");
-        }
-
         return view;
     }
 
@@ -252,10 +247,6 @@ public class FotografiasDuringFragment extends Fragment {
     private void goNext(){
         FotografiasAfterFragment newFragment = new FotografiasAfterFragment();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-
-        Bundle b = new Bundle();
-        b.putSerializable("LIST_DAMAGES", (Serializable) listDamages);
-        newFragment.setArguments(b);
 
         transaction.replace(R.id.content_main, newFragment);
         transaction.addToBackStack(null);

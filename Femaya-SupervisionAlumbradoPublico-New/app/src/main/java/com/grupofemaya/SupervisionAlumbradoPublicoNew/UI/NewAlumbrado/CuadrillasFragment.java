@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -152,19 +153,18 @@ public class CuadrillasFragment extends Fragment implements AdapterCheckBox.OnIt
             onLine.append(s);
             SEPARADOR = ",";
         }
-        Toast.makeText(requireContext(), onLine.toString(), Toast.LENGTH_SHORT).show();
 
         LiveData.getInstance().getReportInit().setIdCuadrillas(onLine.toString());
     }
 
     private void goNext(){
-        SeCuentaFragment newFragment = new SeCuentaFragment();
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
 
         mListAux.clear();
         mList.clear();
         onLine.delete(0, onLine.length());
 
+        SeCuentaFragment newFragment = new SeCuentaFragment();
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content_main, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();

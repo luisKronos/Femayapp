@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.DamageDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.MaterialDTO;
@@ -160,6 +161,7 @@ public class ReporteFinalFragment extends Fragment {
             txtValueForOtro.setText("Vialidad: " + reportInit.getValueForOtro());
         }
 
+        //TODO: Checar por que imprime 4 y no solo 2 (25)
         //Separar por comas
         String[] arrSplit = reportInit.getIdCuadrillas().split(",");
         for (String s : arrSplit) {
@@ -168,7 +170,6 @@ public class ReporteFinalFragment extends Fragment {
                 if (item.getNoCuadrilla().equals(s)) {
                     cuadrillas.append(SEPARADOR);
                     cuadrillas.append(item.getTipo()).append(" - ").append(s).append("\n");
-                    SEPARADOR = ",";
                 }
             }
         }
@@ -190,7 +191,6 @@ public class ReporteFinalFragment extends Fragment {
             damage.append(item.getDamage()).append("\n");
         }
         txtListDamages.setText(damage);
-        Log.i("TAG", reportListDamage.toString());
 
         //Report Three
         txtTipoLuminario.setText("Tipo de luminaria: " + reportMinuta.getTipoLuminario());
@@ -208,7 +208,6 @@ public class ReporteFinalFragment extends Fragment {
             }
         }
         txtListaMaterial.setText(material);
-        Log.i("TAG", reportListMaterialUsed.toString());
 
         //Report Image Material Used
         txtObsMaterial.setText("Material de resguardo: " + reportImageMaterialUsed.getObsMaterial());

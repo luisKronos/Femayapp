@@ -88,6 +88,10 @@ public class ListMaterialFragment extends GenericFragment implements AdapterChec
         ButterKnife.bind(this, view);
         that = (MainActivity) getActivity();
         that.showProgress();
+
+        mList.clear();
+        mListMaterial.clear();
+
         getMaterial();
         return view;
     }
@@ -168,14 +172,11 @@ public class ListMaterialFragment extends GenericFragment implements AdapterChec
         for (MaterialDTO item : LiveData.getInstance().getListMaterials()) {
             mList.add(new CheckBoxItem(item.getMaterial()));
         }
-        adapterPersonalEquip = new AdapterCheckBox(mList, this);
+        adapterPersonalEquip = new AdapterCheckBox(mList, this, false);
         recycler.setAdapter(adapterPersonalEquip);
     }
 
     private void goNext(){
-        mList.clear();
-        mListMaterial.clear();
-
         FotografiaMaterialesFragment newFragment = new FotografiaMaterialesFragment();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content_main, newFragment);

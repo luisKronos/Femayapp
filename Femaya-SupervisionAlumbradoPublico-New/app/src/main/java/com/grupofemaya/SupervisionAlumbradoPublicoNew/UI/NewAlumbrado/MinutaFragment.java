@@ -88,6 +88,12 @@ public class MinutaFragment extends GenericFragment {
         ButterKnife.bind(this, view);
         that = (MainActivity) getActivity();
 
+        arrayCausa.clear();
+        arrayActividad.clear();
+        arrayDiagnostico.clear();
+        flagDiagnostico = false;
+        flagActividad = false;
+
         getDiagnostico();
         getActividades();
         getCausas();
@@ -386,12 +392,6 @@ public class MinutaFragment extends GenericFragment {
     }
 
     private void goNext(){
-        arrayCausa.clear();
-        arrayActividad.clear();
-        arrayDiagnostico.clear();
-        flagDiagnostico = false;
-        flagActividad = false;
-
         ListMaterialFragment newFragment = new ListMaterialFragment();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content_main, newFragment);

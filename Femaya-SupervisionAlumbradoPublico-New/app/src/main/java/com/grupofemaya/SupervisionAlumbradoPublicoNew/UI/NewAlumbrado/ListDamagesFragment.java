@@ -58,7 +58,6 @@ public class ListDamagesFragment extends GenericFragment implements AdapterCheck
     RecyclerView recycler;
 
     RQReportInitTwo rqInitReportTwo;
-    List<DamageDTO> list = new ArrayList<>();
 
     private final ArrayList<CheckBoxItem> mList = new ArrayList<>();
     private final ArrayList<DamageDTO> mListDamages = new ArrayList<>();
@@ -92,6 +91,9 @@ public class ListDamagesFragment extends GenericFragment implements AdapterCheck
         // Inflate the layout for this fragment
         ButterKnife.bind(this, view);
         that = (MainActivity) getActivity();
+
+        mList.clear();
+        mListDamages.clear();
 
         getDamages();
 
@@ -129,7 +131,6 @@ public class ListDamagesFragment extends GenericFragment implements AdapterCheck
                         public void onClick(DialogInterface dialog, int id) {
 //                            LiveData.getInstance().getReportInitTwo().setListDamages(mListDamages);
                             LiveData.getInstance().setListD(mListDamages);
-                            list = mListDamages;
                             prepareReq();
                         }
                     });
@@ -180,19 +181,13 @@ public class ListDamagesFragment extends GenericFragment implements AdapterCheck
         for (DamageDTO item : LiveData.getInstance().getListDamges()) {
             mList.add(new CheckBoxItem(item.getDamage()));
         }
-        adapterPersonalEquip = new AdapterCheckBox(mList, this);
+        adapterPersonalEquip = new AdapterCheckBox(mList, this, false);
         recycler.setAdapter(adapterPersonalEquip);
     }
 
     private void goNext() {
         FotografiasFragment newFragment = new FotografiasFragment();
-
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-
-        Bundle b = new Bundle();
-        b.putSerializable("LIST_DAMAGES", (Serializable) list);
-        newFragment.setArguments(b);
-
         transaction.replace(R.id.content_main, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
