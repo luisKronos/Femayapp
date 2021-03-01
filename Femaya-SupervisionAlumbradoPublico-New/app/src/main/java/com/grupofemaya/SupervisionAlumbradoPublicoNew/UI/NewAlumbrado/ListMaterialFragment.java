@@ -199,7 +199,6 @@ public class ListMaterialFragment extends GenericFragment implements AdapterChec
                         rqMaterial.setIdMaterial(LiveData.getInstance().getListMaterials().get(position).getIdMaterial());
                         rqMaterial.setCantidad(txtCantidad.getText().toString());
                         mListMaterial.add(rqMaterial);
-                        Toast.makeText(requireContext(), rqMaterial.getIdMaterial(), Toast.LENGTH_SHORT).show();
                     });
             AlertDialog alert = builder.create();
             alert.show();
@@ -224,7 +223,6 @@ public class ListMaterialFragment extends GenericFragment implements AdapterChec
         } else {
             for (int i = 0; i < mListMaterial.size(); i++) {
                 if (mListMaterial.get(i).getIdMaterial().equals(LiveData.getInstance().getListMaterials().get(position).getIdMaterial())) {
-                    Toast.makeText(requireContext(), mListMaterial.get(i).getIdMaterial(), Toast.LENGTH_SHORT).show();
                     mListMaterial.remove(i);
                 }
             }

@@ -134,12 +134,10 @@ public class NewHomeFragment extends Fragment {
                     if (SharedPreferencesManager.getInstance().getCheckIn() == null) {
                         SharedPreferencesManager.getInstance().setCheckIn(check);
                         btnHour.setText("Hora de Salida");
-                        Toast.makeText(requireContext(), check + " entrada", Toast.LENGTH_SHORT).show();
 
                         SharedPreferencesManager.getInstance().setCheckOut(null);
                     } else {
                         SharedPreferencesManager.getInstance().setCheckOut(check);
-                        Toast.makeText(requireContext(), check + " salida ", Toast.LENGTH_SHORT).show();
                         LiveData.getInstance().getReportFinishHour().setHr_salida(SharedPreferencesManager.getInstance().getCheckOut());
                         prepareReq();
                     }
@@ -237,8 +235,6 @@ public class NewHomeFragment extends Fragment {
             transaction.addToBackStack(null);
             transaction.commit();
         }
-
-
     }
 
     @OnClick(R.id.btnPendientes)
@@ -254,5 +250,4 @@ public class NewHomeFragment extends Fragment {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
 }

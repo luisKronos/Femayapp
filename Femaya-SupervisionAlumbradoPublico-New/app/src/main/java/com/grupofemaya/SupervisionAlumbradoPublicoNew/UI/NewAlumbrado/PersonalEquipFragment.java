@@ -171,7 +171,6 @@ public class PersonalEquipFragment extends Fragment implements AdapterCheckBox.O
             onLine.append(s);
             SEPARADOR = ",";
         }
-        Toast.makeText(requireContext(), onLine.toString(), Toast.LENGTH_SHORT).show();
         switch (typeCuadrilla) {
             case "personalAlumbrado":
             case "personalCivil":

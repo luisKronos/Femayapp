@@ -47,11 +47,9 @@ public class ReporteFinalFragment extends Fragment {
 
     RQReportInit reportInit = LiveData.getInstance().getReportInit();
     RQReportInitTwo reportInitTwo = LiveData.getInstance().getReportInitTwo();
-//    List<DamageDTO> reportListDamage = LiveData.getInstance().getListD();
     List<DamageDTO> reportListDamage = LiveData.getInstance().getReportInitTwo().getListDamages();
     RQReportInitThree reportInitThree = LiveData.getInstance().getReportInitThree();
     MinutaDTO reportMinuta = reportInitThree.getMinuta();
-//    List<MaterialNew> reportListMaterialUsed = LiveData.getInstance().getListM();
     List<MaterialNew> reportListMaterialUsed = LiveData.getInstance().getReportMaterialUsed().getListaMaterial();
     RQImageMaterialUsed reportImageMaterialUsed = LiveData.getInstance().getReportImageMaterialUsed();
     RQNotas reportNotas = LiveData.getInstance().getReportNotas();
@@ -160,8 +158,7 @@ public class ReporteFinalFragment extends Fragment {
             txtValueForOtro.setVisibility(View.VISIBLE);
             txtValueForOtro.setText("Vialidad: " + reportInit.getValueForOtro());
         }
-
-        //TODO: Checar por que imprime 4 y no solo 2 (25)
+        
         //Separar por comas
         String[] arrSplit = reportInit.getIdCuadrillas().split(",");
         for (String s : arrSplit) {
@@ -172,6 +169,7 @@ public class ReporteFinalFragment extends Fragment {
                     cuadrillas.append(item.getTipo()).append(" - ").append(s).append("\n");
                 }
             }
+            break;
         }
         txtIdCuadrillas.setText(cuadrillas);
 

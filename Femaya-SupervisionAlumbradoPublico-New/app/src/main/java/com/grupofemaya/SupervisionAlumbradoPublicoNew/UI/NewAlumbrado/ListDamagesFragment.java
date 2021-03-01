@@ -197,11 +197,9 @@ public class ListDamagesFragment extends GenericFragment implements AdapterCheck
     public void onItemSelected(String text, boolean isChecked, int position) {
         if (isChecked) {
             mListDamages.add(LiveData.getInstance().getListDamges().get(position));
-            Toast.makeText(requireContext(), LiveData.getInstance().getListDamges().get(position).getDamage(), Toast.LENGTH_SHORT).show();
         } else {
             for (int i = 0; i < mListDamages.size(); i++) {
                 if (mListDamages.get(i).equals(LiveData.getInstance().getListDamges().get(position))) {
-                    Toast.makeText(requireContext(), mListDamages.get(i).getDamage(), Toast.LENGTH_SHORT).show();
                     mListDamages.remove(i);
                 }
             }
