@@ -16,6 +16,8 @@ public class Constantes {
     public final static String PREF_NAME_USER = "nameUser";
     public final static String PREF_TURNO = "prefTurno";
 
+    public final static String LIST = "list_id";
+
     public final static String CHECK_IN = "check_in";
     public final static String CHECK_OUT = "check_out";
 

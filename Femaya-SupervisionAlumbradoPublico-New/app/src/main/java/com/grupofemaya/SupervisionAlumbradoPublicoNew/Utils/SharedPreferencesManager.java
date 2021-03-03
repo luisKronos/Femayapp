@@ -3,6 +3,12 @@ package com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSReportInitOne;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 public class SharedPreferencesManager {
 
     private static SharedPreferencesManager sInstance;
@@ -86,6 +92,29 @@ public class SharedPreferencesManager {
         return mPref.getBoolean(Constantes.VISIBLE_REPORT, false);
     }
 
+    public void setIdReportValues(int res, boolean clean) {
+        if (clean) {
+            ArrayList<String> listEmpty = new ArrayList<>();
+            Set<String> set = new HashSet<>(listEmpty);
+            mPref.edit()
+                    .putStringSet(Constantes.LIST, set)
+                    .apply();
+        } else {
+            ArrayList<String> list = getListIdReportValues();
+            list.add(String.valueOf(res));
+            Set<String> set = new HashSet<>(list);
+            mPref.edit()
+                    .putStringSet(Constantes.LIST, set)
+                    .apply();
+        }
+    }
 
-
+    public ArrayList<String> getListIdReportValues() {
+        Set<String> set = mPref.getStringSet(Constantes.LIST, null);
+        ArrayList<String> list = new ArrayList<>();
+        if (set != null) {
+            list = new ArrayList<>(set);
+        }
+        return list;
+    }
 }

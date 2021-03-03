@@ -195,7 +195,6 @@ public class LiveData {
     private RQFinishHour reportFinishHour = new RQFinishHour();
     private List<MaterialNew> listM = new ArrayList<>();
     private List<DamageDTO> listD = new ArrayList<>();
-    private List<RSReportInitOne> listIdReportAlumbrados = new ArrayList<>();
 
     public RQCuadrilla getCuadrillaReport() {
         return cuadrillaReport;
@@ -339,14 +338,6 @@ public class LiveData {
 
     public void setListD(List<DamageDTO> listD) {
         this.listD = listD;
-    }
-
-    public List<RSReportInitOne> getListIdReportAlumbrados() {
-        return listIdReportAlumbrados;
-    }
-
-    public void setListIdReportAlumbrados(List<RSReportInitOne> listIdReportAlumbrados) {
-        this.listIdReportAlumbrados = listIdReportAlumbrados;
     }
 
     //RS

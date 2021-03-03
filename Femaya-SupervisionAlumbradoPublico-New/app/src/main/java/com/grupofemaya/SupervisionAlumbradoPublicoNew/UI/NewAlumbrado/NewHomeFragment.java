@@ -21,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQFinishHour;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSFinalQuantification;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSReportInitOne;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.Repository;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.RepositoryImp;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Cuadrilla.TypeCuadrillaFragment;
@@ -29,6 +31,8 @@ import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.LiveData;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.SharedPreferencesManager;
 
 import org.grupofemaya.SupervisionAlumbradoPublico.R;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,7 +60,17 @@ public class NewHomeFragment extends Fragment {
             Message msg = mHandler.obtainMessage();
 
             LiveData.getInstance().getReportFinishHour().setIdReportAlumbrado(LiveData.getInstance().getResponseReportInit().getIdReportAlumbrado());
-            LiveData.getInstance().getReportFinishHour().setListReportAlumbrado(LiveData.getInstance().getListIdReportAlumbrados());
+
+            ArrayList<RSReportInitOne> list = new ArrayList<>();
+            ArrayList<String> array = SharedPreferencesManager.getInstance().getListIdReportValues();
+
+            for (String item : array) {
+                RSReportInitOne report = new RSReportInitOne();
+                report.setIdReportAlumbrado(Integer.parseInt(item));
+                list.add(report);
+            }
+
+            LiveData.getInstance().getReportFinishHour().setListReportAlumbrado(list);
 
             reportFinishHour = LiveData.getInstance().getReportFinishHour();
 
@@ -194,7 +208,7 @@ public class NewHomeFragment extends Fragment {
                 that.hideProgress();
                 btnHour.setText("Hora de Entrada");
 
-                LiveData.getInstance().getListIdReportAlumbrados().clear();
+                SharedPreferencesManager.getInstance().setIdReportValues(0, true);
                 SharedPreferencesManager.getInstance().setCheckIn(null);
                 SharedPreferencesManager.getInstance().setCheckOut(null);
 

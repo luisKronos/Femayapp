@@ -55,6 +55,7 @@ import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.rsGeneral;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.rsGeneralList;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.Constantes;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.LiveData;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.SharedPreferencesManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -822,6 +823,7 @@ public class Repository {
                 if(response.body() != null) {
                     if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
                         LiveData.getInstance().setResponseReportInit(response.body().getData());
+                        SharedPreferencesManager.getInstance().setIdReportValues(response.body().getData().getIdReportAlumbrado(), false);
                         callBack.succedResponse(response.body());
                     } else {
                         callBack.requestFail(response.body().getHeader().getMessage());
@@ -942,9 +944,6 @@ public class Repository {
             public void onResponse(Call<rsGeneral<RSReportInitOne>> call, Response<rsGeneral<RSReportInitOne>> response) {
                 if(response.body() != null) {
                     if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
-                        RSReportInitOne report = new RSReportInitOne();
-                        report.setIdReportAlumbrado(response.body().getData().getIdReportAlumbrado());
-                        LiveData.getInstance().getListIdReportAlumbrados().add(report);
                         callBack.succedResponse(response.body().getHeader().getMessage());
                     } else {
                         callBack.requestFail(response.body().getHeader().getMessage());
