@@ -72,35 +72,21 @@ public class FolioPDLFragment extends GenericFragment {
     }
 
     private void ask(){
-        if (txtFolio.getText().toString().isEmpty()) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(that);
-            builder.setMessage("Es necesario agregar un folio valido")
-                    .setCancelable(true)
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(that);
+        builder.setMessage("¿Deseas continuar?")
+                .setCancelable(true)
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
 
-                        }
-                    });
-            AlertDialog alert2 = builder.create();
-            alert2.show();
-        } else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(that);
-            builder.setMessage("¿Deseas continuar?")
-                    .setCancelable(true)
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-
-                        }
-                    })
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            goNext();
-                        }
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
-        }
+                    }
+                })
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        goNext();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void goNext(){
