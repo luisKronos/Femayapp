@@ -1,17 +1,23 @@
 package com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.NewAlumbrado;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +25,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQImageMaterialUsed;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.Repository;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.RepositoryImp;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Generic.GenericFragment;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.MainActivity;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.Funcs;
@@ -26,6 +35,7 @@ import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.LiveData;
 
 import org.grupofemaya.SupervisionAlumbradoPublico.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -33,12 +43,40 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-
 public class FotografiaMaterialesFragment extends GenericFragment {
 
     MainActivity that;
     View view;
+    Bitmap bitmap;
 
+    RQImageMaterialUsed rqImage;
+
+    @SuppressLint("HandlerLeak")
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            initRequest();
+        }
+    };
+
+    private final Runnable mMessageSender = new Runnable() {
+        public void run() {
+            Message msg = mHandler.obtainMessage();
+
+            LiveData.getInstance().getReportImageMaterialUsed().setIdReportAlumbrado(LiveData.getInstance().getResponseReportInit().getIdReportAlumbrado());
+            LiveData.getInstance().getReportImageMaterialUsed().setObsMaterial(txtMaterialResguardo.getText().toString());
+
+            rqImage = LiveData.getInstance().getReportImageMaterialUsed();
+            if(LiveData.getInstance().getReportImageMaterialUsed().getFotoMaterial() != null) {
+                if (LiveData.getInstance().getReportImageMaterialUsed().getFotoMaterial().length() < 500) {
+                    rqImage.setFotoMaterial(mFuncs.convierteBase64(LiveData.getInstance().getReportImageMaterialUsed().getFotoMaterial()));
+                } else {
+                    rqImage.setFotoMaterial(LiveData.getInstance().getReportImageMaterialUsed().getFotoMaterial());
+                }
+            }
+            mHandler.sendMessage(msg);
+        }
+    };
 
     @BindView(R.id.imgView)
     ImageView imgView;
@@ -47,15 +85,13 @@ public class FotografiaMaterialesFragment extends GenericFragment {
     EditText txtMaterialResguardo;
 
     static int CODE_PHOTO=100;
+    static int CODE_GALERY_PHOTO=450;
     static final int CODE_REQ_PERMISSION=600;
     String photoReport="";
 
     Funcs mFuncs = new Funcs();
 
-    public FotografiaMaterialesFragment() {
-        // Required empty public constructor
-    }
-
+    public FotografiaMaterialesFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,7 +100,6 @@ public class FotografiaMaterialesFragment extends GenericFragment {
         // Inflate the layout for this fragment
         ButterKnife.bind(this, view);
         that = (MainActivity) getActivity();
-
 
         return view;
     }
@@ -84,31 +119,61 @@ public class FotografiaMaterialesFragment extends GenericFragment {
         }
     }
 
-
     private void tomarFoto() {
-        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if(pictureIntent.resolveActivity(that.getPackageManager()) != null){
-            File photoFile = null;
-            try {
-                photoFile = mFuncs.createImageFile(that);
-                photoReport = photoFile.getAbsolutePath();
-            } catch (IOException ex) {
-                that.showDialog(ex.getMessage());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Abrir fotografía");
+        builder.setCancelable(true);
+        builder.setPositiveButton("Tomar foto", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (pictureIntent.resolveActivity(that.getPackageManager()) != null) {
+                    File photoFile = null;
+                    try {
+                        photoFile = mFuncs.createImageFile(that);
+                        photoReport = photoFile.getAbsolutePath();
+                    } catch (IOException ex) {
+                        that.showDialog(ex.getMessage());
+                    }
+                    Uri photoURI = FileProvider.getUriForFile(that,that.getApplicationContext().getPackageName()+".provider",photoFile);
+                    pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                    startActivityForResult(pictureIntent, CODE_PHOTO);
+                }
             }
-            Uri photoURI = FileProvider.getUriForFile(that,that.getApplicationContext().getPackageName()+".provider",photoFile);
-            pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-            startActivityForResult(pictureIntent, CODE_PHOTO);
-        }
+        });
+        builder.setNegativeButton("Galería", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent galeryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                startActivityForResult(galeryIntent, CODE_GALERY_PHOTO);
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==CODE_PHOTO && resultCode==-1){
             try {
-                LiveData.getInstance().getLiveReport().setFotoMaterial(photoReport);
+                LiveData.getInstance().getReportImageMaterialUsed().setFotoMaterial(photoReport);
                 mFuncs.setImageOnImageView(photoReport,imgView);
+            } catch (Exception e) {
+                Toast.makeText(that.getApplicationContext(), "Error al cargar la foto", Toast.LENGTH_SHORT)
+                        .show();
+            }
+        } else if(requestCode==CODE_GALERY_PHOTO && resultCode==-1) {
+            try {
+                Uri photoURI = data.getData();
+
+                bitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), photoURI);
+                imgView.setImageBitmap(bitmap);
+
+                ByteArrayOutputStream array = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 40, array);
+                byte[] imagenByte = array.toByteArray();
+                photoReport = Base64.encodeToString(imagenByte, Base64.DEFAULT);
+                LiveData.getInstance().getReportImageMaterialUsed().setFotoMaterial(photoReport);
             } catch (Exception e) {
                 Toast.makeText(that.getApplicationContext(), "Error al cargar la foto", Toast.LENGTH_SHORT)
                         .show();
@@ -131,7 +196,6 @@ public class FotografiaMaterialesFragment extends GenericFragment {
         }
     }
 
-
     @OnClick(R.id.btn)
     public void clickContinuar(){
         AlertDialog.Builder builder = new AlertDialog.Builder(that);
@@ -144,20 +208,40 @@ public class FotografiaMaterialesFragment extends GenericFragment {
                 })
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        LiveData.getInstance().getLiveReport().setObsMaterial(txtMaterialResguardo.getText().toString());
-                        goNext();
+                        prepareReq();
                     }
                 });
         AlertDialog alert = builder.create();
         alert.show();
     }
 
+    private void prepareReq(){
+        that.showProgress();
+        new Thread(mMessageSender).start();
+    }
+
+    private void initRequest(){
+        Repository.getInstance().requestImageMaterialUsed(rqImage, new RepositoryImp() {
+            @Override
+            public void succedResponse(Object response) {
+                that.hideProgress();
+                that.showDialog("La información ha sido guardada con éxito");
+                goNext();
+            }
+
+            @Override
+            public void requestFail(String message) {
+                that.hideProgress();
+                that.showDialog(message);
+            }
+        });
+    }
+
     private void goNext(){
-        ResumenFinalFragment newFragment = new ResumenFinalFragment();
+        NotasFragment newFragment = new NotasFragment();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content_main, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
 }

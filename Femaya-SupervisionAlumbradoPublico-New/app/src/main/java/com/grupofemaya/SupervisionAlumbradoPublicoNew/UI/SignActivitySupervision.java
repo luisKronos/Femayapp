@@ -12,9 +12,7 @@ import org.grupofemaya.SupervisionAlumbradoPublico.R;
 
 public class SignActivitySupervision extends AppCompatActivity {
 
-
     MyDrawView myDrawView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

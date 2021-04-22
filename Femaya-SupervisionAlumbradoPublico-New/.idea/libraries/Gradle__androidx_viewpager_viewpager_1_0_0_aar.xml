@@ -3,6 +3,7 @@
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/viewpager-1.0.0.aar/f5147214429e6b074b2dd39545837dfc/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/viewpager-1.0.0.aar/f5147214429e6b074b2dd39545837dfc/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/viewpager-1.0.0.aar/f5147214429e6b074b2dd39545837dfc/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

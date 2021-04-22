@@ -2,10 +2,14 @@ package com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository;
 
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Connection.APIClient;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Connection.APIInterface;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.Actividad;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.Causa;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.DamageDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.DeductivasDTO;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.Diagnostico;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.MaterialDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.ReportAlumbDTO;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.User;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.VialidadDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQCheckActividades;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQCheckAdvance;
@@ -14,27 +18,44 @@ import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQChec
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQCheckPersonal;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQCheckPickups;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQCheckTools;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQCuadrilla;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQFinishHour;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQGetPending;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQImageAfter;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQImageBefore;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQImageDuring;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQImageMaterialUsed;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQInitCheck;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQLogin;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQMaterialUsed;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQNotas;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQPendingCheck;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQReportInit;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQReportInitThree;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQReportInitTwo;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQRevised;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQRoadsBySector;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQSignContratista;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQSignSupervisor;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQStatusCheck;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSFinalQuantification;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSGetListPendings;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSIdCuadrillas;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSInitCheck;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSInitReport;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSPendingCheck;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSPendingsChecks;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSReportInitOne;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSRoad;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSSector;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSStatusCheck;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSSubirCuadrilla;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.rsLogin;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.rsGeneral;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.rsGeneralList;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.Constantes;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.LiveData;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.SharedPreferencesManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -508,7 +529,7 @@ public class Repository {
 
 
 
-    public void requestGetVialidades(String idCuadrante,final RepositoryImp callBack) {
+    public void requestGetVialidades(String idCuadrante, final RepositoryImp callBack) {
         Call<rsGeneralList<VialidadDTO>> call = apiInterface.requestGetVialidades(idCuadrante);
         call.enqueue(new Callback<rsGeneralList<VialidadDTO>>() {
             @Override
@@ -744,5 +765,418 @@ public class Repository {
         });
     }
 
+    //NEW LINES
+    public void requestCuadrillas(RQCuadrilla request, final RepositoryImp callBack) {
+        Call<rsGeneral<RSSubirCuadrilla>> call = apiInterface.requestCuadrillas(request);
+        call.enqueue(new Callback<rsGeneral<RSSubirCuadrilla>>() {
+            @Override
+            public void onResponse(Call<rsGeneral<RSSubirCuadrilla>> call, Response<rsGeneral<RSSubirCuadrilla>> response) {
+                if(response.body() != null) {
+                    if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
+                        callBack.succedResponse(response.body());
+                    } else {
+                        callBack.requestFail(response.body().getHeader().getMessage());
+                    }
+                } else {
+                    callBack.requestFail("Ocurrio un error.");
+                }
+            }
 
+            @Override
+            public void onFailure(Call<rsGeneral<RSSubirCuadrilla>> call, Throwable t) {
+                call.cancel();
+                callBack.requestFail("Ocurrio un error.");
+            }
+        });
+    }
+
+    public void requestIdCuadrillas(User idUser, final RepositoryImp callBack) {
+        Call<rsGeneralList<RSIdCuadrillas>> call = apiInterface.requestIdCuadrillas(idUser);
+        call.enqueue(new Callback<rsGeneralList<RSIdCuadrillas>>() {
+            @Override
+            public void onResponse(Call<rsGeneralList<RSIdCuadrillas>> call, Response<rsGeneralList<RSIdCuadrillas>> response) {
+                if(response.body() != null) {
+                    if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
+                        LiveData.getInstance().setIdCuadrillas(response.body().getData());
+                        callBack.succedResponse(response.body());
+                    } else {
+                        callBack.requestFail(response.body().getHeader().getMessage());
+                    }
+                } else {
+                    callBack.requestFail("Ocurrio un error.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<rsGeneralList<RSIdCuadrillas>> call, Throwable t) {
+                call.cancel();
+                callBack.requestFail("Ocurrio un error.");
+            }
+        });
+    }
+
+    public void requestReportInitOne(RQReportInit request, final RepositoryImp callBack) {
+        Call<rsGeneral<RSReportInitOne>> call = apiInterface.requestReportInitOne(request);
+        call.enqueue(new Callback<rsGeneral<RSReportInitOne>>() {
+            @Override
+            public void onResponse(Call<rsGeneral<RSReportInitOne>> call, Response<rsGeneral<RSReportInitOne>> response) {
+                if(response.body() != null) {
+                    if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
+                        LiveData.getInstance().setResponseReportInit(response.body().getData());
+                        SharedPreferencesManager.getInstance().setIdReportValues(response.body().getData().getIdReportAlumbrado(), false);
+                        callBack.succedResponse(response.body());
+                    } else {
+                        callBack.requestFail(response.body().getHeader().getMessage());
+                    }
+                } else {
+                    callBack.requestFail("Ocurrio un error.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<rsGeneral<RSReportInitOne>> call, Throwable t) {
+                call.cancel();
+                callBack.requestFail("Ocurrio un error.");
+            }
+        });
+    }
+
+    public void requestReportInitTwo(RQReportInitTwo request, final RepositoryImp callBack) {
+        Call<rsGeneral<String>> call = apiInterface.requestReportInitTwo(request);
+        call.enqueue(new Callback<rsGeneral<String>>() {
+            @Override
+            public void onResponse(Call<rsGeneral<String>> call, Response<rsGeneral<String>> response) {
+                if(response.body() != null) {
+                    if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
+                        callBack.succedResponse(response.body());
+                    } else {
+                        callBack.requestFail(response.body().getHeader().getMessage());
+                    }
+                } else {
+                    callBack.requestFail("Ocurrio un error.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<rsGeneral<String>> call, Throwable t) {
+                call.cancel();
+                callBack.requestFail("Ocurrio un error.");
+            }
+        });
+    }
+
+    public void requestImageBefore(RQImageBefore request, final RepositoryImp callBack) {
+        Call<rsGeneral<RSReportInitOne>> call = apiInterface.requestImageBefore(request);
+        call.enqueue(new Callback<rsGeneral<RSReportInitOne>>() {
+            @Override
+            public void onResponse(Call<rsGeneral<RSReportInitOne>> call, Response<rsGeneral<RSReportInitOne>> response) {
+                if(response.body() != null) {
+                    if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
+                        callBack.succedResponse(response.body().getHeader().getMessage());
+                    } else {
+                        callBack.requestFail(response.body().getHeader().getMessage());
+                    }
+                } else {
+                    callBack.requestFail("Ocurrio un error.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<rsGeneral<RSReportInitOne>> call, Throwable t) {
+                call.cancel();
+                callBack.requestFail("Ocurrio un error.");
+            }
+        });
+    }
+
+    public void requestImageDuring(RQImageDuring request, final RepositoryImp callBack) {
+        Call<rsGeneral<RSReportInitOne>> call = apiInterface.requestImageDuring(request);
+        call.enqueue(new Callback<rsGeneral<RSReportInitOne>>() {
+            @Override
+            public void onResponse(Call<rsGeneral<RSReportInitOne>> call, Response<rsGeneral<RSReportInitOne>> response) {
+                if(response.body() != null) {
+                    if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
+                        callBack.succedResponse(response.body().getHeader().getMessage());
+                    } else {
+                        callBack.requestFail(response.body().getHeader().getMessage());
+                    }
+                } else {
+                    callBack.requestFail("Ocurrio un error.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<rsGeneral<RSReportInitOne>> call, Throwable t) {
+                call.cancel();
+                callBack.requestFail("Ocurrio un error.");
+            }
+        });
+    }
+
+    public void requestImageAfter(RQImageAfter request, final RepositoryImp callBack) {
+        Call<rsGeneral<RSReportInitOne>> call = apiInterface.requestImageAfter(request);
+        call.enqueue(new Callback<rsGeneral<RSReportInitOne>>() {
+            @Override
+            public void onResponse(Call<rsGeneral<RSReportInitOne>> call, Response<rsGeneral<RSReportInitOne>> response) {
+                if(response.body() != null) {
+                    if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
+                        callBack.succedResponse(response.body().getHeader().getMessage());
+                    } else {
+                        callBack.requestFail(response.body().getHeader().getMessage());
+                    }
+                } else {
+                    callBack.requestFail("Ocurrio un error.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<rsGeneral<RSReportInitOne>> call, Throwable t) {
+                call.cancel();
+                callBack.requestFail("Ocurrio un error.");
+            }
+        });
+    }
+
+    public void requestReportInitThree(RQReportInitThree request, final RepositoryImp callBack) {
+        Call<rsGeneral<RSReportInitOne>> call = apiInterface.requestReportInitThree(request);
+        call.enqueue(new Callback<rsGeneral<RSReportInitOne>>() {
+            @Override
+            public void onResponse(Call<rsGeneral<RSReportInitOne>> call, Response<rsGeneral<RSReportInitOne>> response) {
+                if(response.body() != null) {
+                    if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
+                        callBack.succedResponse(response.body().getHeader().getMessage());
+                    } else {
+                        callBack.requestFail(response.body().getHeader().getMessage());
+                    }
+                } else {
+                    callBack.requestFail("Ocurrio un error.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<rsGeneral<RSReportInitOne>> call, Throwable t) {
+                call.cancel();
+                callBack.requestFail("Ocurrio un error.");
+            }
+        });
+    }
+
+    public void requestGetCausas(final RepositoryImp callBack) {
+        Call<rsGeneralList<Causa>> call = apiInterface.requestGetCausas();
+        call.enqueue(new Callback<rsGeneralList<Causa>>() {
+            @Override
+            public void onResponse(Call<rsGeneralList<Causa>> call, Response<rsGeneralList<Causa>> response) {
+                if(response.body() != null) {
+                    if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
+                        LiveData.getInstance().setListCausa(response.body().getData());
+                        callBack.succedResponse(response.body());
+                    } else {
+                        callBack.requestFail(response.body().getHeader().getMessage());
+                    }
+                } else {
+                    callBack.requestFail("Ocurrio un error.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<rsGeneralList<Causa>> call, Throwable t) {
+                call.cancel();
+                callBack.requestFail("Ocurrio un error.");
+            }
+        });
+    }
+
+    public void requestGetDiagnostico(final RepositoryImp callBack) {
+        Call<rsGeneralList<Diagnostico>> call = apiInterface.requestGetDiagnostico();
+        call.enqueue(new Callback<rsGeneralList<Diagnostico>>() {
+            @Override
+            public void onResponse(Call<rsGeneralList<Diagnostico>> call, Response<rsGeneralList<Diagnostico>> response) {
+                if(response.body() != null) {
+                    if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
+                        LiveData.getInstance().setListDiagnostico(response.body().getData());
+                        callBack.succedResponse(response.body());
+                    } else {
+                        callBack.requestFail(response.body().getHeader().getMessage());
+                    }
+                } else {
+                    callBack.requestFail("Ocurrio un error.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<rsGeneralList<Diagnostico>> call, Throwable t) {
+                call.cancel();
+                callBack.requestFail("Ocurrio un error.");
+            }
+        });
+    }
+
+    public void requestGetActividades(final RepositoryImp callBack) {
+        Call<rsGeneralList<Actividad>> call = apiInterface.requestGetActividades();
+        call.enqueue(new Callback<rsGeneralList<Actividad>>() {
+            @Override
+            public void onResponse(Call<rsGeneralList<Actividad>> call, Response<rsGeneralList<Actividad>> response) {
+                if(response.body() != null) {
+                    if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
+                        LiveData.getInstance().setListActividad(response.body().getData());
+                        callBack.succedResponse(response.body());
+                    } else {
+                        callBack.requestFail(response.body().getHeader().getMessage());
+                    }
+                } else {
+                    callBack.requestFail("Ocurrio un error.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<rsGeneralList<Actividad>> call, Throwable t) {
+                call.cancel();
+                callBack.requestFail("Ocurrio un error.");
+            }
+        });
+    }
+
+    public void requestMaterialesUsed(RQMaterialUsed request, final RepositoryImp callBack) {
+        Call<rsGeneral<RSReportInitOne>> call = apiInterface.requestMaterialesUsed(request);
+        call.enqueue(new Callback<rsGeneral<RSReportInitOne>>() {
+            @Override
+            public void onResponse(Call<rsGeneral<RSReportInitOne>> call, Response<rsGeneral<RSReportInitOne>> response) {
+                if(response.body() != null) {
+                    if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
+                        callBack.succedResponse(response.body());
+                    } else {
+                        callBack.requestFail(response.body().getHeader().getMessage());
+                    }
+                } else {
+                    callBack.requestFail("Ocurrio un error.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<rsGeneral<RSReportInitOne>> call, Throwable t) {
+                call.cancel();
+                callBack.requestFail("Ocurrio un error.");
+            }
+        });
+    }
+
+    public void requestImageMaterialUsed(RQImageMaterialUsed request, final RepositoryImp callBack) {
+        Call<rsGeneral<RSReportInitOne>> call = apiInterface.requestImageMaterialUsed(request);
+        call.enqueue(new Callback<rsGeneral<RSReportInitOne>>() {
+            @Override
+            public void onResponse(Call<rsGeneral<RSReportInitOne>> call, Response<rsGeneral<RSReportInitOne>> response) {
+                if(response.body() != null) {
+                    if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
+                        callBack.succedResponse(response.body().getHeader().getMessage());
+                    } else {
+                        callBack.requestFail(response.body().getHeader().getMessage());
+                    }
+                } else {
+                    callBack.requestFail("Ocurrio un error.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<rsGeneral<RSReportInitOne>> call, Throwable t) {
+                call.cancel();
+                callBack.requestFail("Ocurrio un error.");
+            }
+        });
+    }
+
+    public void requestReportNotas(RQNotas request, final RepositoryImp callBack) {
+        Call<rsGeneral<RSReportInitOne>> call = apiInterface.requestReportNotas(request);
+        call.enqueue(new Callback<rsGeneral<RSReportInitOne>>() {
+            @Override
+            public void onResponse(Call<rsGeneral<RSReportInitOne>> call, Response<rsGeneral<RSReportInitOne>> response) {
+                if(response.body() != null) {
+                    if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
+                        callBack.succedResponse(response.body().getHeader().getMessage());
+                    } else {
+                        callBack.requestFail(response.body().getHeader().getMessage());
+                    }
+                } else {
+                    callBack.requestFail("Ocurrio un error.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<rsGeneral<RSReportInitOne>> call, Throwable t) {
+                call.cancel();
+                callBack.requestFail("Ocurrio un error.");
+            }
+        });
+    }
+
+    public void requestSignContratista(RQSignContratista request, final RepositoryImp callBack) {
+        Call<rsGeneral<RSReportInitOne>> call = apiInterface.requestSignContratista(request);
+        call.enqueue(new Callback<rsGeneral<RSReportInitOne>>() {
+            @Override
+            public void onResponse(Call<rsGeneral<RSReportInitOne>> call, Response<rsGeneral<RSReportInitOne>> response) {
+                if(response.body() != null) {
+                    if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
+                        callBack.succedResponse(response.body().getHeader().getMessage());
+                    } else {
+                        callBack.requestFail(response.body().getHeader().getMessage());
+                    }
+                } else {
+                    callBack.requestFail("Ocurrio un error.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<rsGeneral<RSReportInitOne>> call, Throwable t) {
+                call.cancel();
+                callBack.requestFail("Ocurrio un error.");
+            }
+        });
+    }
+
+    public void requestSignSupervisor(RQSignSupervisor request, final RepositoryImp callBack) {
+        Call<rsGeneral<RSReportInitOne>> call = apiInterface.requestSignSupervisor(request);
+        call.enqueue(new Callback<rsGeneral<RSReportInitOne>>() {
+            @Override
+            public void onResponse(Call<rsGeneral<RSReportInitOne>> call, Response<rsGeneral<RSReportInitOne>> response) {
+                if(response.body() != null) {
+                    if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
+                        callBack.succedResponse(response.body().getHeader().getMessage());
+                    } else {
+                        callBack.requestFail(response.body().getHeader().getMessage());
+                    }
+                } else {
+                    callBack.requestFail("Ocurrio un error.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<rsGeneral<RSReportInitOne>> call, Throwable t) {
+                call.cancel();
+                callBack.requestFail("Ocurrio un error.");
+            }
+        });
+    }
+
+    public void requestFinishHour(RQFinishHour request, final RepositoryImp callBack) {
+        Call<rsGeneral<RSReportInitOne>> call = apiInterface.requestFinishHour(request);
+        call.enqueue(new Callback<rsGeneral<RSReportInitOne>>() {
+            @Override
+            public void onResponse(Call<rsGeneral<RSReportInitOne>> call, Response<rsGeneral<RSReportInitOne>> response) {
+                if(response.body() != null) {
+                    if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
+                        callBack.succedResponse(response.body().getHeader().getMessage());
+                    } else {
+                        callBack.requestFail(response.body().getHeader().getMessage());
+                    }
+                } else {
+                    callBack.requestFail("Ocurrio un error.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<rsGeneral<RSReportInitOne>> call, Throwable t) {
+                call.cancel();
+                callBack.requestFail("Ocurrio un error.");
+            }
+        });
+    }
 }

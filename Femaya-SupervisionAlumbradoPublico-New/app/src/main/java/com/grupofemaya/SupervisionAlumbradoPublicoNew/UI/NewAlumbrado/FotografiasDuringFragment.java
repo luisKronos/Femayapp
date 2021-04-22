@@ -1,6 +1,7 @@
 package com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.NewAlumbrado;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +16,8 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -23,6 +26,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.DamageDTO;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQImageBefore;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQImageDuring;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.Repository;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.RepositoryImp;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.MainActivity;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.Funcs;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.LiveData;
@@ -32,6 +40,8 @@ import org.grupofemaya.SupervisionAlumbradoPublico.R;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +53,34 @@ public class FotografiasDuringFragment extends Fragment {
     View view;
     Bitmap bitmap;
 
+    RQImageDuring rqImage;
+
+    @SuppressLint("HandlerLeak")
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            initRequest();
+        }
+    };
+
+    private final Runnable mMessageSender = new Runnable() {
+        public void run() {
+            Message msg = mHandler.obtainMessage();
+
+            LiveData.getInstance().getReportImageDuring().setIdReportAlumbrado(LiveData.getInstance().getResponseReportInit().getIdReportAlumbrado());
+
+            rqImage = LiveData.getInstance().getReportImageDuring();
+            if(LiveData.getInstance().getReportImageDuring().getFotoDurante() != null) {
+                if (LiveData.getInstance().getReportImageDuring().getFotoDurante().length() < 500) {
+                    rqImage.setFotoDurante(mFuncs.convierteBase64(LiveData.getInstance().getReportImageDuring().getFotoDurante()));
+                } else {
+                    rqImage.setFotoDurante(LiveData.getInstance().getReportImageDuring().getFotoDurante());
+                }
+            }
+            mHandler.sendMessage(msg);
+        }
+    };
+
     @BindView(R.id.imgView2)
     ImageView imgView2;
 
@@ -52,6 +90,8 @@ public class FotografiasDuringFragment extends Fragment {
     String photoReportDurante="";
 
     Funcs mFuncs = new Funcs();
+
+    List<DamageDTO> listDamages;
 
     public FotografiasDuringFragment() {
         // Required empty public constructor
@@ -64,6 +104,7 @@ public class FotografiasDuringFragment extends Fragment {
         // Inflate the layout for this fragment
         ButterKnife.bind(this, view);
         that = (MainActivity) getActivity();
+
         return view;
     }
 
@@ -117,7 +158,7 @@ public class FotografiasDuringFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==CODE_PHOTO_DURANTE && resultCode==-1){
             try {
-                LiveData.getInstance().getLiveReport().setFotoDurante(photoReportDurante);
+                LiveData.getInstance().getReportImageDuring().setFotoDurante(photoReportDurante);
                 mFuncs.setImageOnImageView(photoReportDurante,imgView2);
             } catch (Exception e) {
                 Toast.makeText(that.getApplicationContext(), "Error al cargar la foto", Toast.LENGTH_SHORT)
@@ -131,10 +172,10 @@ public class FotografiasDuringFragment extends Fragment {
                 imgView2.setImageBitmap(bitmap);
 
                 ByteArrayOutputStream array = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, array);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 40, array);
                 byte[] imagenByte = array.toByteArray();
                 photoReportDurante = Base64.encodeToString(imagenByte, Base64.DEFAULT);
-                LiveData.getInstance().getLiveReport().setFotoDurante(photoReportDurante);
+                LiveData.getInstance().getReportImageDuring().setFotoDurante(photoReportDurante);
             } catch (Exception e) {
                 Toast.makeText(that.getApplicationContext(), "Error al cargar la foto", Toast.LENGTH_SHORT)
                         .show();
@@ -148,7 +189,7 @@ public class FotografiasDuringFragment extends Fragment {
             case CODE_REQ_PERMISSION: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //tomarFoto();
+                    tomarFotoDurante();
                 } else {
                     Toast.makeText(that.getApplicationContext(), "No se puede acceder a la camara", Toast.LENGTH_SHORT)
                             .show();
@@ -173,7 +214,7 @@ public class FotografiasDuringFragment extends Fragment {
                     })
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            goNext();
+                            prepareReq();
                         }
                     });
             AlertDialog alert = builder.create();
@@ -181,9 +222,32 @@ public class FotografiasDuringFragment extends Fragment {
         }
     }
 
+    private void prepareReq(){
+        that.showProgress();
+        new Thread(mMessageSender).start();
+    }
+
+    private void initRequest(){
+        Repository.getInstance().requestImageDuring(rqImage, new RepositoryImp() {
+            @Override
+            public void succedResponse(Object response) {
+                that.hideProgress();
+                that.showDialog(response.toString());
+                goNext();
+            }
+
+            @Override
+            public void requestFail(String message) {
+                that.hideProgress();
+                that.showDialog(message);
+            }
+        });
+    }
+
     private void goNext(){
         FotografiasAfterFragment newFragment = new FotografiasAfterFragment();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
         transaction.replace(R.id.content_main, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();

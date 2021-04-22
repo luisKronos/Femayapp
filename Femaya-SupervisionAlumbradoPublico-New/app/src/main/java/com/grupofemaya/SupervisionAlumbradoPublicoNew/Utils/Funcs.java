@@ -138,7 +138,7 @@ public class Funcs {
             Bitmap bitmap = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(),
                     bmp.getHeight(), mat, true);
             ByteArrayOutputStream outstudentstreamOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 80,
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 40,
                     outstudentstreamOutputStream);
 
 
@@ -150,7 +150,7 @@ public class Funcs {
                     FileOutputStream out = null;
                     try {
                         out = new FileOutputStream(imagePath);
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, out); // bmp is your Bitmap instance
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 40, out); // bmp is your Bitmap instance
                         // PNG is a lossless format, the compression factor (100) is ignored
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -214,7 +214,7 @@ public class Funcs {
             Bitmap bitmap = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(),
                     bmp.getHeight(), mat, true);
             ByteArrayOutputStream outstudentstreamOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 80,
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 40,
                     outstudentstreamOutputStream);
 
 
@@ -226,7 +226,7 @@ public class Funcs {
                     FileOutputStream out = null;
                     try {
                         out = new FileOutputStream(imagePath);
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, out); // bmp is your Bitmap instance
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 40, out); // bmp is your Bitmap instance
                         // PNG is a lossless format, the compression factor (100) is ignored
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -284,7 +284,7 @@ public class Funcs {
             Bitmap bitmap = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(),
                     bmp.getHeight(), mat, true);
             ByteArrayOutputStream outstudentstreamOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 80,
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 40,
                     outstudentstreamOutputStream);
 
 
@@ -296,7 +296,7 @@ public class Funcs {
                     FileOutputStream out = null;
                     try {
                         out = new FileOutputStream(imagePath);
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, out); // bmp is your Bitmap instance
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 40, out); // bmp is your Bitmap instance
                         // PNG is a lossless format, the compression factor (100) is ignored
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -386,7 +386,7 @@ public class Funcs {
     public String BitmapBase64(Bitmap bitmap){
         String encodedImage;
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 70, baos); //bm is the bitmap object
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 40, baos); //bm is the bitmap object
             byte[] b = baos.toByteArray();
             encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
         return encodedImage;

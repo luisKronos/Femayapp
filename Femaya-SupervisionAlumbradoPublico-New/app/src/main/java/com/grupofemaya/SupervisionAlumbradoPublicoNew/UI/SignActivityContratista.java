@@ -11,10 +11,7 @@ import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.MyDrawView;
 import org.grupofemaya.SupervisionAlumbradoPublico.R;
 
 public class SignActivityContratista extends AppCompatActivity {
-
-
     MyDrawView myDrawView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

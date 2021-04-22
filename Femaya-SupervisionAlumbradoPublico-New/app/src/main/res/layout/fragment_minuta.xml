@@ -35,13 +35,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="left"
+                android:layout_marginTop="20dp"
+                android:text="ESTATUS DE LA REPARACIÓN:"
+                android:textSize="21sp" />
+
             <Switch
-                android:id="@+id/switchAtencion"
+                android:id="@+id/switchStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TIPO DE ATENCIÓN:"
-                android:textColor="@color/colorGray"
-                android:textSize="21sp" />
+                android:text="Incompleto/Completo" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -66,33 +73,15 @@
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="left"
                 android:layout_marginTop="20dp"
-                android:text="FALLA DETECTADA:"
-                android:textSize="21sp" />
-
-            <EditText
-                android:id="@+id/txtFallaDetectada"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="left"
-                android:layout_marginTop="20dp"
                 android:text="DIAGNÓSTICO DE LA FALLA:"
                 android:textSize="21sp" />
 
-            <EditText
+            <Spinner
                 android:id="@+id/diagFalla"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine" />
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/colorGray" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -100,31 +89,15 @@
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="left"
                 android:layout_marginTop="20dp"
-                android:text="ACCIÓN REALIZADA:"
+                android:text="ACTIVIDAD REALIZADA:"
                 android:textSize="21sp" />
 
-            <EditText
+            <Spinner
                 android:id="@+id/txtAccionRealizada"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="left"
-                android:layout_marginTop="20dp"
-                android:text="ESTATUS DE LA REPARACIÓN:"
-                android:textSize="21sp" />
-
-            <Switch
-                android:id="@+id/switchStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Incompleto/Completo" />
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/colorGray" />
 
             <TextView
                 android:layout_width="wrap_content"

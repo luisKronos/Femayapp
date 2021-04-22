@@ -6,37 +6,51 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/btnCheck"
+        android:id="@+id/btnCuadrillas"
         android:layout_width="250dp"
         android:layout_height="66dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/boton_style_green"
+        android:text="Cuadrillas"
+        android:textColor="@color/colorTextBlanco"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnCheckHour"
+        android:layout_width="250dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/boton_style_green"
+        android:textColor="@color/colorTextBlanco"
+        app:layout_constraintEnd_toEndOf="@+id/btnCuadrillas"
+        app:layout_constraintStart_toStartOf="@+id/btnCuadrillas"
+        app:layout_constraintTop_toBottomOf="@+id/btnCuadrillas"
+        tools:text="Check Hour" />
+
+    <Button
+        android:id="@+id/btnNew"
+        android:layout_width="250dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/boton_style_green"
         android:text="Nuevo"
         android:textColor="@color/colorTextBlanco"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/btnCheckHour"
+        app:layout_constraintStart_toStartOf="@+id/btnCheckHour"
+        app:layout_constraintTop_toBottomOf="@+id/btnCheckHour" />
 
     <Button
         android:id="@+id/btnPendientes"
         android:layout_width="250dp"
         android:layout_height="66dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/boton_style_green"
         android:text="Pendientes"
         android:textColor="@color/colorTextBlanco"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCheck"
-        app:layout_constraintVertical_bias="0.0" />
-
+        app:layout_constraintEnd_toEndOf="@+id/btnNew"
+        app:layout_constraintStart_toStartOf="@+id/btnNew"
+        app:layout_constraintTop_toBottomOf="@+id/btnNew" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

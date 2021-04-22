@@ -2,7 +2,6 @@ package com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels;
 
 public class MinutaDTO {
 
-    private String idReportMinuta;
     private String tipoLuminario;
     private String fallaDetectada;
     private String diagFalla;
@@ -10,14 +9,6 @@ public class MinutaDTO {
     private String estatusReparacion;
     private String observaciones;
     private String causaNoCompletado;
-
-    public String getIdReportMinuta() {
-        return idReportMinuta;
-    }
-
-    public void setIdReportMinuta(String idReportMinuta) {
-        this.idReportMinuta = idReportMinuta;
-    }
 
     public String getTipoLuminario() {
         return tipoLuminario;

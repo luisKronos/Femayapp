@@ -3,9 +3,13 @@ package com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSReportInitOne;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 public class SharedPreferencesManager {
-
-
 
     private static SharedPreferencesManager sInstance;
     private final SharedPreferences mPref;
@@ -58,4 +62,59 @@ public class SharedPreferencesManager {
         return mPref.getString(Constantes.PREF_TURNO, "");
     }
 
+    public void setCheckIn(String value) {
+        mPref.edit()
+                .putString(Constantes.CHECK_IN, value)
+                .apply();
+    }
+
+    public String getCheckIn() {
+        return mPref.getString(Constantes.CHECK_IN, null);
+    }
+
+    public void setCheckOut(String value) {
+        mPref.edit()
+                .putString(Constantes.CHECK_OUT, value)
+                .apply();
+    }
+
+    public String getCheckOut() {
+        return mPref.getString(Constantes.CHECK_OUT, null);
+    }
+
+    public void setVisibleReport(boolean value) {
+        mPref.edit()
+                .putBoolean(Constantes.VISIBLE_REPORT, value)
+                .apply();
+    }
+
+    public boolean getVisibleReport() {
+        return mPref.getBoolean(Constantes.VISIBLE_REPORT, false);
+    }
+
+    public void setIdReportValues(int res, boolean clean) {
+        if (clean) {
+            ArrayList<String> listEmpty = new ArrayList<>();
+            Set<String> set = new HashSet<>(listEmpty);
+            mPref.edit()
+                    .putStringSet(Constantes.LIST, set)
+                    .apply();
+        } else {
+            ArrayList<String> list = getListIdReportValues();
+            list.add(String.valueOf(res));
+            Set<String> set = new HashSet<>(list);
+            mPref.edit()
+                    .putStringSet(Constantes.LIST, set)
+                    .apply();
+        }
+    }
+
+    public ArrayList<String> getListIdReportValues() {
+        Set<String> set = mPref.getStringSet(Constantes.LIST, null);
+        ArrayList<String> list = new ArrayList<>();
+        if (set != null) {
+            list = new ArrayList<>(set);
+        }
+        return list;
+    }
 }

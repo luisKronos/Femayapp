@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -14,11 +15,13 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.textclassifier.TextClassifierEvent;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.ReportAlumbDTO;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQReportInit;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.Repository;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.RepositoryImp;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.FirstAlumbrado.HomeFragment;
@@ -38,10 +41,8 @@ public class SeCuentaFragment extends Fragment {
 
     MainActivity that;
     View view;
-    Funcs mFuncs = new Funcs();
 
-    ReportAlumbDTO rqInitReport;
-
+    RQReportInit rqInitReport;
 
 
     @SuppressLint("HandlerLeak")
@@ -56,41 +57,30 @@ public class SeCuentaFragment extends Fragment {
         public void run() {
             Message msg = mHandler.obtainMessage();
 
-            LiveData.getInstance().getLiveReport().setIdUser(SharedPreferencesManager.getInstance().getIdUser());
-            LiveData.getInstance().getLiveReport().setTurno(SharedPreferencesManager.getInstance().getTurno());
+            LiveData.getInstance().getReportInit().setIdUser(Integer.parseInt(SharedPreferencesManager.getInstance().getIdUser()));
+            LiveData.getInstance().getReportInit().setTurno(SharedPreferencesManager.getInstance().getTurno());
+            LiveData.getInstance().getReportInit().setTramo(txtTramo.getText().toString());
+            LiveData.getInstance().getReportInit().setAlcaldia(txtAlcaldia.getText().toString());
+            LiveData.getInstance().getReportInit().setPlacas(txtPLacas.getText().toString());
+            LiveData.getInstance().getReportInit().setColonia(txtColonia.getText().toString());
+            LiveData.getInstance().getReportInit().setReferencia(txtReferencia.getText().toString());
+            LiveData.getInstance().getReportInit().setHr_entrada(SharedPreferencesManager.getInstance().getCheckIn());
 
-            LiveData.getInstance().getLiveReport().setPlacas(txtPLacas.getText().toString().toUpperCase());
-            LiveData.getInstance().getLiveReport().setAlcaldia(txtAlcaldia.getText().toString().toUpperCase());
-            LiveData.getInstance().getLiveReport().setTramo(txtTramo.getText().toString().toUpperCase());
-            LiveData.getInstance().getLiveReport().setColonia(txtColonia.getText().toString().toUpperCase());
-            LiveData.getInstance().getLiveReport().setReferencia(txtReferencia.getText().toString().toUpperCase());
-
-            rqInitReport = LiveData.getInstance().getLiveReport();
-            if(LiveData.getInstance().getLiveReport().getFotoCuadrilla() != null) {
-                if (LiveData.getInstance().getLiveReport().getFotoCuadrilla().length() < 500) {
-                    rqInitReport.setFotoCuadrilla(mFuncs.convierteBase64(LiveData.getInstance().getLiveReport().getFotoCuadrilla()));
-                } else {
-                    rqInitReport.setFotoCuadrilla(LiveData.getInstance().getLiveReport().getFotoCuadrilla());
-                }
-            }
+            rqInitReport = LiveData.getInstance().getReportInit();
             mHandler.sendMessage(msg);
         }
     };
 
-    @BindView(R.id.switch1)
-    Switch switch1;
-
-    @BindView(R.id.txtAlcaldia)
-    EditText txtAlcaldia;
-    @BindView(R.id.txtTramo)
-    EditText txtTramo;
     @BindView(R.id.txtPLacas)
     EditText txtPLacas;
+    @BindView(R.id.txtAlcaldia)
+    EditText txtAlcaldia;
     @BindView(R.id.txtColonia)
     EditText txtColonia;
+    @BindView(R.id.txtTramo)
+    EditText txtTramo;
     @BindView(R.id.txtReferencia)
     EditText txtReferencia;
-
 
     public SeCuentaFragment() {
         // Required empty public constructor
@@ -129,19 +119,18 @@ public class SeCuentaFragment extends Fragment {
         alert.show();
     }
 
-    private void prepareReq(){
+    private void prepareReq() {
         that.showProgress();
         new Thread(mMessageSender).start();
     }
 
 
-    private void initRequest(){
-        Repository.getInstance().requestInitReport(rqInitReport,new RepositoryImp() {
+    private void initRequest() {
+        Repository.getInstance().requestReportInitOne(rqInitReport, new RepositoryImp() {
             @Override
             public void succedResponse(Object response) {
                 that.hideProgress();
-                Toast.makeText(getContext(), "Reporte guardado", Toast.LENGTH_SHORT).show();
-                addOther();
+                goNext();
             }
 
             @Override
@@ -152,69 +141,11 @@ public class SeCuentaFragment extends Fragment {
         });
     }
 
-    private void addOther() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(that);
-        builder.setMessage("¿Desea agregar otra cuadrilla?")
-                .setCancelable(false)
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) { goNext(); }
-                })
-                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        goAddOther();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    private void goAddOther() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Numero de Cuadrilla");
-        View viewInflated = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_number_cuadrilla, (ViewGroup) getView(), false);
-        EditText txtNumber = viewInflated.findViewById(R.id.txtNumberCuadrilla);
-        builder.setView(viewInflated)
-                .setCancelable(false)
-                .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        LiveData.getInstance().getLiveReport().setCuadrilla(Integer.parseInt(txtNumber.getText().toString()));
-                        LiveData.getInstance().getLiveReport().setIdReportAlumbradoAux(Integer.parseInt(LiveData.getInstance().getLiveReport().getIdReportAlumbrado()));
-                        PersonalCuadrillasFragment newFragment = new PersonalCuadrillasFragment();
-                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        transaction.replace(R.id.content_main, newFragment);
-                        transaction.addToBackStack(null);
-                        transaction.commit();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
-        alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-
-        txtNumber.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-            @Override
-            public void afterTextChanged(Editable e) {
-                if(!e.toString().isEmpty()) {
-                    alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
-                } else {
-                    alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-                }
-            }
-        });
-    }
-
-    private void goNext(){
-        //if(switch1.isChecked()){
-            CuadrillaObraCivilFragment newFragment = new CuadrillaObraCivilFragment();
-            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.content_main, newFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
-        //}
+    private void goNext() {
+        FolioPDLFragment newFragment = new FolioPDLFragment();
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_main, newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

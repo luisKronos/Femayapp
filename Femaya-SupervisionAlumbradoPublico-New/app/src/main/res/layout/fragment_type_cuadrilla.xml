@@ -1,0 +1,44 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Cuadrilla.TypeCuadrillaFragment">
+
+    <TextView
+        android:id="@+id/text_type_cuadrilla"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:text="Elige el tipo de cuadrilla que desea agregar"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnAlumbrado"
+        android:layout_width="250dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/boton_style_green"
+        android:text="Alumbrado"
+        android:textColor="@color/colorTextBlanco"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_type_cuadrilla" />
+
+    <Button
+        android:id="@+id/btnObraCivil"
+        android:layout_width="250dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/boton_style_green"
+        android:text="Obra Civil"
+        android:textColor="@color/colorTextBlanco"
+        app:layout_constraintEnd_toEndOf="@+id/btnAlumbrado"
+        app:layout_constraintStart_toStartOf="@+id/btnAlumbrado"
+        app:layout_constraintTop_toBottomOf="@+id/btnAlumbrado" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,34 +39,6 @@ public class FolioPDLFragment extends GenericFragment {
     GPSTracker gpsTracker;
 
 
-    Funcs mFuncs = new Funcs();
-
-    ReportAlumbDTO rqReport;
-
-
-
-    @SuppressLint("HandlerLeak")
-    private final Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            initRequest();
-        }
-    };
-
-    private final Runnable mMessageSender = new Runnable() {
-        public void run() {
-            Message msg = mHandler.obtainMessage();
-            rqReport = LiveData.getInstance().getLiveReport();
-            if(LiveData.getInstance().getLiveReport().getFotoEquipo()!=null) {
-                rqReport.setFotoEquipo(mFuncs.convierteBase64(LiveData.getInstance().getLiveReport().getFotoEquipo()));
-            }
-            mHandler.sendMessage(msg);
-        }
-    };
-
-
-
-
     public FolioPDLFragment() {
         // Required empty public constructor
     }
@@ -86,14 +58,12 @@ public class FolioPDLFragment extends GenericFragment {
     }
 
 
-
-
     @OnClick(R.id.btn)
     public void clickContinuar(){
         if(that.gpsTracker.canGetLocation() && that.gpsTracker.getLatitude() != 0.0){
-            LiveData.getInstance().getLiveReport().setLat(String.valueOf(that.gpsTracker.getLatitude()));
-            LiveData.getInstance().getLiveReport().setLon(String.valueOf(that.gpsTracker.getLongitude()));
-            LiveData.getInstance().getLiveReport().setFolio(txtFolio.getText().toString());
+            LiveData.getInstance().getReportInitTwo().setIdReportAlumbrado(LiveData.getInstance().getResponseReportInit().getIdReportAlumbrado());
+            LiveData.getInstance().getReportInitTwo().setLon(String.valueOf(that.gpsTracker.getLongitude()));
+            LiveData.getInstance().getReportInitTwo().setLat(String.valueOf(that.gpsTracker.getLatitude()));
             ask();
         }else{
             gpsTracker.showSettingsAlert();
@@ -112,41 +82,15 @@ public class FolioPDLFragment extends GenericFragment {
                 })
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        prepareReq();
+                        goNext();
                     }
                 });
         AlertDialog alert = builder.create();
         alert.show();
     }
 
-
-
-    private void prepareReq(){
-        that.showProgress();
-        new Thread(mMessageSender).start();
-    }
-
-
-    private void initRequest(){
-        Repository.getInstance().requesReportSecond(rqReport,new RepositoryImp() {
-            @Override
-            public void succedResponse(Object response) {
-                that.hideProgress();
-                that.showDialog("Reporte actualizado");
-                goNext();
-            }
-
-            @Override
-            public void requestFail(String message) {
-                that.hideProgress();
-                that.showDialog(message);
-            }
-        });
-    }
-
-
-
     private void goNext(){
+        LiveData.getInstance().getReportInitTwo().setFolio(txtFolio.getText().toString());
         ListDamagesFragment newFragment = new ListDamagesFragment();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content_main, newFragment);

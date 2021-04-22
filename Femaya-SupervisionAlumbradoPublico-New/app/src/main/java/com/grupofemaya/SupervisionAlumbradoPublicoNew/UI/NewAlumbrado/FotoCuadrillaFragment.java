@@ -1,6 +1,7 @@
 package com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.NewAlumbrado;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,6 +9,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTransaction;
@@ -22,10 +25,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.ReportAlumbDTO;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQCuadrilla;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.Repository;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.RepositoryImp;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Cuadrilla.TypeCuadrillaFragment;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Generic.GenericFragment;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.MainActivity;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.Funcs;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.LiveData;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.SharedPreferencesManager;
 
 import org.grupofemaya.SupervisionAlumbradoPublico.R;
 
@@ -42,6 +51,34 @@ public class FotoCuadrillaFragment extends GenericFragment {
 
     MainActivity that;
     View view;
+
+    RQCuadrilla rqCuadrilla;
+
+    @SuppressLint("HandlerLeak")
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            initRequest();
+        }
+    };
+
+    private final Runnable mMessageSender = new Runnable() {
+        public void run() {
+            Message msg = mHandler.obtainMessage();
+
+            LiveData.getInstance().getCuadrillaReport().setIdUser(Integer.parseInt(SharedPreferencesManager.getInstance().getIdUser()));
+
+            rqCuadrilla = LiveData.getInstance().getCuadrillaReport();
+            if(LiveData.getInstance().getCuadrillaReport().getFotoCuadrilla() != null) {
+                if (LiveData.getInstance().getCuadrillaReport().getFotoCuadrilla().length() < 500) {
+                    rqCuadrilla.setFotoCuadrilla(mFuncs.convierteBase64(LiveData.getInstance().getCuadrillaReport().getFotoCuadrilla()));
+                } else {
+                    rqCuadrilla.setFotoCuadrilla(LiveData.getInstance().getCuadrillaReport().getFotoCuadrilla());
+                }
+            }
+            mHandler.sendMessage(msg);
+        }
+    };
 
     @BindView(R.id.btnFoto)
     Button btnFoto;
@@ -69,7 +106,6 @@ public class FotoCuadrillaFragment extends GenericFragment {
         // Inflate the layout for this fragment
         ButterKnife.bind(this, view);
         that = (MainActivity) getActivity();
-
 
         return view;
     }
@@ -126,7 +162,7 @@ public class FotoCuadrillaFragment extends GenericFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode==CODE_PHOTO && resultCode==-1){
             try {
-                LiveData.getInstance().getLiveReport().setFotoCuadrilla(photoReport);
+                LiveData.getInstance().getCuadrillaReport().setFotoCuadrilla(photoReport);
                 mFuncs.setImageOnImageView(photoReport,imgView);
             } catch (Exception e) {
                 Toast.makeText(that.getApplicationContext(), "Error al cargar la foto", Toast.LENGTH_SHORT)
@@ -140,10 +176,10 @@ public class FotoCuadrillaFragment extends GenericFragment {
                 imgView.setImageBitmap(bitmap);
 
                 ByteArrayOutputStream array = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, array);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 40, array);
                 byte[] imagenByte = array.toByteArray();
                 photoReport = Base64.encodeToString(imagenByte, Base64.DEFAULT);
-                LiveData.getInstance().getLiveReport().setFotoCuadrilla(photoReport);
+                LiveData.getInstance().getCuadrillaReport().setFotoCuadrilla(photoReport);
             } catch (Exception e) {
                 Toast.makeText(that.getApplicationContext(), "Error al cargar la foto", Toast.LENGTH_SHORT)
                         .show();
@@ -167,7 +203,6 @@ public class FotoCuadrillaFragment extends GenericFragment {
         }
     }
 
-
     @OnClick(R.id.btn)
     public void clickContinuar(){
         AlertDialog.Builder builder = new AlertDialog.Builder(that);
@@ -175,20 +210,59 @@ public class FotoCuadrillaFragment extends GenericFragment {
                 .setCancelable(true)
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
                     }
                 })
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        goNext();
+                        prepareReq();
                     }
                 });
         AlertDialog alert = builder.create();
         alert.show();
     }
 
-    private void goNext(){
-        SeCuentaFragment newFragment = new SeCuentaFragment();
+    private void prepareReq(){
+        that.showProgress();
+        new Thread(mMessageSender).start();
+    }
+
+    private void initRequest(){
+        Repository.getInstance().requestCuadrillas(rqCuadrilla, new RepositoryImp() {
+            @Override
+            public void succedResponse(Object response) {
+                that.hideProgress();
+                Toast.makeText(getContext(), "Cuadrilla guardada", Toast.LENGTH_SHORT).show();
+                addOther();
+            }
+
+            @Override
+            public void requestFail(String message) {
+                that.hideProgress();
+                that.showDialog(message);
+            }
+        });
+    }
+
+    private void addOther() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(that);
+        builder.setMessage("¿Desea agregar otra cuadrilla?")
+                .setCancelable(false)
+                .setNegativeButton("No", (dialog, id) -> goHome())
+                .setPositiveButton("Si", (dialog, id) -> goAddOther());
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void goHome(){
+        NewHomeFragment newFragment = new NewHomeFragment();
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_main, newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    private void goAddOther(){
+        TypeCuadrillaFragment newFragment = new TypeCuadrillaFragment();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content_main, newFragment);
         transaction.addToBackStack(null);
