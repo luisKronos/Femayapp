@@ -43,7 +43,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-
 public class FotografiaMaterialesFragment extends GenericFragment {
 
     MainActivity that;
@@ -92,10 +91,7 @@ public class FotografiaMaterialesFragment extends GenericFragment {
 
     Funcs mFuncs = new Funcs();
 
-    public FotografiaMaterialesFragment() {
-        // Required empty public constructor
-    }
-
+    public FotografiaMaterialesFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -104,7 +100,6 @@ public class FotografiaMaterialesFragment extends GenericFragment {
         // Inflate the layout for this fragment
         ButterKnife.bind(this, view);
         that = (MainActivity) getActivity();
-
 
         return view;
     }
@@ -123,7 +118,6 @@ public class FotografiaMaterialesFragment extends GenericFragment {
             tomarFoto();
         }
     }
-
 
     private void tomarFoto() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
@@ -202,28 +196,23 @@ public class FotografiaMaterialesFragment extends GenericFragment {
         }
     }
 
-
     @OnClick(R.id.btn)
     public void clickContinuar(){
-        if (photoReport.equals("")) {
-            that.showDialog("Agregue un imagen del material");
-        } else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(that);
-            builder.setMessage("¿Deseas continuar?")
-                    .setCancelable(true)
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(that);
+        builder.setMessage("¿Deseas continuar?")
+                .setCancelable(true)
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
 
-                        }
-                    })
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            prepareReq();
-                        }
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
-        }
+                    }
+                })
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        prepareReq();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void prepareReq(){
@@ -236,7 +225,7 @@ public class FotografiaMaterialesFragment extends GenericFragment {
             @Override
             public void succedResponse(Object response) {
                 that.hideProgress();
-                that.showDialog(response.toString());
+                that.showDialog("La información ha sido guardada con éxito");
                 goNext();
             }
 
@@ -255,5 +244,4 @@ public class FotografiaMaterialesFragment extends GenericFragment {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
 }

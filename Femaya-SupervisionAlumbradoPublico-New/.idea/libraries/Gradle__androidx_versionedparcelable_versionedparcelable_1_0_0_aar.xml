@@ -3,6 +3,7 @@
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.0.0.aar/a26d22a49a29d5ca168b3f816e0ee62c/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.0.0.aar/a26d22a49a29d5ca168b3f816e0ee62c/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.0.0.aar/a26d22a49a29d5ca168b3f816e0ee62c/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

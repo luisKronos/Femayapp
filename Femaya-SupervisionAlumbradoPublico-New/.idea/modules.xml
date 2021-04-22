@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Femaya-SupervisionAlumbradoPublico-New.iml" filepath="$PROJECT_DIR$/Femaya-SupervisionAlumbradoPublico-New.iml" group="Femaya-SupervisionAlumbradoPublico-New" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="Femaya-SupervisionAlumbradoPublico-New/app" />
+      <module fileurl="file://$PROJECT_DIR$/Femaya-SupervisionAlumbradoPublico-New.iml" filepath="$PROJECT_DIR$/Femaya-SupervisionAlumbradoPublico-New.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Femaya-SupervisionAlumbradoPublico-New.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Femaya-SupervisionAlumbradoPublico-New.app.iml" />
     </modules>
   </component>
 </project>
