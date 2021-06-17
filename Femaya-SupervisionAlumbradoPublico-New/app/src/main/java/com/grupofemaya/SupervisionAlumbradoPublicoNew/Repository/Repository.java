@@ -773,7 +773,9 @@ public class Repository {
             public void onResponse(Call<rsGeneral<RSSubirCuadrilla>> call, Response<rsGeneral<RSSubirCuadrilla>> response) {
                 if(response.body() != null) {
                     if (response.body().getHeader().getCode() == Constantes.CODE_SUCCEED) {
+                        SharedPreferencesManager.getInstance().setIdCuadrillasValues(response.body().getData().getIdCuadrilla(), false);
                         callBack.succedResponse(response.body());
+
                     } else {
                         callBack.requestFail(response.body().getHeader().getMessage());
                     }

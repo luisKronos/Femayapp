@@ -1,25 +1,35 @@
 package com.grupofemaya.SupervisionAlumbradoPublicoNew.UI;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentManager;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
+
+import android.os.SystemClock;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.FirstAlumbrado.PendingChecksFragment;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Generic.GenericActivity;
 
 import org.grupofemaya.SupervisionAlumbradoPublico.R;
 
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Login.LoginActivity;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.NewAlumbrado.NewHomeFragment;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.AlarmReceiverCustom;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.GPSTracker;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.SharedPreferencesManager;
+
+import java.util.Calendar;
 
 public class MainActivity extends GenericActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -35,8 +45,6 @@ public class MainActivity extends GenericActivity
 
         gpsTracker = new GPSTracker(this);
 
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -50,6 +58,25 @@ public class MainActivity extends GenericActivity
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.content_main, homeFragment,
                 homeFragment.getTag()).commit();
+
+        Intent intent = new Intent(this, AlarmReceiverCustom.class);
+        AlarmManager alarmManager =
+                (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+
+        if (pendingIntent != null && alarmManager != null) {
+            alarmManager.cancel(pendingIntent);
+        }
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
+        calendar.set(Calendar.MINUTE, 1);
+
+        // since the app is installed and repeating every 6 hours
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                (1000 * 60 * 20 * 3) * 6, pendingIntent);
+
     }
 
     @Override
@@ -100,6 +127,8 @@ public class MainActivity extends GenericActivity
             //manager.beginTransaction().replace(R.id.content_main, fragment, fragment.getTag()).commit();
         }else if (id == R.id.nav_logout) {
             SharedPreferencesManager.getInstance().setIdUser("0");
+            SharedPreferencesManager.getInstance().setCheckIn(null);
+            SharedPreferencesManager.getInstance().setCheckOut(null);
             Intent intent = new Intent(that, LoginActivity.class);
             startActivity(intent);
             finish();

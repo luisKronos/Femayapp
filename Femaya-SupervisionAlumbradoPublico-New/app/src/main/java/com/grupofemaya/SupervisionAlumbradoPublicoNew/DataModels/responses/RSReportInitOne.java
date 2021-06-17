@@ -11,3 +11,15 @@ public class RSReportInitOne {
         this.idReportAlumbrado = idReportAlumbrado;
     }
 }
+
+class RSCuadrillasId {
+    private int idCuadrillasAlumbrado;
+
+    public int getIdCuadrillasAlumbrado() {
+        return idCuadrillasAlumbrado;
+    }
+
+    public void setIdCuadrillasAlumbrado(int idCuadrillasAlumbrado) {
+        this.idCuadrillasAlumbrado = idCuadrillasAlumbrado;
+    }
+}

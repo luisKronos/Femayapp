@@ -9,6 +9,12 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+
 
     <application
         android:allowBackup="true"
@@ -62,6 +68,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/providers_paths" />
         </provider>
+
+        <receiver android:process=":remote" android:name="com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.AlarmReceiverCustom"/>
+
     </application>
 
 </manifest>

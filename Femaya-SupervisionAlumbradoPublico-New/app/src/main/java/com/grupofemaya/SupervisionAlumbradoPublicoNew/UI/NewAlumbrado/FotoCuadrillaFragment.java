@@ -75,6 +75,7 @@ public class FotoCuadrillaFragment extends GenericFragment {
                 } else {
                     rqCuadrilla.setFotoCuadrilla(LiveData.getInstance().getCuadrillaReport().getFotoCuadrilla());
                 }
+                rqCuadrilla.setHr_entrada(SharedPreferencesManager.getInstance().getCheckIn());
             }
             mHandler.sendMessage(msg);
         }

@@ -10,15 +10,14 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="150dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:contentDescription="TODO"
         android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/logo_sos"
+        app:srcCompat="@drawable/image_login"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="0dp" />
 

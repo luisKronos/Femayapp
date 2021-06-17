@@ -3,8 +3,6 @@ package com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSReportInitOne;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -111,6 +109,32 @@ public class SharedPreferencesManager {
 
     public ArrayList<String> getListIdReportValues() {
         Set<String> set = mPref.getStringSet(Constantes.LIST, null);
+        ArrayList<String> list = new ArrayList<>();
+        if (set != null) {
+            list = new ArrayList<>(set);
+        }
+        return list;
+    }
+
+    public void setIdCuadrillasValues(int res, boolean clean) {
+        if (clean) {
+            ArrayList<String> listEmpty = new ArrayList<>();
+            Set<String> set = new HashSet<>(listEmpty);
+            mPref.edit()
+                    .putStringSet(Constantes.LIST_CUADRILLAS, set)
+                    .apply();
+        } else {
+            ArrayList<String> list = getListIdCuadrillasValues();
+            list.add(String.valueOf(res));
+            Set<String> set = new HashSet<>(list);
+            mPref.edit()
+                    .putStringSet(Constantes.LIST_CUADRILLAS, set)
+                    .apply();
+        }
+    }
+
+    public ArrayList<String> getListIdCuadrillasValues() {
+        Set<String> set = mPref.getStringSet(Constantes.LIST_CUADRILLAS, null);
         ArrayList<String> list = new ArrayList<>();
         if (set != null) {
             list = new ArrayList<>(set);

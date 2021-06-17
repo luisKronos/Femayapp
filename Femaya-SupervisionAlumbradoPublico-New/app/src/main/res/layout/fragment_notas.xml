@@ -35,8 +35,23 @@
             android:layout_marginTop="33dp"
             android:hint="Notas adicionales"
             android:textColor="@android:color/black" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/layoutContainer2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutContainer"
+        android:orientation="vertical">
 
+        <EditText
+            android:id="@+id/txtMapa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="33dp"
+            android:hint="Observaciones de mapa (opcional)"
+            android:textColor="@android:color/black" />
     </LinearLayout>
 
     <Button

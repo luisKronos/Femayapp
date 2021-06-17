@@ -7,23 +7,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.CheckBoxItem;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.User;
-import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.VialidadDTO;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSIdCuadrillas;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.Repository;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.RepositoryImp;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Adapters.AdapterCheckBox;
-import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Adapters.AdapterVialidades;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.MainActivity;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.LiveData;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.SharedPreferencesManager;
@@ -31,7 +26,6 @@ import com.grupofemaya.SupervisionAlumbradoPublicoNew.Utils.SharedPreferencesMan
 import org.grupofemaya.SupervisionAlumbradoPublico.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
