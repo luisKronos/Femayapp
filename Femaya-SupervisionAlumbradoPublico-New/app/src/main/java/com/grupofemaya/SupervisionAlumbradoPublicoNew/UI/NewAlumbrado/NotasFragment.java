@@ -2,7 +2,6 @@ package com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.NewAlumbrado;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -35,6 +34,8 @@ public class NotasFragment extends GenericFragment {
 
     @BindView(R.id.txtNotas)
     EditText txtNotas;
+    @BindView(R.id.txtMapa)
+    EditText txtMapa;
 
     RQNotas rqNotas;
 
@@ -52,16 +53,14 @@ public class NotasFragment extends GenericFragment {
 
             LiveData.getInstance().getReportNotas().setIdReportAlumbrado(LiveData.getInstance().getResponseReportInit().getIdReportAlumbrado());
             LiveData.getInstance().getReportNotas().setNotas(txtNotas.getText().toString());
+            LiveData.getInstance().getReportNotas().setMapa(txtMapa.getText().toString());
 
             rqNotas = LiveData.getInstance().getReportNotas();
             mHandler.sendMessage(msg);
         }
     };
 
-    public NotasFragment() {
-        // Required empty public constructor
-    }
-
+    public NotasFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,16 +77,10 @@ public class NotasFragment extends GenericFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(that);
         builder.setMessage("¿Deseas continuar?")
                 .setCancelable(true)
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
+                .setNegativeButton("No", (dialog, id) -> {
 
-                    }
                 })
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        prepareReq();
-                    }
-                });
+                .setPositiveButton("OK", (dialog, id) -> prepareReq());
         AlertDialog alert = builder.create();
         alert.show();
     }
@@ -120,5 +113,4 @@ public class NotasFragment extends GenericFragment {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
 }

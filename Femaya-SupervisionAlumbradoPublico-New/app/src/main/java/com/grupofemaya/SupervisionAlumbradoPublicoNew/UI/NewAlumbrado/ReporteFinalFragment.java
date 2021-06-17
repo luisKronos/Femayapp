@@ -120,6 +120,10 @@ public class ReporteFinalFragment extends Fragment {
     @BindView(R.id.txtNotas)
     TextView txtNotas;
 
+    @BindView(R.id.txtMapa)
+    TextView txtMapa;
+
+
     public ReporteFinalFragment() {
         // Required empty public constructor
     }
@@ -212,6 +216,7 @@ public class ReporteFinalFragment extends Fragment {
 
         //Report Notas
         txtNotas.setText("Notas: " + reportNotas.getNotas());
+        txtNotas.setText("Observaciones mapa: " + reportNotas.getMapa());
 
         return view;
     }

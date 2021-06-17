@@ -1,7 +1,6 @@
 package com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.NewAlumbrado;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -18,11 +17,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests.RQFinishHour;
-import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSFinalQuantification;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSIdCuadrillas;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSReportInitOne;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSSubirCuadrilla;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.Repository;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.Repository.RepositoryImp;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.UI.Cuadrilla.TypeCuadrillaFragment;
@@ -63,14 +62,24 @@ public class NewHomeFragment extends Fragment {
 
             ArrayList<RSReportInitOne> list = new ArrayList<>();
             ArrayList<String> array = SharedPreferencesManager.getInstance().getListIdReportValues();
-
             for (String item : array) {
                 RSReportInitOne report = new RSReportInitOne();
                 report.setIdReportAlumbrado(Integer.parseInt(item));
                 list.add(report);
             }
-
             LiveData.getInstance().getReportFinishHour().setListReportAlumbrado(list);
+
+            ArrayList<RSSubirCuadrilla> listCuadrillas = new ArrayList<>();
+            ArrayList<String> arrayCuadrillas = SharedPreferencesManager.getInstance().getListIdCuadrillasValues();
+            for (String item : arrayCuadrillas) {
+                RSSubirCuadrilla report = new RSSubirCuadrilla();
+                report.setIdCuadrilla(Integer.parseInt(item));
+                listCuadrillas.add(report);
+            }
+            LiveData.getInstance().getReportFinishHour().setListCuadrillasIds(listCuadrillas);
+
+
+            LiveData.getInstance().getReportFinishHour().setIdUser(Integer.parseInt(SharedPreferencesManager.getInstance().getIdUser()));
 
             reportFinishHour = LiveData.getInstance().getReportFinishHour();
 
@@ -78,9 +87,7 @@ public class NewHomeFragment extends Fragment {
         }
     };
 
-    public NewHomeFragment() {
-        // Required empty public constructor
-    }
+    public NewHomeFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -101,12 +108,16 @@ public class NewHomeFragment extends Fragment {
 
     @OnClick(R.id.btnCuadrillas)
     public void clickAddCuadrillas(View view) {
-        TypeCuadrillaFragment newFragment = new TypeCuadrillaFragment();
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        if (SharedPreferencesManager.getInstance().getCheckIn() == null) {
+            showFillSchedule();
+        } else {
+            TypeCuadrillaFragment newFragment = new TypeCuadrillaFragment();
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
 
-        transaction.replace(R.id.content_main, newFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+            transaction.replace(R.id.content_main, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
     }
 
     @OnClick(R.id.btnCheckHour)
@@ -208,6 +219,7 @@ public class NewHomeFragment extends Fragment {
                 that.hideProgress();
                 btnHour.setText("Hora de Entrada");
 
+                SharedPreferencesManager.getInstance().setIdCuadrillasValues(0, true);
                 SharedPreferencesManager.getInstance().setIdReportValues(0, true);
                 SharedPreferencesManager.getInstance().setCheckIn(null);
                 SharedPreferencesManager.getInstance().setCheckOut(null);
@@ -226,17 +238,7 @@ public class NewHomeFragment extends Fragment {
     @OnClick(R.id.btnNew)
     public void clickRecoger(View view) {
         if (SharedPreferencesManager.getInstance().getCheckIn() == null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-            builder.setMessage("Es necesario que agregue su hora de entrada")
-                    .setCancelable(true)
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                        }
-                    });
-            AlertDialog alert2 = builder.create();
-            alert2.show();
+            showFillSchedule();
         } else {
             CuadrantesFragment newFragment = new CuadrantesFragment();
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -263,5 +265,14 @@ public class NewHomeFragment extends Fragment {
         transaction.replace(R.id.content_main, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    private void showFillSchedule() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setMessage("Es necesario que agregue su hora de entrada")
+                .setCancelable(true)
+                .setPositiveButton("Ok", (dialogInterface, i) -> { });
+        AlertDialog alert2 = builder.create();
+        alert2.show();
     }
 }

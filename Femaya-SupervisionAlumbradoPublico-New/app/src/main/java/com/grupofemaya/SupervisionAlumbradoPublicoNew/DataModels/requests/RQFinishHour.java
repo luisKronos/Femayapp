@@ -1,13 +1,17 @@
 package com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.requests;
 
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSIdCuadrillas;
 import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSReportInitOne;
+import com.grupofemaya.SupervisionAlumbradoPublicoNew.DataModels.responses.RSSubirCuadrilla;
 
 import java.util.List;
 
 public class RQFinishHour {
     private int idReportAlumbrado;
     private String hr_salida;
+    private int idUser;
     private List<RSReportInitOne> listReportAlumbrado;
+    private List<RSSubirCuadrilla> listIdCuadrillas;
 
     public int getIdReportAlumbrado() {
         return idReportAlumbrado;
@@ -31,5 +35,21 @@ public class RQFinishHour {
 
     public void setListReportAlumbrado(List<RSReportInitOne> listReportAlumbrado) {
         this.listReportAlumbrado = listReportAlumbrado;
+    }
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
+
+    public List<RSSubirCuadrilla> getListCuadrillasIds() {
+        return listIdCuadrillas;
+    }
+
+    public void setListCuadrillasIds(List<RSSubirCuadrilla> listCuadrillasIds) {
+        this.listIdCuadrillas = listCuadrillasIds;
     }
 }

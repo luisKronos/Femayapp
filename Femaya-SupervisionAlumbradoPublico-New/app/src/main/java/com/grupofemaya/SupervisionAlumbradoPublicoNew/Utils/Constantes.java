@@ -17,6 +17,7 @@ public class Constantes {
     public final static String PREF_TURNO = "prefTurno";
 
     public final static String LIST = "list_id";
+    public final static String LIST_CUADRILLAS = "list_cuadrillas_id";
 
     public final static String CHECK_IN = "check_in";
     public final static String CHECK_OUT = "check_out";

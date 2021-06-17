@@ -7,6 +7,7 @@ public class RQCuadrilla {
     private String equipo;
     private String tipo;
     private String fotoCuadrilla;
+    private String hr_entrada;
 
     public int getIdUser() {
         return idUser;
@@ -54,5 +55,13 @@ public class RQCuadrilla {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public String getHr_entrada() {
+        return hr_entrada;
+    }
+
+    public void setHr_entrada(String hr_entrada) {
+        this.hr_entrada = hr_entrada;
     }
 }
